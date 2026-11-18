@@ -32,19 +32,23 @@
   th button { all: unset; cursor: pointer; } th button:hover { color: var(--text); }
   .rowbtn { all: unset; cursor: pointer; } .rowbtn:hover { text-decoration: underline; }
   .tablewrap { overflow-x: auto; }
-  .tablewrap table { table-layout: fixed; min-width: 470px; }
+  .tablewrap table { table-layout: fixed; min-width: 330px; }
   .tablewrap th:first-child { width: auto; }
-  .tablewrap th { width: 66px; } .tablewrap th:first-child { width: auto; }
+  .tablewrap th:first-child { width: auto; } .tablewrap th.w-num { width: 70px; } .tablewrap th.w-pill { width: 64px; }
+  .tablewrap th button { white-space: normal; line-height: 1.2; }
+  .sub2 { color: var(--muted); font-size: 12px; margin-top: 2px; line-height: 1.3; }
+  td .tag { margin-top: 2px; }
   .tablewrap td { overflow-wrap: anywhere; }
   td.num { color: var(--text); }
   .of { font-size: 11px; opacity: .8; margin-left: 1px; }
   .sortnote { margin: -2px 0 6px; color: var(--muted); font-size: 12px; }
   .strip { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 10px; margin: 10px 0 12px; background: #13161d; }
-  .strip .stat { padding: 10px 12px; min-width: 0; }
+  .strip .stat { padding: 10px 12px; min-width: 0; container-type: inline-size; }
   .strip .stat:nth-child(odd) { border-right: 1px solid var(--line); }
   .strip .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
   .strip .lab { color: var(--muted); font-size: 12px; }
-  .strip .val { font: 700 22px/1.2 var(--font-display); letter-spacing: -.01em; margin: 2px 0; overflow-wrap: anywhere; }
+  .strip .val { font: 700 clamp(15px, 11.5cqi, 22px)/1.2 var(--font-display); letter-spacing: -.01em; margin: 2px 0;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .strip .ver { font-size: 12px; color: #c4cad8; }
   .unit { font: 400 13px var(--font-ui); color: var(--muted); }
   details.more { margin-top: 8px; }
@@ -128,6 +132,10 @@
   .chip { padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); cursor: pointer; font-size: 11px;
     color: var(--muted); user-select: none; }
   .chip.on { background: #26324a; border-color: #3e63dd; color: var(--text); }
+  .chipset .chips { gap: 5px; }
+  .chipset .chip { font: 400 12px var(--font-ui); padding: 4px 9px; background: transparent; color: #c4cad8; }
+  .chipset .chip:hover { border-color: #4a5263; }
+  .chipset .chip.on { background: #26324a; border-color: #3e63dd; color: #fff; }
   main { display: grid; grid-template-columns: 1fr 6px var(--pw, 400px); min-height: 0; }
   .resizer { cursor: col-resize; background: var(--line); position: relative; touch-action: none; outline: none; transition: background .15s; }
   .resizer::after { content: ""; position: absolute; top: 0; bottom: 0; left: -5px; right: -5px; } /* wider grab area */
@@ -173,8 +181,12 @@
   .node.sel rect { stroke: #fff !important; stroke-width: 2.5; }
   .node.dim { opacity: .18; }
   .node:hover rect { filter: brightness(1.25); }
-  .legend { position: absolute; left: 12px; bottom: 12px; background: rgba(23,26,33,.92); border: 1px solid var(--line);
-    border-radius: 8px; padding: 8px 10px; font-size: 11px; color: var(--muted); }
+  .legend { position: absolute; left: 12px; bottom: 12px; background: rgba(23,26,33,.94); border: 1px solid var(--line);
+    border-radius: 8px; padding: 6px 10px 7px; font-size: 12px; color: #b4bccd; max-width: 260px; }
+  .lg-toggle { all: unset; cursor: pointer; display: flex; justify-content: space-between; gap: 10px; width: 100%; color: var(--text); font-size: 12px; }
+  .lg-toggle:focus-visible { outline: 2px solid #8fb5ff; outline-offset: 3px; border-radius: 4px; }
+  .legend .scale { font-size: 11px; color: #b4bccd; }
+  .lg-body .lg-notes { margin-top: 6px; line-height: 1.4; }
   .grad { width: 160px; height: 8px; border-radius: 4px; margin: 4px 0 2px; }
   .zoom { position: absolute; right: 12px; bottom: 12px; display: flex; gap: 4px; }
   aside { border-left: 1px solid var(--line); background: var(--panel); overflow-y: auto; padding: 16px; }
@@ -228,7 +240,7 @@
     .searchbox { flex: 1 1 100%; } .searchbox input { width: 100%; }
     #colorBy { max-width: 190px; }
     main, main.collapsed { grid-template-rows: 50% 50%; }
-    .legend { padding: 6px 8px; } .legend .lg-notes { display: none; } .grad { width: 110px; }
+    .legend { padding: 5px 8px; max-width: 200px; } .grad { width: 110px; }
     .dd-menu, .dd-menu.align-right { position: fixed; left: 0; right: 0; bottom: 0; top: auto; width: auto; max-height: 78vh;
       border-radius: 14px 14px 0 0; padding-bottom: env(safe-area-inset-bottom); }
     .dd-top { top: 0; margin-top: 0; padding: 14px 16px; }
@@ -283,7 +295,7 @@
           <div class="dd-head">Data</div>
           <label title="Hide jobs with no official Australian pay figure (estimates and US-converted)"><input type="checkbox" id="auOnly"> Verified AU data only</label>
         </div>
-        <div class="dd-sec">
+        <div class="dd-sec" id="ownerFilters">
           <div class="dd-head">Business owner</div>
           <label title="Only show businesses one person can realistically start (start score 60+)"><input type="checkbox" id="easyOnly"> Easy to start alone</label>
         </div>
@@ -305,9 +317,9 @@
   </main>
 </div>
 
-<script src="data.js?v=29"></script>
-<script src="biz.js?v=29"></script>
-<script src="groups.js?v=29"></script>
+<script src="data.js?v=31"></script>
+<script src="biz.js?v=31"></script>
+<script src="groups.js?v=31"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -709,7 +721,14 @@ function renderSky() {
   const sel = state.sel, group = sel.c ? sel : sel.parent;
   // labels: every star in a small group; only the 12 biggest in a whole category (keeps it readable)
   const members = group && group.depth > 0 ? leaves(group).filter(passes) : [];
-  const labelled = new Set(group && group.depth === 1 ? [...members].sort((a, b) => (A.size(b) || 0) - (A.size(a) || 0)).slice(0, 12) : members);
+  const ranked = [...members].sort((a, b) => (A.size(b) || 0) - (A.size(a) || 0)).slice(0, group && group.depth === 1 ? 12 : 60);
+  // keep a label only if its box doesn't overlap one already kept (biggest stars win)
+  const kept = [], labelled = new Set();
+  for (const o of ranked) {
+    const xy = skyXY(o, A); if (!xy) continue;
+    const w = o.n.length * 6.1, box = [xy[0] - w / 2, xy[1] - 24, xy[0] + w / 2, xy[1] - 9];
+    if (kept.every(k => box[2] < k[0] || box[0] > k[2] || box[3] < k[1] || box[1] > k[3])) { kept.push(box); labelled.add(o); }
+  }
   const inGroup = o => labelled.has(o);
   const pays = ALL.map(A.y).filter(v => v != null), pMax = Math.log(Math.max(...pays)), pMin = Math.log(Math.min(...pays));
   const order = [];
@@ -776,9 +795,17 @@ const SORT_NAMES = { name: ["Job name", "A to Z", "Z to A"], ai: ["AI can do", "
   rep: ["AI replaces the job", "least likely first", "most likely first"], margin: ["business margin", "lowest first", "highest first"],
   salary: ["pay", "lowest first", "highest first"], train: ["training", "shortest first", "longest first"] };
 const sortNote = (k, d) => { const n = SORT_NAMES[k]; return n ? `Sorted by ${n[0]}, ${d > 0 ? n[1] : n[2]}.` : ""; };
+// sky chart already shows AI risk and pay on its axes, so its default colour shows something else
+const defaultColour = () => state.mapMode === "sky" ? (state.view === "owner" ? "survival" : "sector") : (state.view === "owner" ? "med" : "rep");
 let lastAnnounce = "";
 function announce(t) { if (t !== lastAnnounce) { lastAnnounce = t; document.getElementById("live").textContent = t; } }
+function syncModeChrome() {
+  document.getElementById("ownerFilters").hidden = state.view !== "owner";
+  const n = ALL.filter(inMode).length;
+  document.getElementById("search").placeholder = `Search ${n} ${state.view === "owner" ? "businesses" : "jobs"}…`;
+}
 function renderPanel() {
+  syncModeChrome();
   const n = state.sel;
   if (!n.c) return renderOccupation(n);
   // in business-owner mode the list only holds jobs that have a business path
@@ -789,7 +816,7 @@ function renderPanel() {
   const val = { ai: o => o.ai ?? -1, rep: o => o.rep ?? -1, margin: o => { const r = marginRange(o); return r ? r[1] : -1; }, salary: o => sal(o) ?? -1, train: o => o.t, name: o => o.n,
     start: o => o.biz ? o.biz.start : -1, solo: o => bz(o, M => M.tiers[0].profit), med: o => bz(o, M => M.medProfit), ceiling: o => bz(o, M => M.ceil.profit), surv: o => bz(o, M => M.survAll ?? -1) };
   rows.sort((a, b) => { const x = val[key](a), y = val[key](b); return (x > y ? 1 : x < y ? -1 : 0) * dir; });
-  const th = (k, label, tip) => `<th class="${key === k ? "on" : ""}" aria-sort="${key === k ? (dir > 0 ? "ascending" : "descending") : "none"}"><button data-k="${k}"${tip ? ` title="${tip}"` : ""}>${label}<span aria-hidden="true">${key === k ? (dir > 0 ? " ▲" : " ▼") : ""}</span></button></th>`;
+  const th = (k, label, tip, cls = "") => `<th class="${cls} ${key === k ? "on" : ""}" aria-sort="${key === k ? (dir > 0 ? "ascending" : "descending") : "none"}"><button data-k="${k}"${tip ? ` title="${tip}"` : ""}>${label}<span aria-hidden="true">${key === k ? (dir > 0 ? " ▲" : " ▼") : ""}</span></button></th>`;
   const LIMIT = 150, all = state.showAllFor === n, total = rows.length;
   const shown = all ? rows : rows.slice(0, LIMIT);
   const more = total > shown.length ? `<button class="showall" id="showAll">Show all ${total} ${unit}</button>` : "";
@@ -797,22 +824,19 @@ function renderPanel() {
   panel.innerHTML = `
     ${breadcrumb(n)}<h2>${n.depth === 0 ? (state.search ? `${unit === "jobs" ? "Jobs" : "Businesses"} matching “${state.search}”` : `All ${unit}`) : n.n}</h2><div class="crumb">${rows.length} ${unit} shown</div>
     ${state.view === "owner" ? `<div class="card"><h3>Ranked businesses (business owner)</h3>
-    <div class="tablewrap"><table><thead><tr>${th("name", "Business")}${th("start", "Start", "Can one person start it? 0 to 100 (estimate)")}${th("med", "Median", "Owner profit at the size most businesses in this industry are")}${th("margin", "Margin", "Net profit margin (profit as a share of turnover) across business sizes. ATO small business benchmarks where available, otherwise an estimate.")}${th("ceiling", "Max", "Owner profit at the biggest size at least 0.5% of businesses reach")}${th("surv", "Survive 4y")}</tr></thead>
+    <div class="tablewrap"><table><thead><tr>${th("name", "Business")}${th("med", "Median", "Owner profit for the middle business in this industry, before tax", "w-num")}${th("ceiling", "Max", "Owner profit at the biggest size at least 0.5% of businesses reach", "w-num")}${th("margin", "Margin", "Net profit as a share of turnover across business sizes (ATO benchmarks where available)", "w-pill")}</tr></thead>
     <tbody>${shown.map(o => { const M = bizModel(o); return `<tr class="row" data-id="${o.id}">
-      <td><button class="rowbtn">${o.biz.name}</button>${o.kind === "biz" ? "" : `<div style="color:var(--muted);font-size:11px">from ${o.n}</div>`}</td>
-      <td><span class="pill" style="${pillStyle(startColor(o.biz.start))}">${o.biz.start}</span></td>
+      <td><button class="rowbtn">${o.biz.name}</button><div class="sub2">${o.kind === "biz" ? "" : `from ${o.n} · `}start ${o.biz.start}/100${M.survAll != null ? ` · ${Math.round(M.survAll)}% survive 4 yrs` : ""}</div></td>
       <td class="num">${fmtM(M.medProfit)}</td>
-      <td>${(r => `<span class="pill" style="${pillStyle(marginColor(r[1]))}">${r[0] === r[1] ? r[0] : r[0] + "–" + r[1]}%</span>`)(marginRange(o))}</td>
-      <td class="num">${fmtM(M.ceil.profit)}<div class="of">${topNote(M.topShare)}</div></td>
-      <td>${M.survAll != null ? M.survAll.toFixed(0) + "%" : "–"}</td></tr>`; }).join("")}</tbody></table></div>${more}
+      <td class="num">${fmtM(M.ceil.profit)}<div class="sub2">${topNote(M.topShare)}</div></td>
+      <td>${(r => `<span class="pill" style="${pillStyle(marginColor(r[1]))}">${r[0] === r[1] ? r[0] : r[0] + "–" + r[1]}%</span>`)(marginRange(o))}</td></tr>`; }).join("")}</tbody></table></div>${more}
     </div>` : `<div class="card"><h3>Ranked jobs</h3>
-    <div class="tablewrap"><table><thead><tr>${th("name", "Job")}${th("ai", "AI can do", "Share of the job's tasks generative AI could do (official JSA score)")}${th("rep", "AI replaces", "Estimated chance that AI replaces the job (estimate)")}${th("salary", "Salary")}${th("train", "Training")}</tr></thead>
+    <div class="tablewrap"><table><thead><tr>${th("name", "Job")}${th("salary", "Salary", "Median pay. ✓ full-time median (JSA/ABS), ATO all workers, est estimate", "w-num")}${th("ai", "AI can do", "Share of the job's tasks generative AI could do (official JSA score)", "w-pill")}${th("rep", "AI replaces", "Estimated chance that AI replaces the job", "w-pill")}</tr></thead>
     <tbody>${shown.map(o => `<tr class="row" data-id="${o.id}">
-      <td><button class="rowbtn">${o.n}</button> ${qTag(o, true)}</td>
+      <td><button class="rowbtn">${o.n}</button><div class="sub2">${TRAINING[o.t].short}</div></td>
+      <td class="num">${(() => { const v = sal(o); return v == null ? '<span class="sub2">no data</span>' : `${fmtK(v)}<div>${qTag(o, true)}</div>`; })()}</td>
       <td><span class="pill" style="${pillStyle(aiColor(o.ai))}">${o.ai}%</span></td>
-      <td><span class="pill" style="${pillStyle(repColor(o.rep))}">${o.rep}%</span></td>
-      <td>${o.kind === "biz" ? '<span style="color:var(--muted)">owner only</span>' : o.med ? fmtK(o.med) + ' <span style="color:var(--muted)">med</span>' : o.ato ? fmtK(o.ato.sal) + ' <span style="color:var(--muted)">ATO</span>' : o.lo != null ? `${fmtK(o.lo)}–${fmtK(o.hi)}` : '<span style="color:var(--muted)">no data</span>'}</td>
-      <td style="color:var(--muted)">${TRAINING[o.t].short}</td></tr>`).join("")}</tbody></table></div>${more}
+      <td><span class="pill" style="${pillStyle(repColor(o.rep))}">${o.rep}%</span></td></tr>`).join("")}</tbody></table></div>${more}
     </div>`}
     ${rows.length ? "" : `<div class="empty"><p>No ${unit} match these filters${state.search ? ` and the search “${state.search}”` : ""}.</p>
       <button id="emptyReset" class="primary">Reset filters${state.search ? " and search" : ""}</button></div>`}
@@ -1022,13 +1046,17 @@ function renderLegend() {
   };
   const m = map[state.colorBy], cfn = METRIC[state.colorBy] && METRIC[state.colorBy][1];
   const g = m && cfn ? `linear-gradient(90deg,${[0, .25, .5, .75, 1].map(f => cfn(m[5] ? Math.exp(Math.log(m[3]) + f * (Math.log(m[4]) - Math.log(m[3]))) : m[3] + f * (m[4] - m[3]))).join(",")})` : "";
-  const skyNote = state.mapMode === "sky" ? `<div class="lg-notes" style="margin-top:4px">${state.view === "owner"
+  const skyNote = state.mapMode === "sky" ? `<div class="lg-notes">${state.view === "owner"
     ? "Across: how hard to start. Up: owner earnings (median).<br>Star size: number of businesses in the industry."
     : "Across: AI could replace it. Up: pay.<br>Star size: number of workers. Brighter: higher pay."}</div>` : "";
-  if (state.colorBy === "sector") { L.innerHTML = "Colour = sector" + skyNote; return; }
-  const [t, a, b] = map[state.colorBy];
-  L.innerHTML = `${t}<div class="grad" style="background:${g}"></div><div class="scale"><span>${a}</span><span>${b}</span></div>
-    ${skyNote || `<div class="lg-notes" style="margin-top:4px">✓ official AU median · grp broader group<br>ATO tax data only · est estimate · US converted US wage</div>`}`;
+  const key = state.view === "owner" ? "" : `<div class="lg-notes">✓ official AU median · grp broader group<br>ATO tax data only · est estimate · US converted US wage</div>`;
+  const open = localStorage.getItem("legendOpen") === "1";
+  const title = state.colorBy === "sector" ? "Colour: sector" : map[state.colorBy][0];
+  const scale = state.colorBy === "sector" ? "" : `<div class="grad" style="background:${g}"></div><div class="scale"><span>${map[state.colorBy][1]}</span><span>${map[state.colorBy][2]}</span></div>`;
+  L.classList.toggle("open", open);
+  L.innerHTML = `<button type="button" class="lg-toggle" aria-expanded="${open}" aria-controls="lgBody"><span>${title}</span><span class="lg-chev" aria-hidden="true">${open ? "▾" : "▸"}</span></button>
+    ${scale}<div id="lgBody" class="lg-body"${open ? "" : " hidden"}>${skyNote}${key}</div>`;
+  L.querySelector(".lg-toggle").onclick = () => { localStorage.setItem("legendOpen", open ? "0" : "1"); renderLegend(); };
 }
 
 // ---------- pan / zoom ----------
@@ -1140,21 +1168,19 @@ const RANGES = {};
   defs.forEach(d => {
     state[d.key] = [d.min, d.max];
     if (d.single) {
-      // one dot: "Any" at the left, then each level. A level shows only jobs at exactly that level.
+      // chips: Any, then each level. A level shows only jobs at exactly that level.
       const labels = ["Any", ...d.single];
-      const box = document.createElement("div"); box.className = "rng single"; if (d.tip) box.title = d.tip;
-      box.innerHTML = `<div class="rng-head"><span>${d.label}</span><b></b></div>
-        <div class="dual"><div class="track"></div>
-          <input type="range" min="-1" max="${d.max}" step="1" value="-1" aria-label="${d.label}"></div>
-        <div class="ticks" aria-hidden="true">${labels.map(l => `<span>${l}</span>`).join("")}</div>`;
+      const box = document.createElement("div"); box.className = "rng chipset"; if (d.tip) box.title = d.tip;
+      box.innerHTML = `<div class="rng-head"><span id="lbl-${d.key}">${d.label}</span></div>
+        <div class="chips" role="group" aria-labelledby="lbl-${d.key}">${labels.map((l, i) => `<button type="button" class="chip" data-v="${i - 1}" aria-pressed="false">${l}</button>`).join("")}</div>`;
       sec.appendChild(box);
-      const inp = box.querySelector("input"), out = box.querySelector("b");
-      const draw = () => { const v = +inp.value; out.textContent = labels[v + 1]; inp.setAttribute("aria-valuetext", labels[v + 1]); };
-      const apply = v => { inp.value = v; state[d.key] = v < 0 ? [d.min, d.max] : [v, v]; draw(); };
-      inp.oninput = () => { apply(+inp.value); filtersChanged(); };
+      const btns = [...box.querySelectorAll("button")];
+      const apply = v => { btns.forEach(b => { const on = +b.dataset.v === v; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); });
+        state[d.key] = v < 0 ? [d.min, d.max] : [v, v]; };
+      btns.forEach(b => b.onclick = () => { apply(+b.dataset.v); filtersChanged(); });
       RANGES[d.key] = { full: [d.min, d.max], reset: () => apply(-1),
         set: v => apply(v[0] === v[1] ? Math.max(d.min, Math.min(v[0], d.max)) : -1) };
-      draw();
+      apply(-1);
       return;
     }
     const box = document.createElement("div"); box.className = "rng"; if (d.tip) box.title = d.tip;
@@ -1249,13 +1275,15 @@ function setView(v) {
   document.getElementById("vOwn").classList.toggle("on", v === "owner");
   document.getElementById("vEmp").setAttribute("aria-pressed", v === "employee");
   document.getElementById("vOwn").setAttribute("aria-pressed", v === "owner");
-  state.colorBy = v === "owner" ? "med" : "rep";
+  state.colorBy = defaultColour();
   document.getElementById("colorBy").value = state.colorBy;
   state.sort = v === "owner" ? { key: "med", dir: -1 } : { key: "rep", dir: 1 };
   render(); renderPanel();
 }
 function setMapMode(m) {
+  const wasDefault = state.colorBy === defaultColour();
   state.mapMode = m;
+  if (wasDefault) { state.colorBy = defaultColour(); document.getElementById("colorBy").value = state.colorBy; }
   for (let p = state.sel.parent; p; p = p.parent) p.open = true;   // show the selected job's branch on the node map
   [["mNodes", "nodes"], ["mSky", "sky"]].forEach(([id, v]) => { const b = document.getElementById(id); b.classList.toggle("on", m === v); b.setAttribute("aria-pressed", m === v); });
   render(); fit();
@@ -1270,12 +1298,26 @@ const searchEl = document.getElementById("search"), clearEl = document.getElemen
 const syncClear = () => { clearEl.hidden = !searchEl.value; };
 clearEl.onclick = () => { searchEl.value = ""; searchEl.dispatchEvent(new Event("input")); searchEl.focus(); };
 searchEl.addEventListener("keydown", e => { if (e.key === "Escape" && searchEl.value) { e.stopPropagation(); clearEl.click(); } });
+let searchZoomT = 0;
 document.getElementById("search").oninput = e => {
   syncClear();
   state.search = e.target.value.trim().toLowerCase();
   if (state.search) (function open(n) { if (n.c) { n.open = leaves(n).some(passes); n.c.forEach(open); } })(DATA);
   render(); renderPanel();
+  clearTimeout(searchZoomT); searchZoomT = setTimeout(() => state.search ? zoomToMatches() : fit(), 250);
 };
+// frame the jobs that match the search (nodes or stars)
+function zoomToMatches() {
+  const hits = ALL.filter(passes); if (!hits.length) return;
+  const r = svg.getBoundingClientRect(), pad = 40;
+  let pts;
+  if (state.mapMode === "sky") pts = hits.filter(o => o.sx != null).map(o => [o.sx - 60, o.sy - 20, o.sx + 60, o.sy + 12]);
+  else pts = hits.filter(o => o.x != null).flatMap(o => [o, o.parent]).map(n => [n.x, n.y, n.x + NODE_W[n.depth], n.y + NODE_H]);
+  if (!pts.length) return;
+  const x0 = Math.min(...pts.map(b => b[0])), y0 = Math.min(...pts.map(b => b[1])), x1 = Math.max(...pts.map(b => b[2])), y1 = Math.max(...pts.map(b => b[3]));
+  const k = Math.max(.35, Math.min(1.2, (r.width - pad * 2) / (x1 - x0), (r.height - pad * 2) / (y1 - y0)));
+  view = { k, x: r.width / 2 - (x0 + x1) / 2 * k, y: r.height / 2 - (y0 + y1) / 2 * k }; applyView();
+}
 const setAll = v => (function f(n) { if (n.c) { if (n.depth) n.open = v; n.c.forEach(f); } })(DATA);
 document.getElementById("expandAll").onclick = () => { setAll(true); render(); fit(); };
 document.getElementById("collapseAll").onclick = () => { setAll(false); state.sel = DATA; render(); renderPanel(); fit(); };
@@ -1286,15 +1328,16 @@ document.querySelector(".skip").addEventListener("click", e => { e.preventDefaul
 (function () {
   const mainEl = document.querySelector("main"), rz = document.getElementById("resizer");
   const MIN_W = 280, COLLAPSE_W = 200, MIN_GRAPH = 320;
-  let width = +localStorage.getItem("panelW") || 400;
+  let want = +localStorage.getItem("panelW") || 400, width = want;   // want = what the user chose; width = what fits now
   let collapsed = localStorage.getItem("panelCollapsed") === "1";
   const maxW = () => Math.max(MIN_W, mainEl.clientWidth - MIN_GRAPH);
   function apply(save = true) {
-    width = Math.min(Math.max(width, MIN_W), maxW());
+    if (save) want = width;
+    width = Math.min(Math.max(want, MIN_W), mainEl.clientWidth ? maxW() : want);
     mainEl.style.setProperty("--pw", width + "px");
     mainEl.classList.toggle("collapsed", collapsed);
     rz.setAttribute("aria-valuenow", width);
-    if (save) { localStorage.setItem("panelW", width); localStorage.setItem("panelCollapsed", collapsed ? "1" : "0"); }
+    if (save) { localStorage.setItem("panelW", want); localStorage.setItem("panelCollapsed", collapsed ? "1" : "0"); }
   }
   let dragging = false, startW = width;
   rz.addEventListener("pointerdown", e => {
@@ -1304,7 +1347,7 @@ document.querySelector(".skip").addEventListener("click", e => { e.preventDefaul
     if (!dragging) return;
     const w = mainEl.getBoundingClientRect().right - e.clientX - 3;
     if (w < COLLAPSE_W) { collapsed = true; apply(false); return; }   // too small: collapse
-    collapsed = false; width = w; apply(false);
+    collapsed = false; width = want = w; apply(false);
   });
   const end = () => { if (!dragging) return; dragging = false; if (collapsed) width = startW; rz.classList.remove("drag"); document.body.classList.remove("resizing"); apply(); };
   rz.addEventListener("pointerup", end); rz.addEventListener("pointercancel", end);
@@ -1319,7 +1362,6 @@ document.querySelector(".skip").addEventListener("click", e => { e.preventDefaul
   apply(false);
 })();
 
-document.getElementById("search").placeholder = `Search ${ALL.length} jobs…`;
 
 // ---------- URL state: shareable links + browser back/forward ----------
 let restoring = false, lastSelKey = null;
@@ -1328,7 +1370,7 @@ function syncURL() {
   if (restoring || typeof RANGES === "undefined" || !RANGES.inc) return;
   const q = new URLSearchParams();
   if (state.view === "owner") q.set("view", "owner");
-  if (state.colorBy !== (state.view === "owner" ? "med" : "rep")) q.set("colour", state.colorBy);
+  if (state.colorBy !== defaultColour()) q.set("colour", state.colorBy);
   if (state.search) q.set("q", state.search);
   if (state.train.size < TRAINING.length) q.set("train", [...state.train].sort().join("."));
   if (state.auOnly) q.set("verified", "1");
@@ -1359,7 +1401,8 @@ function readURL() {
   document.getElementById("vOwn").classList.toggle("on", v === "owner");
   document.getElementById("vEmp").setAttribute("aria-pressed", v === "employee");
   document.getElementById("vOwn").setAttribute("aria-pressed", v === "owner");
-  state.colorBy = q.get("colour") && METRIC[q.get("colour")] || q.get("colour") === "sector" ? q.get("colour") : (v === "owner" ? "med" : "rep");
+  state.mapMode = q.get("map") === "sky" ? "sky" : "nodes";
+  state.colorBy = q.get("colour") && METRIC[q.get("colour")] || q.get("colour") === "sector" ? q.get("colour") : defaultColour();
   document.getElementById("colorBy").value = state.colorBy;
   const [sk, sd] = (q.get("sort") || (v === "owner" ? "med.-1" : "rep.1")).split(".");
   state.sort = { key: sk, dir: +sd || 1 };
@@ -1392,6 +1435,7 @@ window.addEventListener("popstate", () => { const sel = readURL(); render(); ren
 
 const startSel = readURL();
 render(); renderPanel(); fit();
+if (state.search && startSel === DATA) zoomToMatches();
 if (startSel !== DATA) focusOn(startSel);
 window.addEventListener("resize", () => state.sel !== DATA ? focusOn(state.sel) : fit());
 </script>
