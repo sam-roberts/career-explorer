@@ -66,7 +66,12 @@
   .chips { display: flex; flex-wrap: wrap; gap: 4px; }
   .searchbox { position: relative; display: flex; align-items: center; color: var(--muted); }
   .searchbox svg { position: absolute; left: 8px; top: 50%; margin-top: -7px; width: 14px; height: 14px; display: block; pointer-events: none; }
-  .searchbox input { padding-left: 27px; width: 190px; }
+  .searchbox input { padding-left: 27px; padding-right: 30px; width: 200px; }
+  .searchbox input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; display: none; }
+  .searchbox .clear { position: absolute; right: 3px; top: 50%; transform: translateY(-50%); width: 26px; height: 26px; padding: 0;
+    display: grid; place-items: center; border: 0; border-radius: 50%; background: #2a2f3a; color: var(--text); }
+  .searchbox .clear:hover { background: #3a4150; }
+  .searchbox .clear[hidden] { display: none; }
   .searchbox:focus-within { color: var(--text); }
   .dd { position: relative; }
   .dd > button { display: inline-flex; align-items: center; gap: 4px; }
@@ -237,7 +242,8 @@
     </div>
     <label class="searchbox" aria-label="Search jobs">
       <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      <input type="search" id="search" name="q" aria-label="Search jobs" autocomplete="off" spellcheck="false" placeholder="Search jobs…">
+      <input type="search" id="search" class="has-clear" name="q" aria-label="Search jobs" autocomplete="off" spellcheck="false" placeholder="Search jobs…">
+      <button type="button" id="searchClear" class="clear" aria-label="Clear search" hidden><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
     </label>
     <div class="ctrl" role="group" aria-label="View the map as"><span class="lbl">View as:</span>
       <div class="seg"><button id="mNodes" class="on" aria-pressed="true">Nodes</button><button id="mSky" aria-pressed="false">Constellation</button></div>
@@ -292,9 +298,9 @@
   </main>
 </div>
 
-<script src="data.js?v=25"></script>
-<script src="biz.js?v=25"></script>
-<script src="groups.js?v=25"></script>
+<script src="data.js?v=26"></script>
+<script src="biz.js?v=26"></script>
+<script src="groups.js?v=26"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -631,7 +637,7 @@ function render() {
     else if (n.kind === "biz") s.textContent = `Business only · Start ${n.biz.start}/100`;
     else s.textContent = (n.med ? `Median ${fmtK(n.med)}${n.match === "exact" ? " ✓" : " grp"}`
       : n.ato ? `ATO median ${fmtK(n.ato.sal)}`
-      : n.lo != null ? `${fmtK(n.lo)}–${fmtK(n.hi)}${n.src === "US" ? " US" : " est"}` : "No pay data") + ` · Tasks ${n.ai} · Replace ${n.rep}`;
+      : n.lo != null ? `${fmtK(n.lo)}–${fmtK(n.hi)}${n.src === "US" ? " US" : " est"}` : "No pay data") + ` · AI can do ${n.ai}% · replaces ${n.rep}%`;
     g.classList.toggle("dim", !branchPasses(n));
     g.classList.toggle("sel", n === state.sel);
     g.setAttribute("aria-label", n.c ? `${full}, ${n.depth === 0 ? "all careers" : n.open ? "expanded" : "collapsed"}` : `${n.n}. ${s.textContent}`);
@@ -728,7 +734,7 @@ function renderSky() {
     g.classList.toggle("dim", !pass && !state.hideNoMatch);
     g.classList.toggle("sel", o === sel);
     g.classList.toggle("lbl", o === sel || (inGroup(o) && pass));
-    const desc = owner ? `start ${o.biz.start}/100, median ${fmtM(A.y(o))}, max ${fmtM(bizModel(o).ceil.profit)}` : `pay ${yv == null ? "no data" : fmtK(yv)}, AI tasks ${o.ai}, replace ${o.rep}`;
+    const desc = owner ? `start ${o.biz.start}/100, median ${fmtM(A.y(o))}, max ${fmtM(bizModel(o).ceil.profit)}` : `pay ${yv == null ? "no data" : fmtK(yv)}, AI can do ${o.ai}%, AI replaces ${o.rep}%`;
     g.querySelector("title").textContent = `${o.n}: ${desc}`;
     g.setAttribute("aria-label", `${o.n}. ${desc}`);
     if (o === sel) g.setAttribute("aria-current", "true"); else g.removeAttribute("aria-current");
@@ -783,8 +789,7 @@ function renderPanel() {
   const more = total > shown.length ? `<button class="showall" id="showAll">Show all ${total} ${unit}</button>` : "";
   announce(`${total} ${unit} shown`);
   panel.innerHTML = `
-    ${breadcrumb(n)}<h2>${n.depth === 0 ? "All jobs" : n.n}</h2><div class="crumb">${rows.length} ${unit} shown</div>
-    ${n.depth === 0 ? `<p class="help">Click a sector to open it. Click a job to see detail. Click column titles to rank. Use the filters at the top.</p>` : ""}
+    ${breadcrumb(n)}<h2>${n.depth === 0 ? (state.search ? `${unit === "jobs" ? "Jobs" : "Businesses"} matching “${state.search}”` : `All ${unit}`) : n.n}</h2><div class="crumb">${rows.length} ${unit} shown</div>
     ${state.view === "owner" ? `<div class="card"><h3>Ranked businesses (business owner)</h3>
     <div class="tablewrap"><table><thead><tr>${th("name", "Business")}${th("start", "Start", "Can one person start it? 0 to 100 (estimate)")}${th("med", "Median", "Owner profit at the size most businesses in this industry are")}${th("margin", "Margin", "Net profit margin (profit as a share of turnover) across business sizes. ATO small business benchmarks where available, otherwise an estimate.")}${th("ceiling", "Max", "Owner profit at the biggest size at least 0.5% of businesses reach")}${th("surv", "Survive 4y")}</tr></thead>
     <tbody>${shown.map(o => { const M = bizModel(o); return `<tr class="row" data-id="${o.id}">
@@ -794,14 +799,12 @@ function renderPanel() {
       <td>${(r => `<span class="pill" style="${pillStyle(marginColor(r[1]))}">${r[0] === r[1] ? r[0] : r[0] + "–" + r[1]}%</span>`)(marginRange(o))}</td>
       <td class="num">${fmtM(M.ceil.profit)}<div class="of">${topNote(M.topShare)}</div></td>
       <td>${M.survAll != null ? M.survAll.toFixed(0) + "%" : "–"}</td></tr>`; }).join("")}</tbody></table></div>${more}
-    <p class="help">Start = can one person start it (0–100, estimate). Median = owner profit at the size most businesses in the industry are. Max = owner profit at the biggest size, and the share of businesses that reach it. Margin = net profit as a share of turnover (a supermarket runs on a few percent; software can reach far higher). Survive 4y = share of businesses still trading after 4 years (ABS).</p>
     </div>` : `<div class="card"><h3>Ranked jobs</h3>
-    <p class="sortnote">${sortNote(key, dir)}</p>
-    <div class="tablewrap"><table><thead><tr>${th("name", "Job")}${th("ai", "AI can do", "Share of the job's tasks generative AI could do, out of 100 (official JSA score)")}${th("rep", "AI replaces", "Estimated risk that AI replaces the job, out of 100")}${th("salary", "Salary")}${th("train", "Training")}</tr></thead>
+    <div class="tablewrap"><table><thead><tr>${th("name", "Job")}${th("ai", "AI can do", "Share of the job's tasks generative AI could do (official JSA score)")}${th("rep", "AI replaces", "Estimated chance that AI replaces the job (estimate)")}${th("salary", "Salary")}${th("train", "Training")}</tr></thead>
     <tbody>${shown.map(o => `<tr class="row" data-id="${o.id}">
       <td><button class="rowbtn">${o.n}</button> ${qTag(o, true)}</td>
-      <td class="num">${o.ai}<span class="of">/100</span></td>
-      <td><span class="pill" style="${pillStyle(repColor(o.rep))}">${o.rep}<span class="of">/100</span></span></td>
+      <td><span class="pill" style="${pillStyle(aiColor(o.ai))}">${o.ai}%</span></td>
+      <td><span class="pill" style="${pillStyle(repColor(o.rep))}">${o.rep}%</span></td>
       <td>${o.kind === "biz" ? '<span style="color:var(--muted)">owner only</span>' : o.med ? fmtK(o.med) + ' <span style="color:var(--muted)">med</span>' : o.ato ? fmtK(o.ato.sal) + ' <span style="color:var(--muted)">ATO</span>' : o.lo != null ? `${fmtK(o.lo)}–${fmtK(o.hi)}` : '<span style="color:var(--muted)">no data</span>'}</td>
       <td style="color:var(--muted)">${TRAINING[o.t].short}</td></tr>`).join("")}</tbody></table></div>${more}
     </div>`}
@@ -810,7 +813,7 @@ function renderPanel() {
     ${disclaimer()}`;
   wireCrumbs();
   const er = document.getElementById("emptyReset");
-  if (er) er.onclick = () => { document.getElementById("search").value = ""; state.search = ""; document.getElementById("filtersReset").click(); };
+  if (er) er.onclick = () => { document.getElementById("search").value = ""; state.search = ""; document.getElementById("searchClear").hidden = true; document.getElementById("filtersReset").click(); };
   const sa = document.getElementById("showAll");
   if (sa) sa.onclick = () => { state.showAllFor = n; const y = panel.scrollTop; renderPanel(); panel.scrollTop = y; };
   panel.querySelectorAll("th button").forEach(h => h.onclick = () => {
@@ -869,14 +872,14 @@ function aiCard(o) {
     : o.rep >= 12 ? "Low: AI mostly helps the person. Some tasks go, but the role stays."
     : "Very low: the core of this job needs a person (physical, hands-on, or legally accountable).";
   return `<div class="card"><h3>AI can do the tasks <span class="tag au" style="margin-left:4px">official</span></h3>
-    <div class="big" style="color:${aiColor(o.ai)}">${o.ai}/100</div>
+    <div class="big" style="color:${aiColor(o.ai)}">${o.ai}%</div>
     ${meter(o.ai, aiColor(o.ai))}
     <div class="note">Share of this job's tasks that generative AI could do. ${rankText(tr)}.
-      AI could <i>help</i> with ${Math.round(g.aiAug * 100)}/100 of the tasks.
+      AI could <i>help</i> with ${Math.round(g.aiAug * 100)}% of the tasks.
       Source: <a href="${AIX_URL}" target="_blank" rel="noopener">${AIX_SOURCE}</a>, group ${g.code}.</div>
   </div>
   <div class="card"><h3>AI replaces the job <span class="tag est" style="margin-left:4px">estimate</span></h3>
-    <div class="big" style="color:${repColor(o.rep)}">${o.rep}/100</div>
+    <div class="big" style="color:${repColor(o.rep)}">${o.rep}%</div>
     ${meter(o.rep, repColor(o.rep))}
     <div class="note"><b>${repText}</b> ${rankText(rr)}.</div>
     <div class="note">How replaceable one worker in this job is. It rises when AI can do the work <i>without</i> a person,
@@ -930,7 +933,7 @@ function summaryStrip(o) {
   const paySub = o.med ? "median, full-time" : o.ato ? "median, all workers" : o.lo != null ? "estimate" : "not published";
   return `<div class="strip" aria-label="Summary">${
     stat("Pay", p != null ? fmtK(p) : "–", p != null ? `${paySub}. ${rankText(PAY_RANK(p))}` : paySub)}${
-    stat("AI replaces", `${o.rep}<span class="of">/100</span>`, repVerdict(o.rep))}${
+    stat("AI replaces", `${o.rep}%`, repVerdict(o.rep))}${
     stat("Training", TRAINING[o.t].short, TRAIN_TIME[o.t])}${
     stat("Physical work", PHYS_LABELS[o.phys], `Skill: ${SKILLC_LABELS[o.skillC].toLowerCase()}`)}</div>`;
 }
@@ -1015,7 +1018,7 @@ function renderLegend() {
   const g = m && cfn ? `linear-gradient(90deg,${[0, .25, .5, .75, 1].map(f => cfn(m[5] ? Math.exp(Math.log(m[3]) + f * (Math.log(m[4]) - Math.log(m[3]))) : m[3] + f * (m[4] - m[3]))).join(",")})` : "";
   const skyNote = state.mapMode === "sky" ? `<div class="lg-notes" style="margin-top:4px">${state.view === "owner"
     ? "Across: how hard to start. Up: owner earnings (median).<br>Star size: number of businesses in the industry."
-    : "Across: AI could replace it. Up: pay.<br>Star size: number of workers. Brighter: higher pay."}<br>Select a group to draw its constellation.</div>` : "";
+    : "Across: AI could replace it. Up: pay.<br>Star size: number of workers. Brighter: higher pay."}</div>` : "";
   if (state.colorBy === "sector") { L.innerHTML = "Colour = sector" + skyNote; return; }
   const [t, a, b] = map[state.colorBy];
   L.innerHTML = `${t}<div class="grad" style="background:${g}"></div><div class="scale"><span>${a}</span><span>${b}</span></div>
@@ -1237,7 +1240,12 @@ document.getElementById("mSky").onclick = () => setMapMode("sky");
 document.getElementById("vEmp").onclick = () => setView("employee");
 document.getElementById("vOwn").onclick = () => setView("owner");
 document.getElementById("auOnly").onchange = e => { state.auOnly = e.target.checked; filtersChanged(); };
+const searchEl = document.getElementById("search"), clearEl = document.getElementById("searchClear");
+const syncClear = () => { clearEl.hidden = !searchEl.value; };
+clearEl.onclick = () => { searchEl.value = ""; searchEl.dispatchEvent(new Event("input")); searchEl.focus(); };
+searchEl.addEventListener("keydown", e => { if (e.key === "Escape" && searchEl.value) { e.stopPropagation(); clearEl.click(); } });
 document.getElementById("search").oninput = e => {
+  syncClear();
   state.search = e.target.value.trim().toLowerCase();
   if (state.search) (function open(n) { if (n.c) { n.open = leaves(n).some(passes); n.c.forEach(open); } })(DATA);
   render(); renderPanel();
@@ -1329,7 +1337,7 @@ function readURL() {
   document.getElementById("colorBy").value = state.colorBy;
   const [sk, sd] = (q.get("sort") || (v === "owner" ? "med.-1" : "rep.1")).split(".");
   state.sort = { key: sk, dir: +sd || 1 };
-  state.search = (q.get("q") || "").toLowerCase(); document.getElementById("search").value = q.get("q") || "";
+  state.search = (q.get("q") || "").toLowerCase(); document.getElementById("search").value = q.get("q") || ""; document.getElementById("searchClear").hidden = !q.get("q");
   const tr = q.get("train"); state.train = new Set(tr != null ? tr.split(".").filter(x => x !== "").map(Number) : TRAINING.map(t => t.id));
   chips.querySelectorAll("input").forEach(i => i.checked = state.train.has(+i.dataset.train));
   state.auOnly = q.get("verified") === "1"; document.getElementById("auOnly").checked = state.auOnly;
