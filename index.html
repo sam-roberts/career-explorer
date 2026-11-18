@@ -3,13 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171a21">
 <title>Career Explorer (AU)</title>
 <style>
   :root {
+    color-scheme: dark;
     --bg: #0f1115; --panel: #171a21; --line: #2a2f3a; --text: #e8eaf0; --muted: #8b93a7;
     --good: #30a46c; --mid: #ffb224; --bad: #e5484d; --warn-bg: #3a2a00; --warn: #ffcf5c;
   }
   * { box-sizing: border-box; }
+  body { touch-action: manipulation; -webkit-tap-highlight-color: rgba(62,99,221,.25); }
+  :focus-visible { outline: 2px solid #8fb5ff; outline-offset: 2px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .skip { position: absolute; left: 8px; top: -40px; z-index: 50; background: #3e63dd; color: #fff; padding: 6px 10px; border-radius: 6px; }
+  .skip:focus { top: 8px; }
+  table, .big, .pill, .rng-head b, .ladder { font-variant-numeric: tabular-nums; }
+  th button { all: unset; cursor: pointer; } th button:hover { color: var(--text); }
+  .rowbtn { all: unset; cursor: pointer; } .rowbtn:hover { text-decoration: underline; }
+  .tablewrap { overflow-x: auto; }
+  .showall { width: 100%; margin-top: 8px; }
+  #stage:focus-visible { outline-offset: -3px; }
+  .node:focus { outline: none; }
+  .node:focus-visible rect { stroke: #fff !important; stroke-width: 3; stroke-dasharray: 5 3; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; }
+  }
   html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
     font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
   #app { display: grid; grid-template-rows: auto 1fr; height: 100%; }
@@ -31,6 +49,7 @@
   .dd .caret { font-size: 10px; color: var(--muted); }
   .badge { background: #3e63dd; color: #fff; border-radius: 999px; font-size: 10px; padding: 0 6px; margin-left: 2px; line-height: 16px; }
   .dd-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 20; width: 290px; background: var(--panel);
+    max-height: calc(100vh - 110px); overflow-y: auto; overscroll-behavior: contain;
     border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,.45); padding: 6px 0; }
   .dd-sec { padding: 8px 12px; border-bottom: 1px solid var(--line); }
   .dd-head { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
@@ -77,6 +96,7 @@
   #expandPanel:hover { border-color: #3e63dd; color: #fff; }
   main.collapsed #expandPanel { display: block; }
   #stage { position: relative; overflow: hidden; cursor: grab; }
+  #svg { touch-action: none; }
   #stage.drag { cursor: grabbing; }
   svg { width: 100%; height: 100%; display: block; }
   .link { fill: none; stroke: #343a48; stroke-width: 1.5; }
@@ -129,21 +149,33 @@
     .resizer, #expandPanel, main.collapsed #expandPanel { display: none; }
     aside { border-top: 1px solid var(--line); }
   }
+  @media (max-width: 600px) {
+    header { padding: 8px 10px; gap: 6px 8px; }
+    header h1 { font-size: 15px; width: 100%; }
+    header .lbl { display: none; }
+    .searchbox { flex: 1 1 100%; } .searchbox input { width: 100%; }
+    #colorBy { max-width: 190px; }
+    main, main.collapsed { grid-template-rows: 50% 50%; }
+    .legend { padding: 6px 8px; } .legend .lg-notes { display: none; } .grad { width: 110px; }
+    .dd-menu { position: fixed; left: 8px; right: 8px; width: auto; top: 110px; }
+  }
 </style>
 </head>
 <body>
+<a class="skip" href="#panel">Skip to job list</a>
+<div id="live" class="sr-only" aria-live="polite"></div>
 <div id="app">
   <header>
     <h1>Career Explorer <span style="color:var(--muted);font-weight:400">AU</span></h1>
-    <div class="ctrl" role="group" aria-label="Explore data as">Explore data as:
-      <div class="seg"><button id="vEmp" class="on" title="Working for someone else">Employee</button><button id="vOwn" title="Owning the business">Business owner</button></div>
+    <div class="ctrl" role="group" aria-label="Explore data as"><span class="lbl">Explore data as:</span>
+      <div class="seg"><button id="vEmp" class="on" aria-pressed="true" title="Working for someone else">Employee</button><button id="vOwn" aria-pressed="false" title="Owning the business">Business owner</button></div>
     </div>
     <label class="searchbox" aria-label="Search jobs">
       <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      <input type="search" id="search" placeholder="Search 400+ jobs...">
+      <input type="search" id="search" name="q" aria-label="Search jobs" autocomplete="off" spellcheck="false" placeholder="Search 400+ jobs…">
     </label>
-    <label class="ctrl">Colour by
-      <select id="colorBy">
+    <label class="ctrl"><span class="lbl">Colour by</span>
+      <select id="colorBy" aria-label="Colour the map by">
         <option value="rep">AI replaces the job (estimate)</option>
         <option value="ai">AI can do the tasks (official)</option>
         <option value="margin">Business margin ceiling</option>
@@ -179,21 +211,21 @@
     <button id="collapseAll">Collapse</button>
   </header>
   <main>
-    <div id="stage">
+    <div id="stage" tabindex="0" role="region" aria-label="Career map. Arrow keys pan, plus and minus zoom, 0 fits the map. Tab moves between nodes.">
       <svg id="svg"><g id="vp"><g id="links"></g><g id="nodes"></g></g></svg>
       <div class="legend" id="legend"></div>
       <button id="expandPanel" title="Show the list panel" aria-label="Show the list panel">‹</button>
-      <div class="zoom"><button id="zin">+</button><button id="zout">−</button><button id="fit">Fit</button></div>
+      <div class="zoom"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="fit" aria-label="Fit the map to the screen">Fit</button></div>
     </div>
     <div class="resizer" id="resizer" role="separator" aria-orientation="vertical" aria-controls="panel" tabindex="0"
       title="Drag to resize. Drag far right to hide. Arrow keys resize, Enter hides."><div class="grip"></div></div>
-    <aside id="panel"></aside>
+    <aside id="panel" tabindex="-1" aria-label="Job list and details"></aside>
   </main>
 </div>
 
-<script src="data.js?v=8"></script>
-<script src="biz.js?v=8"></script>
-<script src="groups.js?v=8"></script>
+<script src="data.js?v=9"></script>
+<script src="biz.js?v=9"></script>
+<script src="groups.js?v=9"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -337,7 +369,7 @@ function bizModel(o) {
   tiers.forEach(t => { if (!t.blocked && t.share >= 0.005 && t.n >= 20) ceil = t; });
   return o._bm = { tiers, ceil, survAll: ind.surv ? ind.surv[6] : null };
 }
-const fmtM = v => v >= 1e6 ? "$" + (v / 1e6).toFixed(v >= 1e7 ? 0 : 1) + "m" : fmtK(v);
+const fmtM = v => v >= 1e6 ? (v >= 1e7 ? AUD0 : AUD1).format(v) : fmtK(v);
 const startLabel = v => v >= 75 ? "Yes – easy to start small" : v >= 50 ? "Possible with savings or a loan" : v >= 30 ? "Hard – big capital or licences" : "Not realistic alone";
 // data quality: "v" verified exact, "g" verified broader group, "e" AU estimate, "us" US converted
 const quality = o => o.kind === "biz" ? "b" : (o.gen && !o.med && !o.ato) ? "n" : o.src === "US" ? "us" : o.med ? (o.match === "exact" ? "v" : "g") : o.ato ? "a" : "e";
@@ -369,8 +401,19 @@ function lerpColor(a, b, t) {
   const [x, y] = [p(a), p(b)];
   return "#" + x.map((v, i) => Math.round(v + (y[i] - v) * t).toString(16).padStart(2, "0")).join("");
 }
-// t: 0 = good (green), 1 = bad (red)
-function ramp(t) { t = Math.max(0, Math.min(1, t)); return t < .5 ? lerpColor("#30a46c", "#ffb224", t * 2) : lerpColor("#ffb224", "#e5484d", (t - .5) * 2); }
+// t: 0 = good (blue), 1 = bad (red). Blue-yellow-red (ColorBrewer RdYlBu) stays readable with red-green colour blindness.
+const RAMP = ["#4575b4", "#91bfdb", "#fee090", "#fc8d59", "#d73027"];
+function ramp(t) {
+  t = Math.max(0, Math.min(1, t)) * (RAMP.length - 1);
+  const i = Math.min(Math.floor(t), RAMP.length - 2);
+  return lerpColor(RAMP[i], RAMP[i + 1], t - i);
+}
+// readable text on a coloured pill
+function ink(hex) {
+  const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255).map(c => c <= .03928 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4);
+  return .2126 * r + .7152 * g + .0722 * b > .3 ? "#111" : "#fff";
+}
+const pillStyle = c => `background:${c};color:${ink(c)}`;
 const aiColor = v => ramp((v - 10) / 65);
 const repColor = v => ramp(Math.sqrt(v / 90));
 const marginColor = hi => ramp(1 - (hi - 5) / 65);
@@ -399,7 +442,9 @@ function nodeColor(n) {
   return c(vals.reduce((a, b) => a + b, 0) / vals.length);
 }
 
-const fmtK = v => "$" + Math.round(v / 1000) + "k";
+const AUD0 = new Intl.NumberFormat("en-AU", { style: "currency", currency: "AUD", notation: "compact", maximumFractionDigits: 0 });
+const AUD1 = new Intl.NumberFormat("en-AU", { style: "currency", currency: "AUD", notation: "compact", maximumFractionDigits: 1 });
+const fmtK = v => AUD0.format(v);
 const ceilingLabel = hi => hi >= 45 ? "High ceiling (investor-appealing)" : hi >= 20 ? "Solid" : "Tough / thin";
 const aiLabel = v => v >= 55 ? "High" : v >= 30 ? "Medium" : "Low";
 
@@ -437,7 +482,7 @@ function render() {
   vis.forEach(n => {
     let g = nodeEls.get(n);
     if (!g) {
-      g = el("g", { class: "node" });
+      g = el("g", { class: "node", tabindex: 0, role: "button" });
       const startP = n.parent && nodeEls.has(n.parent) ? n.parent : n;
       g.style.transform = `translate(${startP.x}px,${startP.y}px)`;
       g.appendChild(el("rect", { width: NODE_W[n.depth], height: NODE_H, rx: n.c ? 17 : 6 }));
@@ -445,6 +490,10 @@ function render() {
       if (!n.c) g.appendChild(el("text", { class: "sub", x: 12, y: 28 }));
       if (n.c) g.appendChild(el("text", { class: "sub", x: NODE_W[n.depth] - 22, y: 21 }));
       g.addEventListener("click", e => { e.stopPropagation(); onNodeClick(n); });
+      g.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); onNodeClick(n); g.focus(); }
+      });
+      g.addEventListener("focus", () => ensureVisible(n));
       gNodes.appendChild(g); nodeEls.set(n, g);
       requestAnimationFrame(() => g.style.transform = `translate(${n.x}px,${n.y}px)`);
     } else g.style.transform = `translate(${n.x}px,${n.y}px)`;
@@ -463,8 +512,17 @@ function render() {
       : n.lo != null ? `${fmtK(n.lo)}–${fmtK(n.hi)}${n.src === "US" ? " ⚠US→AUD" : " est."}` : "No pay data") + ` · Tasks ${n.ai} · Replace ${n.rep}`;
     g.classList.toggle("dim", !branchPasses(n));
     g.classList.toggle("sel", n === state.sel);
+    g.setAttribute("aria-label", n.c ? `${full}, ${n.depth === 0 ? "all careers" : n.open ? "expanded" : "collapsed"}` : `${n.n}. ${s.textContent}`);
+    if (n.c && n.depth > 0) g.setAttribute("aria-expanded", n.open); 
+    if (n === state.sel) g.setAttribute("aria-current", "true"); else g.removeAttribute("aria-current");
   });
+  // keep DOM (and Tab) order the same as the visual top-to-bottom order
+  const kids = [...gNodes.children];
+  if (kids.length !== vis.length || vis.some((n, i) => kids[i] !== nodeEls.get(n))) {
+    const f = document.activeElement; vis.forEach(n => gNodes.appendChild(nodeEls.get(n))); if (f && f.isConnected) f.focus({ preventScroll: true });
+  }
   renderLegend();
+  syncURL();
 }
 
 function onNodeClick(n) {
@@ -480,6 +538,8 @@ function meter(pct, color, from = 0) {
   return `<div class="meter"><div class="fill" style="left:${from}%;width:${Math.max(pct - from, 2)}%;background:${color}"></div></div>`;
 }
 
+let lastAnnounce = "";
+function announce(t) { if (t !== lastAnnounce) { lastAnnounce = t; document.getElementById("live").textContent = t; } }
 function renderPanel() {
   const n = state.sel;
   if (!n.c) return renderOccupation(n);
@@ -489,33 +549,40 @@ function renderPanel() {
   const val = { ai: o => o.ai ?? -1, rep: o => o.rep ?? -1, margin: o => o.m ? o.m[1] : -1, salary: o => sal(o) ?? -1, train: o => o.t, name: o => o.n,
     start: o => o.biz ? o.biz.start : -1, solo: o => bz(o, M => M.tiers[0].profit), ceiling: o => bz(o, M => M.ceil.profit), surv: o => bz(o, M => M.survAll ?? -1) };
   rows.sort((a, b) => { const x = val[key](a), y = val[key](b); return (x > y ? 1 : x < y ? -1 : 0) * dir; });
-  const th = (k, label) => `<th data-k="${k}" class="${key === k ? "on" : ""}">${label}${key === k ? (dir > 0 ? " ▲" : " ▼") : ""}</th>`;
+  const th = (k, label) => `<th class="${key === k ? "on" : ""}" aria-sort="${key === k ? (dir > 0 ? "ascending" : "descending") : "none"}"><button data-k="${k}">${label}<span aria-hidden="true">${key === k ? (dir > 0 ? " ▲" : " ▼") : ""}</span></button></th>`;
+  const LIMIT = 150, all = state.showAllFor === n, total = rows.length;
+  const shown = all ? rows : rows.slice(0, LIMIT);
+  const more = total > shown.length ? `<button class="showall" id="showAll">Show all ${total} jobs</button>` : "";
+  announce(`${total} jobs shown`);
   panel.innerHTML = `
     <h2>${n.n}</h2><div class="crumb">${crumb(n) || "All sectors"} · ${rows.length} jobs shown</div>
     ${n.depth === 0 ? `<p class="help">Click a sector to open it. Click a job to see detail. Click column titles to rank. Use the filters at the top.</p>` : ""}
     ${state.view === "owner" ? `<div class="card"><h3>Ranked businesses (business owner)</h3>
-    <table><thead><tr>${th("name", "Business")}${th("start", "Start")}${th("solo", "Solo profit")}${th("ceiling", "Ceiling")}${th("surv", "Survive 4y")}</tr></thead>
-    <tbody>${rows.filter(o => o.biz).map(o => { const M = bizModel(o); return `<tr class="row" data-id="${o.id}">
-      <td>${o.biz.name}${o.kind === "biz" ? "" : `<div style="color:var(--muted);font-size:11px">from ${o.n}</div>`}</td>
-      <td><span class="pill" style="background:${startColor(o.biz.start)}">${o.biz.start}</span></td>
+    <div class="tablewrap"><table><thead><tr>${th("name", "Business")}${th("start", "Start")}${th("solo", "Solo profit")}${th("ceiling", "Ceiling")}${th("surv", "Survive 4y")}</tr></thead>
+    <tbody>${shown.filter(o => o.biz).map(o => { const M = bizModel(o); return `<tr class="row" data-id="${o.id}">
+      <td><button class="rowbtn">${o.biz.name}</button>${o.kind === "biz" ? "" : `<div style="color:var(--muted);font-size:11px">from ${o.n}</div>`}</td>
+      <td><span class="pill" style="${pillStyle(startColor(o.biz.start))}">${o.biz.start}</span></td>
       <td>${fmtM(M.tiers[0].profit)}</td>
-      <td><span class="pill" style="background:${ceilColor(M.ceil.profit)}">${fmtM(M.ceil.profit)}</span></td>
-      <td>${M.survAll != null ? M.survAll.toFixed(0) + "%" : "–"}</td></tr>`; }).join("")}</tbody></table>
+      <td><span class="pill" style="${pillStyle(ceilColor(M.ceil.profit))}">${fmtM(M.ceil.profit)}</span></td>
+      <td>${M.survAll != null ? M.survAll.toFixed(0) + "%" : "–"}</td></tr>`; }).join("")}</tbody></table></div>${more}
     <p class="help">Start = can one person start it (0–100, estimate). Solo profit = owner profit at ~$120k turnover. Ceiling = owner profit at the biggest size at least 0.5% of AU businesses in this industry reach. Survive 4y = share of businesses still trading after 4 years (ABS).</p>
     </div>` : `<div class="card"><h3>Ranked jobs</h3>
-    <table><thead><tr>${th("name", "Job")}${th("ai", "AI tasks")}${th("rep", "Replace")}${th("margin", "Margin")}${th("salary", "Salary")}${th("train", "Training")}</tr></thead>
-    <tbody>${rows.map(o => `<tr class="row" data-id="${o.id}">
-      <td>${o.n} ${qTag(o, true)}</td>
-      <td><span class="pill" style="background:${aiColor(o.ai)}">${o.ai}</span></td>
-      <td><span class="pill" style="background:${repColor(o.rep)}">${o.rep}</span></td>
-      <td>${o.m ? `<span class="pill" style="background:${marginColor(o.m[1])}">${o.m[0]}–${o.m[1]}%</span>` : '<span style="color:var(--muted)">–</span>'}</td>
+    <div class="tablewrap"><table><thead><tr>${th("name", "Job")}${th("ai", "AI tasks")}${th("rep", "Replace")}${th("margin", "Margin")}${th("salary", "Salary")}${th("train", "Training")}</tr></thead>
+    <tbody>${shown.map(o => `<tr class="row" data-id="${o.id}">
+      <td><button class="rowbtn">${o.n}</button> ${qTag(o, true)}</td>
+      <td><span class="pill" style="${pillStyle(aiColor(o.ai))}">${o.ai}</span></td>
+      <td><span class="pill" style="${pillStyle(repColor(o.rep))}">${o.rep}</span></td>
+      <td>${o.m ? `<span class="pill" style="${pillStyle(marginColor(o.m[1]))}">${o.m[0]}–${o.m[1]}%</span>` : '<span style="color:var(--muted)">–</span>'}</td>
       <td>${o.kind === "biz" ? '<span style="color:var(--muted)">owner only</span>' : o.med ? fmtK(o.med) + ' <span style="color:var(--muted)">med</span>' : o.ato ? fmtK(o.ato.sal) + ' <span style="color:var(--muted)">ATO</span>' : o.lo != null ? `${fmtK(o.lo)}–${fmtK(o.hi)}` : '<span style="color:var(--muted)">no data</span>'}</td>
-      <td style="color:var(--muted)">${TRAINING[o.t].short}</td></tr>`).join("")}</tbody></table>
+      <td style="color:var(--muted)">${TRAINING[o.t].short}</td></tr>`).join("")}</tbody></table></div>${more}
     </div>`}
     ${rows.length ? "" : `<p class="help">No jobs match the filters.</p>`}
     ${disclaimer()}`;
-  panel.querySelectorAll("th").forEach(h => h.onclick = () => {
-    const k = h.dataset.k; state.sort = { key: k, dir: state.sort.key === k ? -state.sort.dir : (["margin", "salary", "start", "solo", "ceiling", "surv"].includes(k) ? -1 : 1) }; renderPanel();
+  const sa = document.getElementById("showAll");
+  if (sa) sa.onclick = () => { state.showAllFor = n; const y = panel.scrollTop; renderPanel(); panel.scrollTop = y; };
+  panel.querySelectorAll("th button").forEach(h => h.onclick = () => {
+    const k = h.dataset.k; state.sort = { key: k, dir: state.sort.key === k ? -state.sort.dir : (["margin", "salary", "start", "solo", "ceiling", "surv"].includes(k) ? -1 : 1) }; renderPanel(); syncURL();
+    const again = panel.querySelector(`th button[data-k="${k}"]`); if (again) again.focus();
   });
   panel.querySelectorAll("tr.row").forEach(r => r.onclick = () => {
     state.backTo = n; state.backScroll = panel.scrollTop;   // the list we came from + its scroll position
@@ -533,11 +600,11 @@ function bizCard(o) {
     <table class="ladder" style="margin-top:10px"><thead><tr><th>Size (turnover)</th><th>AU businesses</th><th>Owner profit / yr</th><th>Survive 4y</th></tr></thead><tbody>
     ${M.tiers.map(t => `<tr style="${t === c ? "background:#1d2a1f" : t.blocked ? "opacity:.45" : ""}">
       <td><b>${t.label}</b><div class="note" style="margin:0">${t.range}</div></td>
-      <td>${t.n.toLocaleString()}<div class="note" style="margin:0">${pct(t.share)}</div></td>
+      <td>${t.n.toLocaleString("en-AU")}<div class="note" style="margin:0">${pct(t.share)}</div></td>
       <td>${t.blocked ? '<span class="note">Not open to this path</span>' : `<b>${fmtM(t.profit)}</b>${t.msrc === "est" || t.extrap ? "*" : ""}<div class="note" style="margin:0">${Math.round(t.margin)}% of ${fmtM(t.T)}</div>`}</td>
       <td>${t.surv != null ? t.surv.toFixed(0) + "%" : "–"}</td></tr>`).join("")}
     </tbody></table>
-    <div class="note" style="margin-top:8px"><b>Ceiling:</b> ${c.n.toLocaleString()} of ${ind.total.toLocaleString()} ${ind.label.toLowerCase()} businesses (${pct(c.share)}) are "${c.label.toLowerCase()}" size (${c.range}).
+    <div class="note" style="margin-top:8px"><b>Ceiling:</b> ${c.n.toLocaleString("en-AU")} of ${ind.total.toLocaleString("en-AU")} ${ind.label.toLowerCase()} businesses (${pct(c.share)}) are "${c.label.toLowerCase()}" size (${c.range}).
       At ${fmtM(c.T)} turnover the owner could make about <b>${fmtM(c.profit)} a year</b> before tax.</div>
     <div class="note">${b.scale}</div>
     <div class="note" style="margin-top:8px">
@@ -626,14 +693,14 @@ function renderOccupation(o) {
       <div style="margin-top:8px">${qTag(o)}</div>
       ${o.med ? `<div class="note">Source: <a href="${JSA_URL}${o.ref}" target="_blank" rel="noopener">${JSA_SOURCE}</a>.
           ANZSCO ${o.ref.split("-")[0]}${o.match === "group" ? " (broader group: " + o.ref.split("-").slice(1).join(" ") + ")" : ""}.
-          $${Math.round(o.med / 52).toLocaleString()}/week × 52. Employees only: owners and self-employed are not counted.</div>`
+          $${Math.round(o.med / 52).toLocaleString("en-AU")}/week × 52. Employees only: owners and self-employed are not counted.</div>`
       : o.src === "US" ? `<div class="note">US source: US$${Math.round(o.usd[0] / 1000)}k – US$${Math.round(o.usd[1] / 1000)}k × ${USD_TO_AUD} rate. No AU figure found.</div>`
       : `<div class="note">Jobs and Skills Australia has no full-time median for this job${o.lo != null ? ". The range is an estimate" : ""}${o.ato ? ". ATO tax figures are below" : ""}.</div>`}
       ${o.ato ? `<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--line)">
         <div style="display:flex;gap:16px">
           <div><div class="note" style="margin:0">Median salary / wage</div><b>${fmtK(o.ato.sal)}</b></div>
           <div><div class="note" style="margin:0">Median total income</div><b>${fmtK(o.ato.total)}</b></div>
-          <div><div class="note" style="margin:0">People</div><b>${o.ato.people.toLocaleString()}</b></div>
+          <div><div class="note" style="margin:0">People</div><b>${o.ato.people.toLocaleString("en-AU")}</b></div>
         </div>
         <div class="note"><span class="tag ato">ATO</span> All taxpayers, <a href="${ATO_URL}" target="_blank" rel="noopener">${ATO_SOURCE}</a>. Occupation: ${o.ato.occ}.
           Includes part-time and self-employed. Total income adds business and other income${o.ato.total > o.ato.sal * 1.25 ? " — <b>the big gap here suggests many earn through their own business</b>" : ""}.</div>
@@ -679,7 +746,7 @@ function selectById(id) {
 // ---------- legend ----------
 function renderLegend() {
   const L = document.getElementById("legend");
-  const g = `linear-gradient(90deg,#30a46c,#ffb224,#e5484d)`;
+  const g = `linear-gradient(90deg,${RAMP.join(",")})`;
   const map = {
     ai: ["AI can do the tasks (JSA)", "Low", "High"],
     rep: ["AI replaces the job (estimate)", "Low", "High"],
@@ -692,7 +759,7 @@ function renderLegend() {
   if (state.colorBy === "sector") { L.innerHTML = "Colour = sector"; return; }
   const [t, a, b] = map[state.colorBy];
   L.innerHTML = `${t}<div class="grad" style="background:${g}"></div><div class="scale"><span>${a}</span><span>${b}</span></div>
-    <div style="margin-top:4px">✓ = official AU median · (group) = broader group<br>ATO = tax data only · est. = estimate · ⚠US→AUD = US wage converted</div>`;
+    <div class="lg-notes" style="margin-top:4px">✓ = official AU median · (group) = broader group<br>ATO = tax data only · est. = estimate · ⚠US→AUD = US wage converted</div>`;
 }
 
 // ---------- pan / zoom ----------
@@ -704,15 +771,48 @@ function zoomAt(f, cx, cy) {
   view.x = cx - (cx - view.x) * f; view.y = cy - (cy - view.y) * f; view.k = k; applyView();
 }
 svg.addEventListener("wheel", e => { e.preventDefault(); const r = svg.getBoundingClientRect(); zoomAt(Math.exp(-e.deltaY * .0015), e.clientX - r.left, e.clientY - r.top); }, { passive: false });
-let drag = null;
-svg.addEventListener("pointerdown", e => { if (e.target.closest(".node")) return; drag = { x: e.clientX - view.x, y: e.clientY - view.y }; stage.classList.add("drag"); });
-window.addEventListener("pointermove", e => { if (!drag) return; view.x = e.clientX - drag.x; view.y = e.clientY - drag.y; applyView(); });
-window.addEventListener("pointerup", () => { drag = null; stage.classList.remove("drag"); });
+// pointer pan (mouse, pen, one finger) and two-finger pinch zoom
+let drag = null, pinch = null;
+const pts = new Map();
+const pinchInfo = () => { const [a, b] = [...pts.values()], r = svg.getBoundingClientRect();
+  return { d: Math.hypot(a.x - b.x, a.y - b.y), cx: (a.x + b.x) / 2 - r.left, cy: (a.y + b.y) / 2 - r.top }; };
+svg.addEventListener("pointerdown", e => {
+  if (e.target.closest(".node")) return;
+  pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (pts.size === 1) { drag = { x: e.clientX - view.x, y: e.clientY - view.y }; stage.classList.add("drag"); }
+  else if (pts.size === 2) { drag = null; pinch = pinchInfo(); }
+});
+window.addEventListener("pointermove", e => {
+  if (!pts.has(e.pointerId)) return;
+  pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (pinch && pts.size === 2) { const p = pinchInfo(); zoomAt(p.d / pinch.d, p.cx, p.cy); pinch = p; }
+  else if (drag) { view.x = e.clientX - drag.x; view.y = e.clientY - drag.y; applyView(); }
+});
+const endPtr = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null; if (!pts.size) { drag = null; stage.classList.remove("drag"); } };
+window.addEventListener("pointerup", endPtr); window.addEventListener("pointercancel", endPtr);
+// keyboard: arrows pan, +/- zoom, 0 fits
+stage.addEventListener("keydown", e => {
+  if (e.target.closest("button")) return;
+  const r = svg.getBoundingClientRect(), step = 60;
+  const moves = { ArrowLeft: [step, 0], ArrowRight: [-step, 0], ArrowUp: [0, step], ArrowDown: [0, -step] };
+  if (moves[e.key]) { view.x += moves[e.key][0]; view.y += moves[e.key][1]; applyView(); e.preventDefault(); }
+  else if (e.key === "+" || e.key === "=") { zoomAt(1.2, r.width / 2, r.height / 2); e.preventDefault(); }
+  else if (e.key === "-" || e.key === "_") { zoomAt(1 / 1.2, r.width / 2, r.height / 2); e.preventDefault(); }
+  else if (e.key === "0") { fit(); e.preventDefault(); }
+});
+// keep a keyboard-focused node on screen
+function ensureVisible(n) {
+  const r = svg.getBoundingClientRect(), x = view.x + n.x * view.k, y = view.y + n.y * view.k;
+  if (x < 0 || y < 0 || x + NODE_W[n.depth] * view.k > r.width || y + NODE_H * view.k > r.height) centerOn(n);
+}
 function fit() {
   const vis = layout(), r = svg.getBoundingClientRect();
   const maxX = Math.max(...vis.map(n => n.x + NODE_W[n.depth])), minY = Math.min(...vis.map(n => n.y)), maxY = Math.max(...vis.map(n => n.y + NODE_H));
-  const k = Math.min(1.4, (r.width - 60) / maxX, (r.height - 60) / (maxY - minY));
-  view = { k, x: 30, y: (r.height - (maxY + minY) * k) / 2 }; applyView();
+  // small screens: keep text readable instead of shrinking the whole tree to fit
+  const kMin = r.width < 600 ? 0.6 : 0;
+  const k = Math.max(kMin, Math.min(1.4, (r.width - 60) / maxX, (r.height - 60) / (maxY - minY)));
+  const y = (maxY - minY) * k > r.height - 40 ? 20 - minY * k : (r.height - (maxY + minY) * k) / 2;
+  view = { k, x: r.width < 600 ? 12 : 30, y }; applyView();
 }
 function centerOn(n) { const r = svg.getBoundingClientRect(); view.x = r.width / 2 - (n.x + 100) * view.k; view.y = r.height / 2 - n.y * view.k; applyView(); }
 document.getElementById("zin").onclick = () => { const r = svg.getBoundingClientRect(); zoomAt(1.2, r.width / 2, r.height / 2); };
@@ -753,7 +853,9 @@ const RANGES = {};
       state[d.key] = [+lo.value, +hi.value]; draw(); filtersChanged();
     };
     lo.oninput = onInput(lo); hi.oninput = onInput(hi);
-    RANGES[d.key] = { full: [d.min, d.max], reset: () => { lo.value = d.min; hi.value = d.max; state[d.key] = [d.min, d.max]; draw(); } };
+    RANGES[d.key] = { full: [d.min, d.max], reset: () => { lo.value = d.min; hi.value = d.max; state[d.key] = [d.min, d.max]; draw(); },
+      set: v => { const a = Math.max(d.min, Math.min(v[0], d.max)), b = Math.max(a, Math.min(v[1], d.max));
+        lo.value = a; hi.value = b; state[d.key] = [+lo.value, +hi.value]; draw(); } };
     draw();
   });
   // map display toggle: fully hide non-matching nodes (true) or fade them (false)
@@ -809,6 +911,8 @@ function setView(v) {
   state.view = v;
   document.getElementById("vEmp").classList.toggle("on", v === "employee");
   document.getElementById("vOwn").classList.toggle("on", v === "owner");
+  document.getElementById("vEmp").setAttribute("aria-pressed", v === "employee");
+  document.getElementById("vOwn").setAttribute("aria-pressed", v === "owner");
   state.colorBy = v === "owner" ? "ceiling" : "rep";
   document.getElementById("colorBy").value = state.colorBy;
   state.sort = v === "owner" ? { key: "ceiling", dir: -1 } : { key: "rep", dir: 1 };
@@ -825,6 +929,8 @@ document.getElementById("search").oninput = e => {
 const setAll = v => (function f(n) { if (n.c) { if (n.depth) n.open = v; n.c.forEach(f); } })(DATA);
 document.getElementById("expandAll").onclick = () => { setAll(true); render(); fit(); };
 document.getElementById("collapseAll").onclick = () => { setAll(false); state.sel = DATA; render(); renderPanel(); fit(); };
+
+document.querySelector(".skip").addEventListener("click", e => { e.preventDefault(); panel.focus(); });
 
 // ---------- resizable / collapsible side panel ----------
 (function () {
@@ -863,7 +969,75 @@ document.getElementById("collapseAll").onclick = () => { setAll(false); state.se
   apply(false);
 })();
 
+// ---------- URL state: shareable links + browser back/forward ----------
+let restoring = false, lastSelKey = null;
+const selKey = n => !n || n.depth === 0 ? "" : n.c ? (n.depth === 1 ? "g:" + n.n : "g:" + n.parent.n + "|" + n.n) : "j:" + n.n;
+function syncURL() {
+  if (restoring || typeof RANGES === "undefined" || !RANGES.inc) return;
+  const q = new URLSearchParams();
+  if (state.view === "owner") q.set("view", "owner");
+  if (state.colorBy !== (state.view === "owner" ? "ceiling" : "rep")) q.set("colour", state.colorBy);
+  if (state.search) q.set("q", state.search);
+  if (state.train.size < TRAINING.length) q.set("train", [...state.train].sort().join("."));
+  if (state.auOnly) q.set("verified", "1");
+  if (state.easyOnly) q.set("easy", "1");
+  ["inc", "aiR", "repR"].forEach(k => { const r = state[k], f = RANGES[k].full; if (r[0] !== f[0] || r[1] !== f[1]) q.set({ inc: "income", aiR: "tasks", repR: "replace" }[k], r.join("-")); });
+  if (state.hideNoMatch) q.set("hide", "1");
+  const def = state.view === "owner" ? "ceiling.-1" : "rep.1";
+  if (state.sort.key + "." + state.sort.dir !== def) q.set("sort", state.sort.key + "." + state.sort.dir);
+  const k = selKey(state.sel); if (k) q.set(k[0] === "j" ? "job" : "group", k.slice(2));
+  const url = location.pathname + (q.toString() ? "?" + q : "");
+  if (url === location.pathname + location.search) { lastSelKey = k; return; }
+  if (lastSelKey !== null && k !== lastSelKey) history.pushState(null, "", url); else history.replaceState(null, "", url);
+  lastSelKey = k;
+}
+function findSel(q) {
+  const job = q.get("job"), grp = q.get("group");
+  if (job) return ALL.find(o => o.n === job);
+  if (grp) { const [a, b] = grp.split("|"); const c = DATA.c.find(x => x.n === a); return c && (b ? c.c.find(x => x.n === b) : c); }
+  return DATA;
+}
+function readURL() {
+  restoring = true;
+  const q = new URLSearchParams(location.search);
+  const v = q.get("view") === "owner" ? "owner" : "employee";
+  state.view = v;
+  document.getElementById("vEmp").classList.toggle("on", v === "employee");
+  document.getElementById("vOwn").classList.toggle("on", v === "owner");
+  document.getElementById("vEmp").setAttribute("aria-pressed", v === "employee");
+  document.getElementById("vOwn").setAttribute("aria-pressed", v === "owner");
+  state.colorBy = q.get("colour") && METRIC[q.get("colour")] || q.get("colour") === "sector" ? q.get("colour") : (v === "owner" ? "ceiling" : "rep");
+  document.getElementById("colorBy").value = state.colorBy;
+  const [sk, sd] = (q.get("sort") || (v === "owner" ? "ceiling.-1" : "rep.1")).split(".");
+  state.sort = { key: sk, dir: +sd || 1 };
+  state.search = (q.get("q") || "").toLowerCase(); document.getElementById("search").value = q.get("q") || "";
+  const tr = q.get("train"); state.train = new Set(tr != null ? tr.split(".").filter(x => x !== "").map(Number) : TRAINING.map(t => t.id));
+  chips.querySelectorAll("input").forEach(i => i.checked = state.train.has(+i.dataset.train));
+  state.auOnly = q.get("verified") === "1"; document.getElementById("auOnly").checked = state.auOnly;
+  state.easyOnly = q.get("easy") === "1"; document.getElementById("easyOnly").checked = state.easyOnly;
+  [["inc", "income"], ["aiR", "tasks"], ["repR", "replace"]].forEach(([k, name]) => {
+    const r = q.get(name); if (r) RANGES[k].set(r.split("-").map(Number)); else RANGES[k].reset(); });
+  state.hideNoMatch = q.get("hide") === "1";
+  const hb = document.getElementById("hideNoMatch"); hb.checked = state.hideNoMatch;
+  document.getElementById("hideNoMatchSub").textContent = hb.checked ? "On: non-matches disappear" : "Off: non-matches are faded";
+  if (state.search) (function open(n) { if (n.c) { n.open = leaves(n).some(passes); n.c.forEach(open); } })(DATA);
+  const sel = findSel(q) || DATA;
+  for (let p = sel.parent; p; p = p.parent) p.open = true;
+  if (sel.c && sel.depth > 0) sel.open = true;
+  state.sel = sel;
+  const nb = document.getElementById("filterCount");
+  const narrowed = k => state[k][0] !== RANGES[k].full[0] || state[k][1] !== RANGES[k].full[1];
+  const cnt = (state.train.size < TRAINING.length ? 1 : 0) + (state.auOnly ? 1 : 0) + (state.easyOnly ? 1 : 0) + ["inc", "aiR", "repR"].filter(narrowed).length;
+  nb.hidden = !cnt; nb.textContent = cnt;
+  restoring = false;
+  lastSelKey = selKey(sel);
+  return sel;
+}
+window.addEventListener("popstate", () => { const sel = readURL(); render(); renderPanel(); if (sel !== DATA) centerOn(sel); });
+
+const startSel = readURL();
 render(); renderPanel(); fit();
+if (startSel !== DATA) centerOn(startSel);
 window.addEventListener("resize", fit);
 </script>
 </body>
