@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Career Explorer (AU)</title>
+<style>
+  :root {
+    --bg: #0f1115; --panel: #171a21; --line: #2a2f3a; --text: #e8eaf0; --muted: #8b93a7;
+    --good: #30a46c; --mid: #ffb224; --bad: #e5484d; --warn-bg: #3a2a00; --warn: #ffcf5c;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
+    font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+  #app { display: grid; grid-template-rows: auto 1fr; height: 100%; }
+  header { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; padding: 10px 14px;
+    border-bottom: 1px solid var(--line); background: var(--panel); }
+  header h1 { font-size: 16px; margin: 0 8px 0 0; }
+  .ctrl { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; }
+  select, input[type=search], button { background: #0f1115; color: var(--text); border: 1px solid var(--line);
+    border-radius: 6px; padding: 5px 8px; font: inherit; font-size: 12px; }
+  button { cursor: pointer; } button:hover { border-color: #4a5263; }
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+  .chip { padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); cursor: pointer; font-size: 11px;
+    color: var(--muted); user-select: none; }
+  .chip.on { background: #26324a; border-color: #3e63dd; color: var(--text); }
+  main { display: grid; grid-template-columns: 1fr 400px; min-height: 0; }
+  #stage { position: relative; overflow: hidden; cursor: grab; }
+  #stage.drag { cursor: grabbing; }
+  svg { width: 100%; height: 100%; display: block; }
+  .link { fill: none; stroke: #343a48; stroke-width: 1.5; }
+  .node { cursor: pointer; transition: transform .35s ease, opacity .2s; }
+  .node rect { stroke-width: 1.5; }
+  .node text { fill: var(--text); font-size: 12px; pointer-events: none; }
+  .node .sub { fill: var(--muted); font-size: 10px; }
+  .node.sel rect { stroke: #fff !important; stroke-width: 2.5; }
+  .node.dim { opacity: .18; }
+  .node:hover rect { filter: brightness(1.25); }
+  .legend { position: absolute; left: 12px; bottom: 12px; background: rgba(23,26,33,.92); border: 1px solid var(--line);
+    border-radius: 8px; padding: 8px 10px; font-size: 11px; color: var(--muted); }
+  .grad { width: 160px; height: 8px; border-radius: 4px; margin: 4px 0 2px; }
+  .zoom { position: absolute; right: 12px; bottom: 12px; display: flex; gap: 4px; }
+  aside { border-left: 1px solid var(--line); background: var(--panel); overflow-y: auto; padding: 16px; }
+  aside h2 { margin: 0 0 2px; font-size: 18px; }
+  aside .crumb { color: var(--muted); font-size: 12px; margin-bottom: 12px; }
+  .card { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; }
+  .card h3 { margin: 0 0 6px; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .big { font-size: 20px; font-weight: 600; }
+  .tag { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .tag.au { background: #10301f; color: #6be3a2; }
+  .tag.us { background: var(--warn-bg); color: var(--warn); }
+  .tag.grp { background: #13284a; color: #8fb5ff; }
+  .tag.ato { background: #2b1f40; color: #c9a7ff; }
+  .tag.biz { background: #3a2410; color: #ffb27a; }
+  .seg { display: inline-flex; gap: 0; }
+  .seg button { border-radius: 0; } .seg button:first-child { border-radius: 6px 0 0 6px; } .seg button:last-child { border-radius: 0 6px 6px 0; margin-left: -1px; }
+  .seg button.on { background: #26324a; border-color: #3e63dd; color: #fff; }
+  .ladder td, .ladder th { cursor: default; vertical-align: top; }
+  .tag.est { background: #2a2f3a; color: #b8bfcf; }
+  a { color: #8fb5ff; }
+  .meter { position: relative; height: 10px; background: #0f1115; border-radius: 5px; border: 1px solid var(--line); margin: 6px 0 4px; }
+  .meter .fill { position: absolute; top: 0; bottom: 0; border-radius: 5px; }
+  .scale { display: flex; justify-content: space-between; color: var(--muted); font-size: 10px; }
+  .note { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; color: var(--muted); font-weight: 500; padding: 4px 4px; border-bottom: 1px solid var(--line); cursor: pointer; white-space: nowrap; }
+  th.on { color: var(--text); }
+  td { padding: 5px 4px; border-bottom: 1px solid #1f232c; }
+  tr.row { cursor: pointer; } tr.row:hover td { background: #1d212a; }
+  .pill { display: inline-block; min-width: 30px; text-align: center; padding: 1px 5px; border-radius: 4px; font-weight: 600; font-size: 11px; color: #111; }
+  .help { color: var(--muted); font-size: 12px; }
+  .disclaimer { color: var(--muted); font-size: 11px; margin-top: 14px; border-top: 1px solid var(--line); padding-top: 10px; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; grid-template-rows: 55% 45%; } aside { border-left: 0; border-top: 1px solid var(--line); } }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>Career Explorer <span style="color:var(--muted);font-weight:400">AU</span></h1>
+    <div class="seg"><button id="vEmp" class="on" title="Working for someone else">Employee view</button><button id="vOwn" title="Owning the business">Owner view</button></div>
+    <label class="ctrl">Colour by
+      <select id="colorBy">
+        <option value="ai">AI replacement risk</option>
+        <option value="margin">Business margin ceiling</option>
+        <option value="salary">Salary (midpoint)</option>
+        <option value="sector">Sector</option>
+        <optgroup label="Owner view">
+          <option value="ceiling">Owner earnings ceiling</option>
+          <option value="start">How easy to start alone</option>
+          <option value="survival">Business survival (4 yrs)</option>
+        </optgroup>
+      </select>
+    </label>
+    <label class="ctrl"><input type="search" id="search" placeholder="Search job..."></label>
+    <div class="ctrl">Training <div class="chips" id="trainChips"></div></div>
+    <label class="ctrl" title="Hide jobs with no official Australian median (estimates and US-converted)"><input type="checkbox" id="auOnly"> Verified AU data only</label>
+    <label class="ctrl" title="Only show businesses one person can realistically start (start score 60+)"><input type="checkbox" id="easyOnly"> Easy to start alone</label>
+    <button id="expandAll">Expand all</button>
+    <button id="collapseAll">Collapse</button>
+  </header>
+  <main>
+    <div id="stage">
+      <svg id="svg"><g id="vp"><g id="links"></g><g id="nodes"></g></g></svg>
+      <div class="legend" id="legend"></div>
+      <div class="zoom"><button id="zin">+</button><button id="zout">−</button><button id="fit">Fit</button></div>
+    </div>
+    <aside id="panel"></aside>
+  </main>
+</div>
+
+<script src="data.js"></script>
+<script src="biz.js"></script>
+<script>
+// ---------- business-only nodes ----------
+BIZ_NODES.forEach(b => {
+  const sec = DATA.c.find(x => x.n === b.sector), grp = sec && sec.c.find(x => x.n === b.group);
+  if (!grp) return console.warn("No place for", b.n);
+  const bm = BIZ[b.n] && ATO_BM[BIZ[b.n].ato];
+  const m = bm ? [100 - bm.exp[2], 100 - bm.exp[0]] : [5, 20];
+  grp.c.push({ n: b.n, kind: "biz", t: b.t, ai: b.ai, m, note: BIZ[b.n].scale, src: "AU" });
+});
+
+// ---------- prep tree ----------
+let uid = 0;
+(function prep(node, parent, depth) {
+  node.id = uid++; node.parent = parent; node.depth = depth;
+  node.sector = depth === 1 ? node : parent && parent.sector;
+  node.open = depth === 0;
+  if (node.c) node.c.forEach(ch => prep(ch, node, depth + 1));
+  else {
+    if (BIZ[node.n]) { node.biz = BIZ[node.n]; node.ind = IND[node.biz.anz]; node.bm = node.biz.ato ? ATO_BM[node.biz.ato] : null; }
+    if (ATO[node.n]) { const a = ATO[node.n]; node.ato = { sal: a[0], total: a[1], people: a[2], occ: a[3] }; }
+    const v = JSA[node.n];
+    if (v) {
+      node.med = v[0] * 52; node.ref = v[1]; node.match = v[2];
+      const r = x => Math.round(x / 1000) * 1000;
+      if (node.med < node.lo) {
+        // median below my band: often because owners / private practice income is not in employee data. Stretch band down.
+        node.bandMoved = [node.lo, node.hi]; node.lo = r(node.med * 0.85);
+      } else if (node.med > node.hi) {
+        // my estimate was too low: rebuild band around the real median
+        node.bandMoved = [node.lo, node.hi]; node.lo = r(node.med * 0.8); node.hi = r(node.med * 1.3);
+      }
+    }
+  }
+})(DATA, null, 0);
+
+const leaves = n => n.c ? n.c.flatMap(leaves) : [n];
+const ALL = leaves(DATA);
+function sal(o) { return o.kind === "biz" ? bizModel(o).tiers[0].profit : o.med || (o.ato && o.ato.sal) || (o.lo + o.hi) / 2; }
+
+// ---------- owner model ----------
+// Tiers follow the ABS turnover bands. T = example turnover used to show owner profit.
+const TIERS = [
+  { label: "Solo / owner-operator", range: "under $200k", b: [0, 1], T: 120e3 },
+  { label: "Small business", range: "$200k – $2m", b: [2], T: 700e3 },
+  { label: "Established company", range: "$2m – $10m", b: [3, 4], T: 4e6 },
+  { label: "Large company", range: "$10m+", b: [5], T: 20e6 },
+];
+function atoBands(bm) {
+  return bm.bands.split(" / ").map(x => {
+    const nums = (x.match(/\$[\d,]+/g) || []).map(v => +v.replace(/[$,]/g, ""));
+    return /more than/i.test(x) ? [nums[0], Infinity] : [nums[0], nums[1]];
+  });
+}
+function tierMargin(o, T) {
+  if (o.bm) {
+    const bs = atoBands(o.bm);
+    let i = bs.findIndex(([a, b]) => T >= a && T <= b);
+    if (i < 0) i = T < bs[0][0] ? 0 : bs.length - 1;
+    return { m: 100 - o.bm.exp[i], src: "ato", extrap: T > 2e6 };
+  }
+  // no ATO benchmark: solo = high end of my estimate, small = middle, $2m+ = low end (overheads grow)
+  return { m: T < 200e3 ? o.m[1] : T < 2e6 ? (o.m[0] + o.m[1]) / 2 : o.m[0], src: "est" };
+}
+function bizModel(o) {
+  if (!o.biz || !o.ind) return null;
+  if (o._bm) return o._bm;
+  const ind = o.ind;
+  const max = o.biz.max ?? 3;
+  const tiers = TIERS.map((t, ti) => {
+    const n = t.b.reduce((s, i) => s + ind.bands[i], 0), share = ind.total ? n / ind.total : 0;
+    const mm = tierMargin(o, t.T);
+    const sv = ind.surv ? t.b.map(i => ind.surv[i]).filter(v => v != null) : [];
+    return { ...t, n, share, blocked: ti > max, margin: mm.m, msrc: mm.src, extrap: mm.extrap, profit: t.T * mm.m / 100,
+      surv: sv.length ? sv.reduce((a, b) => a + b, 0) / sv.length : null };
+  });
+  let ceil = tiers[0];
+  tiers.forEach(t => { if (!t.blocked && t.share >= 0.005 && t.n >= 20) ceil = t; });
+  return o._bm = { tiers, ceil, survAll: ind.surv ? ind.surv[6] : null };
+}
+const fmtM = v => v >= 1e6 ? "$" + (v / 1e6).toFixed(v >= 1e7 ? 0 : 1) + "m" : fmtK(v);
+const startLabel = v => v >= 75 ? "Yes – easy to start small" : v >= 50 ? "Possible with savings or a loan" : v >= 30 ? "Hard – big capital or licences" : "Not realistic alone";
+// data quality: "v" verified exact, "g" verified broader group, "e" AU estimate, "us" US converted
+const quality = o => o.kind === "biz" ? "b" : o.src === "US" ? "us" : o.med ? (o.match === "exact" ? "v" : "g") : o.ato ? "a" : "e";
+const QTAG = {
+  v: ['au', '✓ AU verified', 'Median from JSA/ABS for this exact job group'],
+  g: ['grp', 'AU (broader group)', 'Median from JSA/ABS for a broader job group that includes this job'],
+  b: ['biz', 'Business only', 'A business path, not one job. No employee salary.'],
+  a: ['ato', 'AU (ATO tax data only)', 'No JSA full-time median. ATO median includes part-time workers.'],
+  e: ['est', 'AU estimate', 'No official AU median found. Estimate only.'],
+  us: ['us', '⚠ US wage converted to AUD', 'No AU figure. US wage converted to AUD.'],
+};
+const qTag = (o, short) => { const [c, l, t] = QTAG[quality(o)]; return `<span class="tag ${c}" title="${t}">${short ? { v: '✓', g: 'grp', a: 'ATO', b: 'biz', e: 'est', us: 'US' }[quality(o)] : l}</span>`; };
+
+// ---------- state ----------
+const state = { view: "employee", easyOnly: false, colorBy: "ai", search: "", train: new Set(TRAINING.map(t => t.id)), auOnly: false,
+  sel: DATA, sort: { key: "ai", dir: 1 } };
+
+const passes = o => state.train.has(o.t) && (!state.auOnly || !!o.med || !!o.ato || o.kind === "biz") &&
+  (!state.easyOnly || (o.biz && o.biz.start >= 60)) &&
+  (!state.search || o.n.toLowerCase().includes(state.search));
+const branchPasses = n => n.c ? leaves(n).some(passes) : passes(n);
+
+// ---------- colour helpers ----------
+function lerpColor(a, b, t) {
+  const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+  const [x, y] = [p(a), p(b)];
+  return "#" + x.map((v, i) => Math.round(v + (y[i] - v) * t).toString(16).padStart(2, "0")).join("");
+}
+// t: 0 = good (green), 1 = bad (red)
+function ramp(t) { t = Math.max(0, Math.min(1, t)); return t < .5 ? lerpColor("#30a46c", "#ffb224", t * 2) : lerpColor("#ffb224", "#e5484d", (t - .5) * 2); }
+const aiColor = v => ramp(v / 80);
+const marginColor = hi => ramp(1 - (hi - 5) / 65);
+const salColor = s => ramp(1 - s / 250000);
+const startColor = v => ramp(1 - v / 100);
+const ceilColor = v => ramp(1 - Math.log10(Math.max(v, 5e4) / 5e4) / 2);
+const survColor = v => ramp(1 - (v - 45) / 35);
+const METRIC = {
+  ai: [o => o.ai, aiColor], margin: [o => o.m[1], marginColor], salary: [o => sal(o), salColor],
+  start: [o => o.biz ? o.biz.start : null, startColor],
+  ceiling: [o => { const M = bizModel(o); return M ? M.ceil.profit : null; }, ceilColor],
+  survival: [o => { const M = bizModel(o); return M ? M.survAll : null; }, survColor],
+};
+function leafColor(o) {
+  if (state.colorBy === "sector") return o.sector.color;
+  const [f, c] = METRIC[state.colorBy], v = f(o);
+  return v == null ? "#3a4150" : c(v);
+}
+function nodeColor(n) {
+  if (!n.c) return leafColor(n);
+  if (n.depth === 0) return "#3a4150";
+  if (state.colorBy === "sector") return n.sector.color;
+  const ls = leaves(n).filter(passes); if (!ls.length) return "#3a4150";
+  const [f, c] = METRIC[state.colorBy], vals = ls.map(f).filter(v => v != null);
+  if (!vals.length) return "#3a4150";
+  return c(vals.reduce((a, b) => a + b, 0) / vals.length);
+}
+
+const fmtK = v => "$" + Math.round(v / 1000) + "k";
+const ceilingLabel = hi => hi >= 45 ? "High ceiling (investor-appealing)" : hi >= 20 ? "Solid" : "Tough / thin";
+const aiLabel = v => v >= 60 ? "High" : v >= 30 ? "Medium" : "Low";
+
+// ---------- layout ----------
+const COLX = [0, 220, 460, 720], NODE_W = [140, 190, 200, 230], NODE_H = 34, GAP = 10;
+function layout() {
+  let y = 0; const vis = [];
+  (function walk(n) {
+    vis.push(n);
+    const kids = n.open && n.c ? n.c : [];
+    if (!kids.length) { n.y = y; y += NODE_H + GAP; }
+    else { kids.forEach(walk); n.y = (kids[0].y + kids[kids.length - 1].y) / 2; }
+    n.x = COLX[n.depth];
+  })(DATA);
+  return vis;
+}
+
+// ---------- render ----------
+const NS = "http://www.w3.org/2000/svg";
+const el = (t, a = {}) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+const gNodes = document.getElementById("nodes"), gLinks = document.getElementById("links");
+const nodeEls = new Map();
+
+function render() {
+  const vis = layout(); const visSet = new Set(vis);
+  gLinks.innerHTML = "";
+  vis.forEach(n => {
+    if (!n.parent) return;
+    const p = n.parent, x1 = p.x + NODE_W[p.depth], y1 = p.y + NODE_H / 2, x2 = n.x, y2 = n.y + NODE_H / 2, mx = (x1 + x2) / 2;
+    gLinks.appendChild(el("path", { class: "link", d: `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`, opacity: branchPasses(n) ? 1 : .15 }));
+  });
+  // remove hidden
+  for (const [n, g] of nodeEls) if (!visSet.has(n)) { g.remove(); nodeEls.delete(n); }
+  vis.forEach(n => {
+    let g = nodeEls.get(n);
+    if (!g) {
+      g = el("g", { class: "node" });
+      const startP = n.parent && nodeEls.has(n.parent) ? n.parent : n;
+      g.style.transform = `translate(${startP.x}px,${startP.y}px)`;
+      g.appendChild(el("rect", { width: NODE_W[n.depth], height: NODE_H, rx: n.c ? 17 : 6 }));
+      const t = el("text", { x: 12, y: n.c ? 21 : 15 }); g.appendChild(t);
+      if (!n.c) g.appendChild(el("text", { class: "sub", x: 12, y: 28 }));
+      if (n.c) g.appendChild(el("text", { class: "sub", x: NODE_W[n.depth] - 22, y: 21 }));
+      g.addEventListener("click", e => { e.stopPropagation(); onNodeClick(n); });
+      gNodes.appendChild(g); nodeEls.set(n, g);
+      requestAnimationFrame(() => g.style.transform = `translate(${n.x}px,${n.y}px)`);
+    } else g.style.transform = `translate(${n.x}px,${n.y}px)`;
+    const col = nodeColor(n), r = g.querySelector("rect");
+    r.setAttribute("fill", n.c ? col + "33" : col + "2b"); r.setAttribute("stroke", col);
+    const [t, s] = g.querySelectorAll("text");
+    t.textContent = n.c ? `${n.n} (${leaves(n).filter(passes).length})` : n.n;
+    if (n.c) s.textContent = n.open ? "−" : "+";
+    else if (state.view === "owner" && n.biz) { const M = bizModel(n); s.textContent = `Start ${n.biz.start} · up to ${fmtM(M.ceil.profit)}/yr`; }
+    else if (n.kind === "biz") s.textContent = `Business only · Start ${n.biz.start}/100`;
+    else s.textContent = (n.med ? `Median ${fmtK(n.med)}${n.match === "exact" ? " ✓" : " (group)"}`
+      : n.ato ? `ATO median ${fmtK(n.ato.sal)}`
+      : `${fmtK(n.lo)}–${fmtK(n.hi)}${n.src === "US" ? " ⚠US→AUD" : " est."}`) + ` · AI ${n.ai}`;
+    g.classList.toggle("dim", !branchPasses(n));
+    g.classList.toggle("sel", n === state.sel);
+  });
+  renderLegend();
+}
+
+function onNodeClick(n) {
+  if (n.c && n.depth > 0) n.open = !n.open;
+  state.sel = n; render(); renderPanel();
+}
+
+// ---------- side panel ----------
+const panel = document.getElementById("panel");
+function crumb(n) { const p = []; for (let x = n.parent; x; x = x.parent) p.unshift(x.n); return p.join(" › "); }
+function meter(pct, color, from = 0) {
+  return `<div class="meter"><div class="fill" style="left:${from}%;width:${Math.max(pct - from, 2)}%;background:${color}"></div></div>`;
+}
+
+function renderPanel() {
+  const n = state.sel;
+  if (!n.c) return renderOccupation(n);
+  const rows = leaves(n).filter(passes);
+  const { key, dir } = state.sort;
+  const bz = (o, f) => { const M = bizModel(o); return M ? f(M) : -1; };
+  const val = { ai: o => o.ai, margin: o => o.m[1], salary: o => sal(o), train: o => o.t, name: o => o.n,
+    start: o => o.biz ? o.biz.start : -1, solo: o => bz(o, M => M.tiers[0].profit), ceiling: o => bz(o, M => M.ceil.profit), surv: o => bz(o, M => M.survAll ?? -1) };
+  rows.sort((a, b) => { const x = val[key](a), y = val[key](b); return (x > y ? 1 : x < y ? -1 : 0) * dir; });
+  const th = (k, label) => `<th data-k="${k}" class="${key === k ? "on" : ""}">${label}${key === k ? (dir > 0 ? " ▲" : " ▼") : ""}</th>`;
+  panel.innerHTML = `
+    <h2>${n.n}</h2><div class="crumb">${crumb(n) || "All sectors"} · ${rows.length} jobs shown</div>
+    ${n.depth === 0 ? `<p class="help">Click a sector to open it. Click a job to see detail. Click column titles to rank. Use the filters at the top.</p>` : ""}
+    ${state.view === "owner" ? `<div class="card"><h3>Ranked businesses (owner view)</h3>
+    <table><thead><tr>${th("name", "Business")}${th("start", "Start")}${th("solo", "Solo profit")}${th("ceiling", "Ceiling")}${th("surv", "Survive 4y")}</tr></thead>
+    <tbody>${rows.filter(o => o.biz).map(o => { const M = bizModel(o); return `<tr class="row" data-id="${o.id}">
+      <td>${o.biz.name}${o.kind === "biz" ? "" : `<div style="color:var(--muted);font-size:11px">from ${o.n}</div>`}</td>
+      <td><span class="pill" style="background:${startColor(o.biz.start)}">${o.biz.start}</span></td>
+      <td>${fmtM(M.tiers[0].profit)}</td>
+      <td><span class="pill" style="background:${ceilColor(M.ceil.profit)}">${fmtM(M.ceil.profit)}</span></td>
+      <td>${M.survAll != null ? M.survAll.toFixed(0) + "%" : "–"}</td></tr>`; }).join("")}</tbody></table>
+    <p class="help">Start = can one person start it (0–100, estimate). Solo profit = owner profit at ~$120k turnover. Ceiling = owner profit at the biggest size at least 0.5% of AU businesses in this industry reach. Survive 4y = share of businesses still trading after 4 years (ABS).</p>
+    </div>` : `<div class="card"><h3>Ranked jobs</h3>
+    <table><thead><tr>${th("name", "Job")}${th("ai", "AI risk")}${th("margin", "Margin")}${th("salary", "Salary")}${th("train", "Training")}</tr></thead>
+    <tbody>${rows.map(o => `<tr class="row" data-id="${o.id}">
+      <td>${o.n} ${qTag(o, true)}</td>
+      <td><span class="pill" style="background:${aiColor(o.ai)}">${o.ai}</span></td>
+      <td><span class="pill" style="background:${marginColor(o.m[1])}">${o.m[0]}–${o.m[1]}%</span></td>
+      <td>${o.kind === "biz" ? '<span style="color:var(--muted)">owner only</span>' : o.med ? fmtK(o.med) + ' <span style="color:var(--muted)">med</span>' : o.ato ? fmtK(o.ato.sal) + ' <span style="color:var(--muted)">ATO</span>' : `${fmtK(o.lo)}–${fmtK(o.hi)}`}</td>
+      <td style="color:var(--muted)">${TRAINING[o.t].short}</td></tr>`).join("")}</tbody></table>
+    </div>`}
+    ${rows.length ? "" : `<p class="help">No jobs match the filters.</p>`}
+    ${disclaimer()}`;
+  panel.querySelectorAll("th").forEach(h => h.onclick = () => {
+    const k = h.dataset.k; state.sort = { key: k, dir: state.sort.key === k ? -state.sort.dir : (["margin", "salary", "start", "solo", "ceiling", "surv"].includes(k) ? -1 : 1) }; renderPanel();
+  });
+  panel.querySelectorAll("tr.row").forEach(r => r.onclick = () => selectById(+r.dataset.id));
+}
+
+function bizCard(o) {
+  const b = o.biz, M = bizModel(o), ind = o.ind; if (!M) return "";
+  const c = M.ceil, pct = v => v >= 0.1 ? (v * 100).toFixed(0) + "%" : v >= 0.001 ? (v * 100).toFixed(1) + "%" : "<0.1%";
+  return `<div class="card"><h3>Own the business: ${b.name}</h3>
+    <div style="display:flex;gap:12px;align-items:baseline"><div class="big" style="color:${startColor(b.start)}">${b.start}/100</div><div><b>Can one person start it?</b> ${startLabel(b.start)}</div></div>
+    ${meter(b.start, startColor(b.start))}
+    <div class="note">Money to start: <b>${b.cap[0] ? fmtM(b.cap[0]) : "$0"} – ${fmtM(b.cap[1])}</b>. Barrier: ${b.lic}.</div>
+    <table class="ladder" style="margin-top:10px"><thead><tr><th>Size (turnover)</th><th>AU businesses</th><th>Owner profit / yr</th><th>Survive 4y</th></tr></thead><tbody>
+    ${M.tiers.map(t => `<tr style="${t === c ? "background:#1d2a1f" : t.blocked ? "opacity:.45" : ""}">
+      <td><b>${t.label}</b><div class="note" style="margin:0">${t.range}</div></td>
+      <td>${t.n.toLocaleString()}<div class="note" style="margin:0">${pct(t.share)}</div></td>
+      <td>${t.blocked ? '<span class="note">Not open to this path</span>' : `<b>${fmtM(t.profit)}</b>${t.msrc === "est" || t.extrap ? "*" : ""}<div class="note" style="margin:0">${Math.round(t.margin)}% of ${fmtM(t.T)}</div>`}</td>
+      <td>${t.surv != null ? t.surv.toFixed(0) + "%" : "–"}</td></tr>`).join("")}
+    </tbody></table>
+    <div class="note" style="margin-top:8px"><b>Ceiling:</b> ${c.n.toLocaleString()} of ${ind.total.toLocaleString()} ${ind.label.toLowerCase()} businesses (${pct(c.share)}) are "${c.label.toLowerCase()}" size (${c.range}).
+      At ${fmtM(c.T)} turnover the owner could make about <b>${fmtM(c.profit)} a year</b> before tax.</div>
+    <div class="note">${b.scale}</div>
+    <div class="note" style="margin-top:8px">
+      Business counts: <a href="${ABS_URL}" target="_blank" rel="noopener">${ABS_SOURCE}</a>, ANZSIC ${b.anz} ${ind.label}.<br>
+      Margins: ${o.bm ? `<a href="${ATO_BM_URL}${b.ato}" target="_blank" rel="noopener">${ATO_BM_SOURCE}</a> (100% − average total expenses). Includes the owner's own pay.` : "estimate (no ATO benchmark for this industry)."}
+      ${o.bm ? " * = $2m+ sizes use the ATO top band margin, so treat as an estimate." : " * = estimate."}<br>
+      Survival: ABS, ${ind.sub} businesses trading in June 2021 still trading in June 2025${M.survAll != null ? ` (all sizes: ${M.survAll.toFixed(0)}%)` : ""}.<br>
+      Owner profit = example turnover × margin. Start score and money to start are estimates.</div>
+  </div>`;
+}
+
+function renderOccupation(o) {
+  const salPct = v => v / 600000 * 100;
+  const owner = state.view === "owner" || o.kind === "biz";
+  if (o.kind === "biz") {
+    panel.innerHTML = `<h2>${o.n}</h2><div class="crumb">${crumb(o)} · ${qTag(o)}</div>
+      <p class="help">A business path, not one job. There is no employee salary for this.</p>
+      ${bizCard(o)}
+      <div class="card"><h3>Training needed to start</h3><div class="big" style="font-size:16px">${TRAINING[o.t].label}</div></div>
+      <div class="card"><h3>Disrupted by AI / automation</h3><div class="big" style="color:${aiColor(o.ai)}">${o.ai}/100 · ${aiLabel(o.ai)}</div>${meter(o.ai, aiColor(o.ai))}</div>
+      <button id="back">← Back to ${o.parent.n}</button>${disclaimer()}`;
+    document.getElementById("back").onclick = () => { state.sel = o.parent; render(); renderPanel(); };
+    return;
+  }
+  panel.innerHTML = `
+    <h2>${o.n}</h2><div class="crumb">${crumb(o)}</div>
+    ${owner ? bizCard(o) : ""}
+    <div class="card"><h3>Salary (AUD / year, full-time, before tax)</h3>
+      ${o.med ? `<div class="big">${fmtK(o.med)} <span style="font-size:13px;color:var(--muted);font-weight:400">median</span></div>
+        <div class="note">Typical range (estimate): ${fmtK(o.lo)} – ${fmtK(o.hi)}</div>`
+        : `<div class="big">${fmtK(o.lo)} – ${fmtK(o.hi)}</div><div class="note">Typical range</div>`}
+      <div class="meter"><div class="fill" style="left:${salPct(o.lo)}%;width:${Math.max(salPct(o.hi) - salPct(o.lo), 2)}%;background:${o.sector.color}"></div>
+        ${o.med ? `<div style="position:absolute;top:-4px;bottom:-4px;width:3px;background:#fff;border-radius:2px;left:calc(${salPct(o.med)}% - 1px)"></div>` : ""}</div>
+      <div class="scale"><span>$0</span><span>$300k</span><span>$600k</span></div>
+      <div style="margin-top:8px">${qTag(o)}</div>
+      ${o.med ? `<div class="note">Source: <a href="${JSA_URL}${o.ref}" target="_blank" rel="noopener">${JSA_SOURCE}</a>.
+          ANZSCO ${o.ref.split("-")[0]}${o.match === "group" ? " (broader group: " + o.ref.split("-").slice(1).join(" ") + ")" : ""}.
+          $${Math.round(o.med / 52).toLocaleString()}/week × 52. Employees only: owners and self-employed are not counted.</div>`
+      : o.src === "US" ? `<div class="note">US source: US$${Math.round(o.usd[0] / 1000)}k – US$${Math.round(o.usd[1] / 1000)}k × ${USD_TO_AUD} rate. No AU figure found.</div>`
+      : `<div class="note">Jobs and Skills Australia has no median for this job. This range is an estimate${o.ato ? ". Real ATO tax figures are below" : " only"}.</div>`}
+      ${o.ato ? `<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--line)">
+        <div style="display:flex;gap:16px">
+          <div><div class="note" style="margin:0">Median salary / wage</div><b>${fmtK(o.ato.sal)}</b></div>
+          <div><div class="note" style="margin:0">Median total income</div><b>${fmtK(o.ato.total)}</b></div>
+          <div><div class="note" style="margin:0">People</div><b>${o.ato.people.toLocaleString()}</b></div>
+        </div>
+        <div class="note"><span class="tag ato">ATO</span> All taxpayers, <a href="${ATO_URL}" target="_blank" rel="noopener">${ATO_SOURCE}</a>. Occupation: ${o.ato.occ}.
+          Includes part-time and self-employed. Total income adds business and other income${o.ato.total > o.ato.sal * 1.25 ? " — <b>the big gap here suggests many earn through their own business</b>" : ""}.</div>
+      </div>` : ""}
+      ${o.bandMoved ? `<div class="note">Range changed to fit the official median (old estimate: ${fmtK(o.bandMoved[0])} – ${fmtK(o.bandMoved[1])}).</div>` : ""}
+    </div>
+    <div class="card"><h3>Training needed</h3><div class="big" style="font-size:16px">${TRAINING[o.t].label}</div></div>
+    <div class="card"><h3>Replaced by AI likelihood</h3>
+      <div class="big" style="color:${aiColor(o.ai)}">${o.ai}/100 · ${aiLabel(o.ai)}</div>
+      ${meter(o.ai, aiColor(o.ai))}
+      <div class="scale"><span>Safe</span><span>Exposed</span></div>
+    </div>
+    <div class="card"><h3>Own-business margin (net profit, estimate)</h3>
+      <div class="big" style="color:${marginColor(o.m[1])}">${o.m[0]}% – ${o.m[1]}%</div>
+      ${meter(o.m[1] / 80 * 100, marginColor(o.m[1]), o.m[0] / 80 * 100)}
+      <div class="scale"><span>0%</span><span>40%</span><span>80%</span></div>
+      <div style="margin-top:6px"><b>${ceilingLabel(o.m[1])}</b></div>
+      <div class="note">${o.note}</div>
+    </div>
+    ${owner ? "" : bizCard(o)}
+    <button id="back">← Back to ${o.parent.n}</button>
+    ${disclaimer()}`;
+  document.getElementById("back").onclick = () => { state.sel = o.parent; render(); renderPanel(); };
+}
+
+const disclaimer = () => `<div class="disclaimer">For exploring, not advice.<br>
+  <span class="tag au">✓</span> = median from ${JSA_SOURCE}, exact job group.
+  <span class="tag grp">grp</span> = same source, broader job group.
+  <span class="tag ato">ATO</span> = only ATO tax data (all workers, incl. part-time).
+  <span class="tag est">est</span> = no official AU figure, estimate only.
+  <span class="tag us">US</span> = US wage converted to AUD at ${USD_TO_AUD}.<br>
+  Medians count employees only. Owners and self-employed (common in trades, medicine and law) can earn more or less.
+  Ranges, AI risk and margin are judgement scores. Edit <code>data.js</code> to change them.<br>
+  Owner view: business counts and survival from ABS 8165.0 (2021–2025), margins from ATO small business benchmarks 2023-24.
+  Start score, money to start and $2m+ margins are estimates. Edit <code>tools/build_biz.py</code> and re-run it to change them.</div>`;
+
+function selectById(id) {
+  const o = ALL.find(x => x.id === id);
+  for (let p = o.parent; p; p = p.parent) p.open = true;
+  state.sel = o; render(); renderPanel(); centerOn(o);
+}
+
+// ---------- legend ----------
+function renderLegend() {
+  const L = document.getElementById("legend");
+  const g = `linear-gradient(90deg,#30a46c,#ffb224,#e5484d)`;
+  const map = {
+    ai: ["AI replacement risk", "Low", "High"],
+    margin: ["Own-business margin ceiling", "70%+", "~5%"],
+    salary: ["Salary (median)", "$250k+", "Low"],
+    ceiling: ["Owner earnings ceiling", "$5m+", "$50k"],
+    start: ["How easy to start alone", "Easy", "Hard"],
+    survival: ["Business survival (4 yrs)", "80%+", "45%"],
+  };
+  if (state.colorBy === "sector") { L.innerHTML = "Colour = sector"; return; }
+  const [t, a, b] = map[state.colorBy];
+  L.innerHTML = `${t}<div class="grad" style="background:${g}"></div><div class="scale"><span>${a}</span><span>${b}</span></div>
+    <div style="margin-top:4px">✓ = official AU median · (group) = broader group<br>ATO = tax data only · est. = estimate · ⚠US→AUD = US wage converted</div>`;
+}
+
+// ---------- pan / zoom ----------
+const svg = document.getElementById("svg"), vp = document.getElementById("vp"), stage = document.getElementById("stage");
+let view = { x: 40, y: 40, k: 1 };
+const applyView = () => vp.setAttribute("transform", `translate(${view.x},${view.y}) scale(${view.k})`);
+function zoomAt(f, cx, cy) {
+  const k = Math.max(.3, Math.min(2.5, view.k * f)); f = k / view.k;
+  view.x = cx - (cx - view.x) * f; view.y = cy - (cy - view.y) * f; view.k = k; applyView();
+}
+svg.addEventListener("wheel", e => { e.preventDefault(); const r = svg.getBoundingClientRect(); zoomAt(Math.exp(-e.deltaY * .0015), e.clientX - r.left, e.clientY - r.top); }, { passive: false });
+let drag = null;
+svg.addEventListener("pointerdown", e => { if (e.target.closest(".node")) return; drag = { x: e.clientX - view.x, y: e.clientY - view.y }; stage.classList.add("drag"); });
+window.addEventListener("pointermove", e => { if (!drag) return; view.x = e.clientX - drag.x; view.y = e.clientY - drag.y; applyView(); });
+window.addEventListener("pointerup", () => { drag = null; stage.classList.remove("drag"); });
+function fit() {
+  const vis = layout(), r = svg.getBoundingClientRect();
+  const maxX = Math.max(...vis.map(n => n.x + NODE_W[n.depth])), minY = Math.min(...vis.map(n => n.y)), maxY = Math.max(...vis.map(n => n.y + NODE_H));
+  const k = Math.min(1.4, (r.width - 60) / maxX, (r.height - 60) / (maxY - minY));
+  view = { k, x: 30, y: (r.height - (maxY + minY) * k) / 2 }; applyView();
+}
+function centerOn(n) { const r = svg.getBoundingClientRect(); view.x = r.width / 2 - (n.x + 100) * view.k; view.y = r.height / 2 - n.y * view.k; applyView(); }
+document.getElementById("zin").onclick = () => { const r = svg.getBoundingClientRect(); zoomAt(1.2, r.width / 2, r.height / 2); };
+document.getElementById("zout").onclick = () => { const r = svg.getBoundingClientRect(); zoomAt(1 / 1.2, r.width / 2, r.height / 2); };
+document.getElementById("fit").onclick = fit;
+
+// ---------- controls ----------
+const chips = document.getElementById("trainChips");
+TRAINING.forEach(t => {
+  const c = document.createElement("span"); c.className = "chip on"; c.textContent = t.short; c.title = t.label;
+  c.onclick = () => { state.train.has(t.id) ? state.train.delete(t.id) : state.train.add(t.id); c.classList.toggle("on"); render(); renderPanel(); };
+  chips.appendChild(c);
+});
+document.getElementById("colorBy").onchange = e => { state.colorBy = e.target.value; render(); };
+document.getElementById("easyOnly").onchange = e => { state.easyOnly = e.target.checked; render(); renderPanel(); };
+function setView(v) {
+  state.view = v;
+  document.getElementById("vEmp").classList.toggle("on", v === "employee");
+  document.getElementById("vOwn").classList.toggle("on", v === "owner");
+  state.colorBy = v === "owner" ? "ceiling" : "ai";
+  document.getElementById("colorBy").value = state.colorBy;
+  state.sort = v === "owner" ? { key: "ceiling", dir: -1 } : { key: "ai", dir: 1 };
+  render(); renderPanel();
+}
+document.getElementById("vEmp").onclick = () => setView("employee");
+document.getElementById("vOwn").onclick = () => setView("owner");
+document.getElementById("auOnly").onchange = e => { state.auOnly = e.target.checked; render(); renderPanel(); };
+document.getElementById("search").oninput = e => {
+  state.search = e.target.value.trim().toLowerCase();
+  if (state.search) (function open(n) { if (n.c) { n.open = leaves(n).some(passes); n.c.forEach(open); } })(DATA);
+  render(); renderPanel();
+};
+const setAll = v => (function f(n) { if (n.c) { if (n.depth) n.open = v; n.c.forEach(f); } })(DATA);
+document.getElementById("expandAll").onclick = () => { setAll(true); render(); fit(); };
+document.getElementById("collapseAll").onclick = () => { setAll(false); state.sel = DATA; render(); renderPanel(); fit(); };
+
+render(); renderPanel(); fit();
+window.addEventListener("resize", fit);
+</script>
+</body>
+</html>
