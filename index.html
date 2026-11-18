@@ -24,7 +24,20 @@
   .chip { padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); cursor: pointer; font-size: 11px;
     color: var(--muted); user-select: none; }
   .chip.on { background: #26324a; border-color: #3e63dd; color: var(--text); }
-  main { display: grid; grid-template-columns: 1fr 400px; min-height: 0; }
+  main { display: grid; grid-template-columns: 1fr 6px var(--pw, 400px); min-height: 0; }
+  .resizer { cursor: col-resize; background: var(--line); position: relative; touch-action: none; outline: none; transition: background .15s; }
+  .resizer::after { content: ""; position: absolute; top: 0; bottom: 0; left: -5px; right: -5px; } /* wider grab area */
+  .resizer:hover, .resizer:focus-visible, .resizer.drag { background: #3e63dd; }
+  .resizer .grip { position: absolute; top: 50%; left: 1px; width: 4px; height: 36px; margin-top: -18px; border-radius: 2px;
+    background: repeating-linear-gradient(#8b93a7 0 2px, transparent 2px 5px); opacity: .6; pointer-events: none; }
+  body.resizing, body.resizing * { cursor: col-resize !important; user-select: none !important; }
+  aside { border-left: 0 !important; }
+  main.collapsed { grid-template-columns: 1fr 0 0; }
+  main.collapsed .resizer, main.collapsed aside { display: none; }
+  #expandPanel { display: none; position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 5;
+    padding: 18px 6px; border-radius: 8px 0 0 8px; border-right: 0; font-size: 16px; line-height: 1; background: var(--panel); }
+  #expandPanel:hover { border-color: #3e63dd; color: #fff; }
+  main.collapsed #expandPanel { display: block; }
   #stage { position: relative; overflow: hidden; cursor: grab; }
   #stage.drag { cursor: grabbing; }
   svg { width: 100%; height: 100%; display: block; }
@@ -70,7 +83,12 @@
   .pill { display: inline-block; min-width: 30px; text-align: center; padding: 1px 5px; border-radius: 4px; font-weight: 600; font-size: 11px; color: #111; }
   .help { color: var(--muted); font-size: 12px; }
   .disclaimer { color: var(--muted); font-size: 11px; margin-top: 14px; border-top: 1px solid var(--line); padding-top: 10px; }
-  @media (max-width: 900px) { main { grid-template-columns: 1fr; grid-template-rows: 55% 45%; } aside { border-left: 0; border-top: 1px solid var(--line); } }
+  @media (max-width: 900px) {
+    main, main.collapsed { grid-template-columns: 1fr; grid-template-rows: 55% 45%; }
+    main.collapsed aside { display: block; }
+    .resizer, #expandPanel, main.collapsed #expandPanel { display: none; }
+    aside { border-top: 1px solid var(--line); }
+  }
 </style>
 </head>
 <body>
@@ -103,15 +121,18 @@
     <div id="stage">
       <svg id="svg"><g id="vp"><g id="links"></g><g id="nodes"></g></g></svg>
       <div class="legend" id="legend"></div>
+      <button id="expandPanel" title="Show the list panel" aria-label="Show the list panel">‹</button>
       <div class="zoom"><button id="zin">+</button><button id="zout">−</button><button id="fit">Fit</button></div>
     </div>
+    <div class="resizer" id="resizer" role="separator" aria-orientation="vertical" aria-controls="panel" tabindex="0"
+      title="Drag to resize. Drag far right to hide. Arrow keys resize, Enter hides."><div class="grip"></div></div>
     <aside id="panel"></aside>
   </main>
 </div>
 
-<script src="data.js?v=3"></script>
-<script src="biz.js?v=3"></script>
-<script src="groups.js?v=3"></script>
+<script src="data.js?v=4"></script>
+<script src="biz.js?v=4"></script>
+<script src="groups.js?v=4"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -643,6 +664,43 @@ document.getElementById("search").oninput = e => {
 const setAll = v => (function f(n) { if (n.c) { if (n.depth) n.open = v; n.c.forEach(f); } })(DATA);
 document.getElementById("expandAll").onclick = () => { setAll(true); render(); fit(); };
 document.getElementById("collapseAll").onclick = () => { setAll(false); state.sel = DATA; render(); renderPanel(); fit(); };
+
+// ---------- resizable / collapsible side panel ----------
+(function () {
+  const mainEl = document.querySelector("main"), rz = document.getElementById("resizer");
+  const MIN_W = 280, COLLAPSE_W = 200, MIN_GRAPH = 320;
+  let width = +localStorage.getItem("panelW") || 400;
+  let collapsed = localStorage.getItem("panelCollapsed") === "1";
+  const maxW = () => Math.max(MIN_W, mainEl.clientWidth - MIN_GRAPH);
+  function apply(save = true) {
+    width = Math.min(Math.max(width, MIN_W), maxW());
+    mainEl.style.setProperty("--pw", width + "px");
+    mainEl.classList.toggle("collapsed", collapsed);
+    rz.setAttribute("aria-valuenow", width);
+    if (save) { localStorage.setItem("panelW", width); localStorage.setItem("panelCollapsed", collapsed ? "1" : "0"); }
+  }
+  let dragging = false, startW = width;
+  rz.addEventListener("pointerdown", e => {
+    dragging = true; startW = width; rz.setPointerCapture(e.pointerId); rz.classList.add("drag"); document.body.classList.add("resizing"); e.preventDefault();
+  });
+  rz.addEventListener("pointermove", e => {
+    if (!dragging) return;
+    const w = mainEl.getBoundingClientRect().right - e.clientX - 3;
+    if (w < COLLAPSE_W) { collapsed = true; apply(false); return; }   // too small: collapse
+    collapsed = false; width = w; apply(false);
+  });
+  const end = () => { if (!dragging) return; dragging = false; if (collapsed) width = startW; rz.classList.remove("drag"); document.body.classList.remove("resizing"); apply(); };
+  rz.addEventListener("pointerup", end); rz.addEventListener("pointercancel", end);
+  rz.addEventListener("dblclick", () => { width = 400; apply(); });
+  rz.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft") { width += 20; apply(); e.preventDefault(); }
+    else if (e.key === "ArrowRight") { if (width - 20 < MIN_W) collapsed = true; else width -= 20; apply(); e.preventDefault(); }
+    else if (e.key === "Enter") { collapsed = true; apply(); document.getElementById("expandPanel").focus(); }
+  });
+  document.getElementById("expandPanel").onclick = () => { collapsed = false; apply(); rz.focus(); };
+  window.addEventListener("resize", () => apply(false));
+  apply(false);
+})();
 
 render(); renderPanel(); fit();
 window.addEventListener("resize", fit);
