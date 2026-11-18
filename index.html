@@ -234,11 +234,11 @@
       <select id="colorBy" aria-label="Colour the map by">
         <option value="rep">AI replaces the job (estimate)</option>
         <option value="ai">AI can do the tasks (official)</option>
-        <option value="margin">Business margin ceiling</option>
         <option value="salary">Salary (midpoint)</option>
         <option value="sector">Sector</option>
         <optgroup label="Business owner">
           <option value="ceiling">Owner earnings ceiling</option>
+          <option value="margin">Business margin (net)</option>
           <option value="start">How easy to start alone</option>
           <option value="survival">Business survival (4 yrs)</option>
         </optgroup>
@@ -279,9 +279,9 @@
   </main>
 </div>
 
-<script src="data.js?v=20"></script>
-<script src="biz.js?v=20"></script>
-<script src="groups.js?v=20"></script>
+<script src="data.js?v=22"></script>
+<script src="biz.js?v=22"></script>
+<script src="groups.js?v=22"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -444,6 +444,11 @@ function bizModel(o) {
   tiers.forEach(t => { if (!t.blocked && t.share >= 0.005 && t.n >= 20) ceil = t; });
   return o._bm = { tiers, ceil, survAll: ind.surv ? ind.surv[6] : null };
 }
+function marginRange(o) {
+  const M = bizModel(o); if (!M) return null;
+  const ms = M.tiers.filter(t => !t.blocked).map(t => Math.round(t.margin));
+  return [Math.min(...ms), Math.max(...ms)];
+}
 const fmtM = v => v >= 1e6 ? (v >= 1e7 ? AUD0 : AUD1).format(v) : fmtK(v);
 const startLabel = v => v >= 75 ? "Yes – easy to start small" : v >= 50 ? "Possible with savings or a loan" : v >= 30 ? "Hard – big capital or licences" : "Not realistic alone";
 // data quality: "v" verified exact, "g" verified broader group, "e" AU estimate, "us" US converted
@@ -500,7 +505,7 @@ const startColor = v => ramp(1 - v / 100);
 const ceilColor = v => ramp(1 - Math.log10(Math.max(v, 5e4) / 5e4) / 2);
 const survColor = v => ramp(1 - (v - 45) / 35);
 const METRIC = {
-  ai: [o => o.ai, aiColor], rep: [o => o.rep, repColor], margin: [o => o.m ? o.m[1] : null, marginColor], salary: [o => sal(o), salColor],
+  ai: [o => o.ai, aiColor], rep: [o => o.rep, repColor], margin: [o => { const r = marginRange(o); return r ? r[1] : null; }, marginColor], salary: [o => sal(o), salColor],
   start: [o => o.biz ? o.biz.start : null, startColor],
   ceiling: [o => { const M = bizModel(o); return M ? M.ceil.profit : null; }, ceilColor],
   survival: [o => { const M = bizModel(o); return M ? M.survAll : null; }, survColor],
@@ -732,37 +737,39 @@ function announce(t) { if (t !== lastAnnounce) { lastAnnounce = t; document.getE
 function renderPanel() {
   const n = state.sel;
   if (!n.c) return renderOccupation(n);
-  const rows = leaves(n).filter(passes);
+  // in business-owner mode the list only holds jobs that have a business path
+  const rows = leaves(n).filter(o => passes(o) && (state.view !== "owner" || o.biz));
+  const unit = state.view === "owner" ? "businesses" : "jobs";
   const { key, dir } = state.sort;
   const bz = (o, f) => { const M = bizModel(o); return M ? f(M) : -1; };
-  const val = { ai: o => o.ai ?? -1, rep: o => o.rep ?? -1, margin: o => o.m ? o.m[1] : -1, salary: o => sal(o) ?? -1, train: o => o.t, name: o => o.n,
+  const val = { ai: o => o.ai ?? -1, rep: o => o.rep ?? -1, margin: o => { const r = marginRange(o); return r ? r[1] : -1; }, salary: o => sal(o) ?? -1, train: o => o.t, name: o => o.n,
     start: o => o.biz ? o.biz.start : -1, solo: o => bz(o, M => M.tiers[0].profit), ceiling: o => bz(o, M => M.ceil.profit), surv: o => bz(o, M => M.survAll ?? -1) };
   rows.sort((a, b) => { const x = val[key](a), y = val[key](b); return (x > y ? 1 : x < y ? -1 : 0) * dir; });
   const th = (k, label, tip) => `<th class="${key === k ? "on" : ""}" aria-sort="${key === k ? (dir > 0 ? "ascending" : "descending") : "none"}"><button data-k="${k}"${tip ? ` title="${tip}"` : ""}>${label}<span aria-hidden="true">${key === k ? (dir > 0 ? " ▲" : " ▼") : ""}</span></button></th>`;
   const LIMIT = 150, all = state.showAllFor === n, total = rows.length;
   const shown = all ? rows : rows.slice(0, LIMIT);
-  const more = total > shown.length ? `<button class="showall" id="showAll">Show all ${total} jobs</button>` : "";
-  announce(`${total} jobs shown`);
+  const more = total > shown.length ? `<button class="showall" id="showAll">Show all ${total} ${unit}</button>` : "";
+  announce(`${total} ${unit} shown`);
   panel.innerHTML = `
-    ${breadcrumb(n)}<h2>${n.depth === 0 ? "All jobs" : n.n}</h2><div class="crumb">${rows.length} jobs shown</div>
+    ${breadcrumb(n)}<h2>${n.depth === 0 ? "All jobs" : n.n}</h2><div class="crumb">${rows.length} ${unit} shown</div>
     ${n.depth === 0 ? `<p class="help">Click a sector to open it. Click a job to see detail. Click column titles to rank. Use the filters at the top.</p>` : ""}
     ${state.view === "owner" ? `<div class="card"><h3>Ranked businesses (business owner)</h3>
-    <div class="tablewrap"><table><thead><tr>${th("name", "Business")}${th("start", "Start")}${th("solo", "Solo profit")}${th("ceiling", "Ceiling")}${th("surv", "Survive 4y")}</tr></thead>
-    <tbody>${shown.filter(o => o.biz).map(o => { const M = bizModel(o); return `<tr class="row" data-id="${o.id}">
+    <div class="tablewrap"><table><thead><tr>${th("name", "Business")}${th("start", "Start")}${th("solo", "Solo profit")}${th("margin", "Margin", "Net profit margin (profit as a share of turnover) across business sizes. ATO small business benchmarks where available, otherwise an estimate.")}${th("ceiling", "Ceiling")}${th("surv", "Survive 4y")}</tr></thead>
+    <tbody>${shown.map(o => { const M = bizModel(o); return `<tr class="row" data-id="${o.id}">
       <td><button class="rowbtn">${o.biz.name}</button>${o.kind === "biz" ? "" : `<div style="color:var(--muted);font-size:11px">from ${o.n}</div>`}</td>
       <td><span class="pill" style="${pillStyle(startColor(o.biz.start))}">${o.biz.start}</span></td>
       <td>${fmtM(M.tiers[0].profit)}</td>
+      <td>${(r => `<span class="pill" style="${pillStyle(marginColor(r[1]))}">${r[0] === r[1] ? r[0] : r[0] + "–" + r[1]}%</span>`)(marginRange(o))}</td>
       <td><span class="pill" style="${pillStyle(ceilColor(M.ceil.profit))}">${fmtM(M.ceil.profit)}</span></td>
       <td>${M.survAll != null ? M.survAll.toFixed(0) + "%" : "–"}</td></tr>`; }).join("")}</tbody></table></div>${more}
-    <p class="help">Start = can one person start it (0–100, estimate). Solo profit = owner profit at ~$120k turnover. Ceiling = owner profit at the biggest size at least 0.5% of AU businesses in this industry reach. Survive 4y = share of businesses still trading after 4 years (ABS).</p>
+    <p class="help">Start = can one person start it (0–100, estimate). Solo profit = owner profit at ~$120k turnover. Margin = net profit as a share of turnover (a supermarket runs on a few percent; software can reach far higher). Ceiling = owner profit at the biggest size at least 0.5% of AU businesses in this industry reach. Survive 4y = share of businesses still trading after 4 years (ABS).</p>
     </div>` : `<div class="card"><h3>Ranked jobs</h3>
     <p class="sortnote">${sortNote(key, dir)}</p>
-    <div class="tablewrap"><table><thead><tr>${th("name", "Job")}${th("ai", "AI can do", "Share of the job's tasks generative AI could do, out of 100 (official JSA score)")}${th("rep", "AI replaces", "Estimated risk that AI replaces the job, out of 100")}${th("margin", "Margin")}${th("salary", "Salary")}${th("train", "Training")}</tr></thead>
+    <div class="tablewrap"><table><thead><tr>${th("name", "Job")}${th("ai", "AI can do", "Share of the job's tasks generative AI could do, out of 100 (official JSA score)")}${th("rep", "AI replaces", "Estimated risk that AI replaces the job, out of 100")}${th("salary", "Salary")}${th("train", "Training")}</tr></thead>
     <tbody>${shown.map(o => `<tr class="row" data-id="${o.id}">
       <td><button class="rowbtn">${o.n}</button> ${qTag(o, true)}</td>
       <td class="num">${o.ai}<span class="of">/100</span></td>
       <td><span class="pill" style="${pillStyle(repColor(o.rep))}">${o.rep}<span class="of">/100</span></span></td>
-      <td>${o.m ? `<span class="pill" style="${pillStyle(marginColor(o.m[1]))}">${o.m[0]}–${o.m[1]}%</span>` : '<span style="color:var(--muted)">–</span>'}</td>
       <td>${o.kind === "biz" ? '<span style="color:var(--muted)">owner only</span>' : o.med ? fmtK(o.med) + ' <span style="color:var(--muted)">med</span>' : o.ato ? fmtK(o.ato.sal) + ' <span style="color:var(--muted)">ATO</span>' : o.lo != null ? `${fmtK(o.lo)}–${fmtK(o.hi)}` : '<span style="color:var(--muted)">no data</span>'}</td>
       <td style="color:var(--muted)">${TRAINING[o.t].short}</td></tr>`).join("")}</tbody></table></div>${more}
     </div>`}
@@ -916,7 +923,7 @@ function renderOccupation(o) {
         ${o.gen ? "" : "The training level above is set for this specific job."}</div>` : ""}
     </div>
     ${aiCard(o)}
-    ${o.m ? `<div class="card"><h3>Own-business margin (net profit, estimate)</h3>
+    ${o.m && state.view === "owner" ? `<div class="card"><h3>Own-business margin (net profit, estimate)</h3>
       <div class="big" style="color:${marginColor(o.m[1])}">${o.m[0]}% – ${o.m[1]}%</div>
       ${meter(o.m[1] / 80 * 100, marginColor(o.m[1]), o.m[0] / 80 * 100)}
       <div class="scale"><span>0%</span><span>40%</span><span>80%</span></div>
@@ -954,7 +961,7 @@ function renderLegend() {
   const map = {
     ai: ["AI can do the tasks (JSA)", "0", "100", 0, 100],
     rep: ["AI replaces the job (estimate)", "0", "100", 0, 95],
-    margin: ["Own-business margin ceiling", "5%", "70%+", 5, 70],
+    margin: ["Business margin (net)", "0%", "70%+", 0, 70],
     salary: ["Pay (median)", "$20K", "$250K+", 2e4, 2.5e5],
     ceiling: ["Owner earnings ceiling", "$50K", "$5M+", 5e4, 5e6, true],
     start: ["How easy to start alone", "Hard", "Easy", 0, 100],
