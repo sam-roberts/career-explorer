@@ -186,7 +186,38 @@ const ATO = {
 
 };
 
-const DATA = {
+// Official ANZSCO unit group for each hand-checked job (used to place it on the map
+// and to attach official AI exposure, skill level and group pay data).
+const CURATED_CODE = {
+  "General Practitioner": "2531", "Surgeon": "2535", "Anaesthetist": "2532", "Psychiatrist": "2534",
+  "Registered Nurse": "2544", "Physiotherapist": "2525", "Paramedic": "4111", "Psychologist": "2723",
+  "Dentist": "2523", "Pharmacist": "2515", "Genetic Counsellor": "2519", "Aged Care Worker": "4231",
+  "Disability Support Worker": "4231", "Accountant": "2211", "Bookkeeper": "5512", "Financial Adviser": "2223",
+  "Mortgage Broker": "2221", "Actuary": "2241", "Investment Analyst": "2223", "Insurance Underwriter": "5523",
+  "Plumber": "3341", "Electrician": "3411", "Refrigeration & AC Mechanic": "3421", "Roofer": "3333",
+  "Carpenter": "3312", "Bricklayer": "3311", "Plasterer": "3332", "Concreter": "8212", "Landscaper": "3622",
+  "Motor Mechanic": "3212", "Auto Electrician": "3211", "Panel Beater": "3241", "Welder / Fabricator": "3223",
+  "Chef": "3513", "Barista": "4311", "Hairdresser": "3911", "Beauty Therapist": "4511", "Personal Trainer": "4521",
+  "Retail Assistant": "6211", "Real Estate Agent": "6121", "Software Engineer": "2613", "Data Scientist": "2241",
+  "AI / ML Engineer": "2613", "AI Solutions Engineer": "2611", "Cyber Security Analyst": "2621",
+  "IT Support Technician": "3131", "UX / Product Designer": "2611", "Early Childhood Teacher": "2411",
+  "Primary Teacher": "2412", "Secondary Teacher": "2414", "University Lecturer": "2421", "Private Tutor": "2492",
+  "Solicitor": "2713", "Barrister": "2711", "Paralegal": "5991", "Police Officer": "4413", "Firefighter": "4412",
+  "Graphic Designer": "2324", "Copywriter": "2124", "Photographer": "2113", "Video Editor": "2123",
+  "Game Developer": "2612", "Truck Driver": "7331", "Forklift Operator": "7213", "Warehouse Worker": "7411",
+  "Airline Pilot": "2311", "Drone Operator": "2311", "Mining Engineer": "2336", "Drill Operator (FIFO)": "7122",
+  "Solar Installer": "3411", "Wind Turbine Technician": "3422",
+};
+// Where each business-only node sits on the map (closest job group).
+const BIZ_NODE_CODE = {
+  "Fencing Company": "8213", "Painting Company": "3322", "Pest Control Business": "8993",
+  "Commercial Cleaning Company": "8112", "Lawn Mowing & Gardening": "3622", "Gym": "4521",
+  "Supermarket": "1421", "Pub / Bar": "1414", "Vet Clinic": "2347",
+};
+
+// Hand-checked jobs. Their sectors below are no longer used for the map layout:
+// the map is built from the official groups in groups.js.
+const CURATED = {
   n: "Careers",
   c: [
     { n: "Medical & Health", color: "#e5484d", c: [

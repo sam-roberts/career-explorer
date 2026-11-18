@@ -1,11 +1,11 @@
 # Career Explorer (AU)
 
-A node-map explorer of Australian careers. For each job it shows:
+A node-map explorer of Australian careers: all **357 official ANZSCO job groups**, plus 71 hand-checked jobs and 9 business-only paths (373 nodes), in 23 topic categories. For each job it shows:
 
-- **Employee view:** salary (official AU medians where they exist), training needed, AI replacement risk.
+- **Employee view:** salary (official AU medians where they exist), training needed (official skill level), official AI automation exposure.
 - **Owner view:** a business ladder (solo → small → company → large) with real counts of Australian businesses at each size, 4-year survival rates, ATO profit margins, and a "can one person start it?" score.
 
-It is a static site: `index.html`, `data.js` and `biz.js`. No build step and no server.
+It is a static site: `index.html`, `data.js`, `biz.js` and `groups.js`. No build step and no server.
 
 ## Run locally
 
@@ -22,13 +22,22 @@ Then open http://localhost:8765.
 | Full-time employee median earnings | [Jobs and Skills Australia occupation profiles](https://www.jobsandskills.gov.au/data/occupation-and-industry-profiles) (ABS Employee Earnings and Hours, May 2025) | CC BY 4.0 |
 | Salary and total income by occupation | [ATO Taxation Statistics 2023-24, Individuals Table 15](https://data.gov.au/data/dataset/taxation-statistics-2023-24/resource/3286e287-ee87-4be4-87b2-56c5c6602009) | CC BY 2.5 AU |
 | Business counts by turnover, survival | [ABS 8165.0 Counts of Australian Businesses, Jul 2021 – Jun 2025](https://www.abs.gov.au/statistics/economy/business-indicators/counts-australian-businesses-including-entries-and-exits/jul2021-jun2025) | CC BY 4.0 |
+| AI automation and augmentation exposure, topic categories | [JSA Our Gen AI Transition (2025)](https://www.jobsandskills.gov.au/studies/generative-artificial-intelligence-capacity-study/occupation-data-on-ai-exposure) | CC BY 4.0 |
+| Skill level, licensing, job descriptions | [ABS ANZSCO 2022](https://www.abs.gov.au/statistics/classifications/anzsco-australian-and-new-zealand-standard-classification-occupations/2022) | CC BY 4.0 |
 | Small business cost ratios | [ATO Small business benchmarks 2023-24](https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks) | CC BY 4.0 |
 
 Some jobs use US wages converted to AUD; these are tagged in the app.
 
-**Estimates (not official data):** AI replacement risk, own-business margin ranges, salary ranges, start score, money to start, and owner profit for $2m+ firms. For exploring only, not financial or career advice.
+**Estimates (not official data):** own-business margin ranges, salary ranges, start score, money to start, and owner profit for $2m+ firms. For exploring only, not financial or career advice.
 
 ## Editing data
+
+- All job groups: re-fetch with `tools/fetch_groups.py` and `tools/fix_desc.py`, then rebuild:
+
+```bash
+python3 -I tools/build_groups.py > groups.js
+```
+
 
 - Jobs, salaries, AI risk, margins: `data.js`.
 - Business paths (industry mapping, start score, capital, licences): `tools/build_biz.py`, then rebuild:

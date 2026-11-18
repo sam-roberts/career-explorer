@@ -1,0 +1,3228 @@
+{
+"1111": {
+"jsaSlug": "1111-chief-executives-and-managing-directors",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Chief Executives and Managing Directors determine, formulate and review the general policy programs and the overall direction of organisations within the framework established by boards of directors and similar governing bodies."
+},
+"1112": {
+"jsaSlug": "1112-general-managers",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": false,
+"desc": "General Managers plan, organise, direct, control and review the day-to-day operations and major functions of commercial, industrial, government and defence organisations through departmental managers and subordinate executives."
+},
+"1113": {
+"jsaSlug": "1113-legislators",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Legislators represent the interests of people in constituencies as elected members of national, state and territory parliaments and local government authorities."
+},
+"1211": {
+"jsaSlug": "1211-aquaculture-farmers",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Aquaculture Farmers plan, organise, control, coordinate and perform farming operations to breed and raise fish and other aquatic stock."
+},
+"1212": {
+"jsaSlug": "1212-crop-farmers",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": null,
+"desc": null,
+"levelEst": true
+},
+"1213": {
+"jsaSlug": "1213-livestock-farmers",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Livestock Farmers plan, organise, control, coordinate and perform farming operations to breed and raise livestock for the production of breeding stock, milk, eggs, meat, honey, wool and hair."
+},
+"1214": {
+"jsaSlug": "1214-mixed-crop-and-livestock-farmers",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": null,
+"desc": null,
+"levelEst": true
+},
+"1311": {
+"jsaSlug": "1311-advertising-public-relations-and-sales-manager",
+"jsaWeekly": 2677,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Advertising, Public Relations and Sales Managers plan, organise, direct, control and coordinate advertising, public relations, sales and marketing activities within organisations."
+},
+"1321": {
+"jsaSlug": "1321-corporate-services-managers",
+"jsaWeekly": 2932,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Corporate Services Managers plan, organise, direct, control and coordinate the overall administration of organisations."
+},
+"1322": {
+"jsaSlug": "1322-finance-managers",
+"jsaWeekly": 2904,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Finance Managers plan, organise, direct, control and coordinate the financial and accounting activities within organisations."
+},
+"1323": {
+"jsaSlug": "1323-human-resource-managers",
+"jsaWeekly": 2768,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Human Resource Managers plan, organise, direct, control and coordinate the human resource and workplace relations activities within organisations."
+},
+"1324": {
+"jsaSlug": "1324-policy-and-planning-managers",
+"jsaWeekly": 2945,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Policy and Planning Managers plan, organise, direct, control and coordinate policy advice and strategic planning within organisations."
+},
+"1325": {
+"jsaSlug": "1325-research-and-development-managers",
+"jsaWeekly": 2887,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Research and Development Managers plan, organise, direct, control and coordinate research and development activities within organisations."
+},
+"1331": {
+"jsaSlug": "1331-construction-managers",
+"jsaWeekly": 3751,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Construction Managers plan, organise, direct, control and coordinate the construction of engineering projects or buildings and dwellings, and the physical and human resources involved in building and construction."
+},
+"1332": {
+"jsaSlug": "1332-engineering-managers",
+"jsaWeekly": 3519,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Engineering Managers plan, organise, direct, control and coordinate the engineering and technical operations of organisations."
+},
+"1333": {
+"jsaSlug": "1333-importers-exporters-and-wholesalers",
+"jsaWeekly": 1846,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Importers, Exporters and Wholesalers plan, organise, direct, control and coordinate the operations of importing, exporting and wholesaling establishments."
+},
+"1334": {
+"jsaSlug": "1334-manufacturers",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Manufacturers plan, organise, direct, control and coordinate the operations of small manufacturing establishments."
+},
+"1335": {
+"jsaSlug": "1335-production-managers",
+"jsaWeekly": 2298,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Production Managers plan, organise, direct, control and coordinate the production activities of forestry, manufacturing and mining organisations including physical and human resources."
+},
+"1336": {
+"jsaSlug": "1336-supply-distribution-and-procurement-managers",
+"jsaWeekly": 2834,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Supply, Distribution and Procurement Managers plan, organise, direct, control and coordinate the supply, storage and distribution of goods, products and services produced and used by organisations."
+},
+"1341": {
+"jsaSlug": "1341-child-care-centre-managers",
+"jsaWeekly": 1983,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Child Care Centre Managers plan, organise, direct, control and coordinate the activities of childcare centres and services including physical and human resources."
+},
+"1342": {
+"jsaSlug": "1342-health-and-welfare-services-managers",
+"jsaWeekly": 2720,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Health and Welfare Services Managers plan, organise, direct, control and coordinate the professional and administrative aspects of health and welfare programs and services. Nurse Managers are excluded from this unit group. Nurse Managers are included in Unit Group 2543 Nurse Managers."
+},
+"1343": {
+"jsaSlug": "1343-school-principals",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": true,
+"desc": "School Principals plan, organise, direct, control and coordinate the educational and administrative aspects of primary, middle or intermediate, and secondary schools including physical and human resources."
+},
+"1344": {
+"jsaSlug": "1344-other-education-managers",
+"jsaWeekly": 2724,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Other Education Managers plan, organise, direct, control and coordinate educational policy, and provide advice and educational and administrative support to staff and students in educational institutions."
+},
+"1351": {
+"jsaSlug": "1351-ict-managers",
+"jsaWeekly": 3310,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Managers plan, organise, direct, control and coordinate the acquisition, development, maintenance and use of computer and telecommunication systems within organisations."
+},
+"1391": {
+"jsaSlug": "1391-commissioned-officers-management",
+"jsaWeekly": 3542,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Commissioned Officers (Management) provide high level management to support the running of organisational, geographical and operational units and sections within the defence forces and fire and police services."
+},
+"1392": {
+"jsaSlug": "1392-senior-non-commissioned-defence-force-officers",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Senior Non-commissioned Defence Force Members implement and enforce directives of commissioned officers of the Australian and New Zealand Defence Forces."
+},
+"1399": {
+"jsaSlug": "1399-other-specialist-managers",
+"jsaWeekly": 2845,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Specialist Managers not elsewhere classified. It includes Arts Administrators or Managers, Environmental Managers, Laboratory Managers, Sports Administrators, Quality Assurance Managers and Regulatory Affairs Managers."
+},
+"1411": {
+"jsaSlug": "1411-cafe-and-restaurant-managers",
+"jsaWeekly": 1644,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Cafe and Restaurant Managers organise and control the operations of cafes, restaurants and related establishments to provide dining and catering services."
+},
+"1412": {
+"jsaSlug": "1412-caravan-park-and-camping-ground-managers",
+"jsaWeekly": 1519,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Caravan Park and Camping Ground Managers organise and control the operations of caravan parks and camping grounds to provide accommodation and leisure services."
+},
+"1413": {
+"jsaSlug": "1413-hotel-and-motel-managers",
+"jsaWeekly": 1827,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Hotel and Motel Managers organise and control the operations of hotels and motels to provide guest accommodation, meals and other services."
+},
+"1414": {
+"jsaSlug": "1414-licensed-club-managers",
+"jsaWeekly": 1765,
+"levels": [
+2
+],
+"lic": true,
+"desc": "Licensed Club Managers organise and control the operations of licensed clubs to provide food, beverages, gaming, entertainment, sporting and other amenities for members."
+},
+"1419": {
+"jsaSlug": "1419-other-accommodation-and-hospitality-managers",
+"jsaWeekly": 1923,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Accommodation and Hospitality Managers not elsewhere classified. It includes Bed and Breakfast Operators and Retirement Village Managers."
+},
+"1421": {
+"jsaSlug": "1421-retail-managers",
+"jsaWeekly": 1620,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Retail Managers organise and control the operations of establishments which provide retail services."
+},
+"1491": {
+"jsaSlug": "1491-amusement-fitness-and-sports-centre-managers",
+"jsaWeekly": 1538,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Amusement, Fitness and Sports Centre Managers organise, control and promote the activities, facilities and resources of amusement, fitness and sports centres."
+},
+"1492": {
+"jsaSlug": "1492-call-contact-centre-and-customer-service-managers",
+"jsaWeekly": 2206,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Call or Contact Centre and Customer Service Managers organise and control the operations of call or contact centres, review customer services, and maintain sound customer relations."
+},
+"1493": {
+"jsaSlug": "1493-conference-and-event-organisers",
+"jsaWeekly": 1634,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Conference and Event Organisers organise and coordinate services for conferences, events, functions, banquets and seminars."
+},
+"1494": {
+"jsaSlug": "1494-transport-services-managers",
+"jsaWeekly": 2652,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Transport Services Managers organise and control the buying and selling of vehicles for rental agencies and coordinate the leasing of vehicles, the operations of railway stations, and the operations of enterprises that operate fleets of vehicles to transport goods and passengers."
+},
+"1499": {
+"jsaSlug": "1499-other-hospitality-retail-and-service-managers",
+"jsaWeekly": 2115,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Hospitality, Retail and Service Managers not elsewhere classified. It includes Boarding Kennel or Cattery Operators, Cinema or Theatre Managers, Facilities Managers, Financial Institution Branch Managers and Equipment Hire Managers."
+},
+"2111": {
+"jsaSlug": "2111-actors-dancers-and-other-entertainers",
+"jsaWeekly": 1692,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Actors, Dancers and Other Entertainers entertain by portraying roles in productions, performing and composing dances, and performing a variety of other acts."
+},
+"2112": {
+"jsaSlug": "2112-music-professionals",
+"jsaWeekly": 1766,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Music Professionals write, arrange, orchestrate, conduct and perform musical compositions."
+},
+"2113": {
+"jsaSlug": "2113-photographers",
+"jsaWeekly": 1840,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Photographers operate still cameras to take photographs."
+},
+"2114": {
+"jsaSlug": "2114-visual-arts-and-crafts-professionals",
+"jsaWeekly": 2081,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Visual Arts and Crafts Professionals create visual two- and three-dimensional concepts and forms through painting, drawing, carving, sculpting, modelling, printmaking, video, multimedia, found objects, ephemera, soundscapes and other media to communicate concepts and ideas."
+},
+"2121": {
+"jsaSlug": "2121-artistic-directors-media-producers-and-presenters",
+"jsaWeekly": 2179,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Artistic Directors, and Media Producers and Presenters plan, administer and review activities concerned with producing artistic media, determine artistic policies for performing arts organisations, prepare and present news, sports and other information, and conduct interviews and introduce music, performances and special events on radio and television."
+},
+"2122": {
+"jsaSlug": "2122-authors-and-book-and-script-editors",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Authors, and Book and Script Editors write, edit and evaluate literary works for publication and scripts for film, television, radio and stage productions."
+},
+"2123": {
+"jsaSlug": "2123-film-television-radio-and-stage-directors",
+"jsaWeekly": 1975,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Film, Television, Radio and Stage Directors direct the artistic and production aspects of film, television, radio and stage productions."
+},
+"2124": {
+"jsaSlug": "2124-journalists-and-other-writers",
+"jsaWeekly": 1722,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Journalists and Other Writers research and compile news stories, write and edit news reports, commentaries and feature stories for presentation in print and electronic media, and compose written material to advertise goods and services."
+},
+"2211": {
+"jsaSlug": "2211-accountants",
+"jsaWeekly": 2003,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Accountants provide services relating to financial reporting, taxation, auditing, insolvency, accounting information systems, budgeting, cost management, planning and decision-making by organisations and individuals; and provide advice on associated compliance and performance requirements to ensure statutory and strategic governance."
+},
+"2212": {
+"jsaSlug": "2212-auditors-company-secretaries-and-corporate-treasurers",
+"jsaWeekly": 2104,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Auditors, Company Secretaries and Corporate Treasurers conduct audits of accounting systems, procedures and financial statements, manage corporate funding and financial risk, and administer and review corporate compliance activities."
+},
+"2221": {
+"jsaSlug": "2221-financial-brokers",
+"jsaWeekly": 2576,
+"levels": [
+2
+],
+"lic": true,
+"desc": "Financial Brokers operate as independent agents to facilitate the trading of commodities and arrange insurance and loans of money on behalf of clients."
+},
+"2222": {
+"jsaSlug": "2222-financial-dealers",
+"jsaWeekly": 2651,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Financial Dealers conduct financial market transactions on behalf of clients."
+},
+"2223": {
+"jsaSlug": "2223-financial-investment-advisers-and-managers",
+"jsaWeekly": 2582,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Financial Investment Advisers and Managers develop financial plans for individuals and organisations, and invest and manage funds on their behalf."
+},
+"2231": {
+"jsaSlug": "2231-human-resource-professionals",
+"jsaWeekly": 1970,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Human Resource Professionals plan, develop, implement and evaluate staff recruitment, assist in resolving disputes by advising on workplace matters, and represent industrial, commercial, union, employer and other parties in negotiations on issues such as enterprise bargaining, rates of pay and conditions of employment."
+},
+"2232": {
+"jsaSlug": "2232-ict-trainers",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": null,
+"desc": null,
+"levelEst": true
+},
+"2233": {
+"jsaSlug": "2233-training-and-development-professionals",
+"jsaWeekly": 1956,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Training and Development Professionals plan, develop, implement and evaluate training and development programs to ensure management and staff acquire the skills and develop the competencies required by organisations to meet organisational objectives."
+},
+"2241": {
+"jsaSlug": "2241-actuaries-mathematicians-and-statisticians",
+"jsaWeekly": 2072,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Mathematical Science Professionals develop and apply actuarial, mathematical, statistical and quantitative principles and techniques to solve problems in a range of fields such as business and finance, scientific and social research, and engineering. Econometricians are excluded from this unit group. Econometricians are included in Unit Group 2243 Economists."
+},
+"2242": {
+"jsaSlug": "2242-archivists-curators-and-records-managers",
+"jsaWeekly": 2279,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Archivists, Curators and Records Managers develop, maintain, implement and deliver systems for keeping, updating, accessing and preserving records, files, information, historical documents and artefacts."
+},
+"2243": {
+"jsaSlug": "2243-economists",
+"jsaWeekly": 2862,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Economists perform economic research and analysis, develop and apply theories about production and distribution of goods and services and people's spending and financial behaviour, and provide advice to governments and organisations on economic policy issues. Statisticians are excluded from this unit group. Statisticians are included in Unit Group 2241 Mathematical Science Professionals."
+},
+"2244": {
+"jsaSlug": "2244-intelligence-and-policy-analysts",
+"jsaWeekly": 2173,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Intelligence and Policy Analysts collect and analyse information and data to produce intelligence and to develop and analyse policies guiding the design, implementation and modification of government and commercial operations and programs."
+},
+"2245": {
+"jsaSlug": "2245-land-economists-and-valuers",
+"jsaWeekly": 2744,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Land Economists and Valuers provide advice on the administration and use of land and property, and assess the value of land, property and other items such as commercial equipment and objects of art."
+},
+"2246": {
+"jsaSlug": "2246-librarians",
+"jsaWeekly": 1841,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Librarians develop, organise and manage library services such as collections of information, recreational resources and reader information services. Teacher-Librarians are excluded from this unit group. Teacher-Librarians are included in Minor Group 241 School Teachers."
+},
+"2247": {
+"jsaSlug": "2247-management-and-organisation-analysts",
+"jsaWeekly": 2444,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Management and Organisation Analysts assist organisations to achieve outcomes, continual improvement and greater efficiency. They study organisational structures, methods, risks, systems and procedures. ICT Business Analysts are excluded from this unit group. ICT Business Analysts are included in Unit Group 2611 ICT Business and Systems Analysts."
+},
+"2249": {
+"jsaSlug": "2249-other-information-and-organisation-professionals",
+"jsaWeekly": 2189,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Information and Organisation Professionals not elsewhere classified. It includes Electorate Officers, Liaison Officers, Migration Agents / Immigration Consultants and Patents Examiners."
+},
+"2251": {
+"jsaSlug": "2251-advertising-and-marketing-professionals",
+"jsaWeekly": 1957,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Advertising and Marketing Professionals develop and coordinate advertising strategies and campaigns, determine the market for new goods and services, and identify and develop market opportunities for new and existing goods and services."
+},
+"2252": {
+"jsaSlug": "2252-ict-sales-professionals",
+"jsaWeekly": 2003,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Sales Professionals manage client accounts and represent companies in selling a range of computer hardware, software and other ICT goods and services to industrial, business, professional and other organisations."
+},
+"2253": {
+"jsaSlug": "2253-public-relations-professionals",
+"jsaWeekly": 2046,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Public Relations Professionals plan, develop, implement and evaluate information and communication strategies that create an understanding and a favourable view of organisations, their goods and services, and their role in the community."
+},
+"2254": {
+"jsaSlug": "2254-technical-sales-representatives",
+"jsaWeekly": 2596,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Technical Sales Representatives represent companies in selling a range of industrial, medical and pharmaceutical goods and services to industrial, business, professional and other establishments."
+},
+"2311": {
+"jsaSlug": "2311-air-transport-professionals",
+"jsaWeekly": 2651,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Air Transport Professionals fly and navigate aircraft, control and direct air traffic to ensure the safe and efficient operation of aircraft in flight and on the ground, and instruct students in flying aircraft."
+},
+"2312": {
+"jsaSlug": "2312-marine-transport-professionals",
+"jsaWeekly": 3365,
+"levels": [
+2
+],
+"lic": true,
+"desc": "Marine Transport Professionals control and manage the operations of ships, boats and marine equipment."
+},
+"2321": {
+"jsaSlug": "2321-architects-and-landscape-architects",
+"jsaWeekly": 2308,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Architects Architects and Landscape Architects design commercial, industrial, institutional, residential and recreational buildings and landscapes."
+},
+"2322": {
+"jsaSlug": "2322-surveyors-and-spatial-scientists",
+"jsaWeekly": 2300,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Surveyors and Spatial Scientists plan, direct and conduct survey work to determine and delineate boundaries and features of tracts of land, marine floors and underground works, prepare and revise maps, charts and other geographic products, and analyse, present and maintain geographical information about locations in space and time."
+},
+"2323": {
+"jsaSlug": "2323-fashion-industrial-and-jewellery-designers",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Fashion, Industrial and Jewellery Designers plan, design, develop and document products for manufacture and prepare designs and specifications of products for mass, batch and one-off production."
+},
+"2324": {
+"jsaSlug": "2324-graphic-and-web-designers-and-illustrators",
+"jsaWeekly": 1850,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Graphic and Web Designers, and Illustrators design information for visual and audio communication, publication and display using print, film, electronic, digital and other forms of visual and audio media."
+},
+"2325": {
+"jsaSlug": "2325-interior-designers",
+"jsaWeekly": 1692,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Interior Designers plan, design, detail and supervise the construction of commercial, industrial, retail and residential building interiors to produce an environment tailored to a purpose, with particular emphasis on space creation, space planning, and factors that enhance living and working environments."
+},
+"2326": {
+"jsaSlug": "2326-urban-and-regional-planners",
+"jsaWeekly": 2316,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Urban and Regional Planners develop and implement plans and policies for the controlled use of urban and rural land, and advise on economic, environmental and social factors affecting land use."
+},
+"2331": {
+"jsaSlug": "2331-chemical-and-materials-engineers",
+"jsaWeekly": 2849,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Chemical and Materials Engineers design and prepare specifications for chemical process systems and the construction and operation of commercial-scale chemical plants, supervise industrial processing and fabrication of products undergoing physical and chemical change, and investigate the properties of metals, ceramics, polymers and other materials and assess and develop their engineering and comme"
+},
+"2332": {
+"jsaSlug": "2332-civil-engineering-professionals",
+"jsaWeekly": 2217,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Civil Engineering Professionals design, plan, organise and oversee the construction of civil engineering projects such as dams, bridges, pipelines, gas and water supply schemes, sewerage systems, roads, airports and other structures; analyse the likely behaviour of soil and rock when placed under pressure by proposed structures and design structural foundations; analyse the statical properties of "
+},
+"2333": {
+"jsaSlug": "2333-electrical-engineers",
+"jsaWeekly": 2553,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Electrical Engineers design, develop and supervise the manufacture, installation, operation and maintenance of equipment, machines and systems for the generation, distribution, utilisation and control of electric power."
+},
+"2334": {
+"jsaSlug": "2334-electronics-engineers",
+"jsaWeekly": 2762,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Electronics Engineers design, develop, adapt, install, test and maintain electronic components, circuits and systems used for computer, communication, command and warfare systems, entertainment, transport and other industrial applications."
+},
+"2335": {
+"jsaSlug": "2335-industrial-mechanical-and-production-engineers",
+"jsaWeekly": 2614,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Industrial, Mechanical and Production Engineers design, organise and oversee the construction, operation, logistics and maintenance of mechanical and process plant and installations, establish programs for the coordination of manufacturing activities, and ensure usage of resources is cost effective."
+},
+"2336": {
+"jsaSlug": "2336-mining-engineers",
+"jsaWeekly": 3518,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Mining Engineers plan and direct the engineering aspects of locating and extracting minerals, petroleum and natural gas from the earth."
+},
+"2339": {
+"jsaSlug": "2339-other-engineering-professionals",
+"jsaWeekly": 2649,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Engineering Professionals not elsewhere classified. It includes Aeronautical Engineers, Agricultural Engineers, Biomedical Engineers, Engineering Technologists, Environmental Engineers and Naval Architects / Marine Designers."
+},
+"2341": {
+"jsaSlug": "2341-agricultural-and-forestry-scientists",
+"jsaWeekly": 2074,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Agricultural, Fisheries and Forestry Scientists advise farmers, primary industries and government on aspects of farming, fisheries, aquaculture and forestry, develop techniques for increasing productivity, and study and develop plans and policies for the management of land, fisheries and forest areas."
+},
+"2342": {
+"jsaSlug": "2342-chemists-and-food-and-wine-scientists",
+"jsaWeekly": 2194,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Chemists, and Food and Wine Scientists study the chemical and physical properties of substances, develop and monitor chemical processes and production, develop new and improve existing food products, and plan and coordinate the production of wine and spirits."
+},
+"2343": {
+"jsaSlug": "2343-environmental-scientists",
+"jsaWeekly": 1953,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Environmental Scientists study, develop, implement and advise on policies and plans for managing and protecting the environment, flora, fauna and other natural resources."
+},
+"2344": {
+"jsaSlug": "2344-geologists-geophysicists-and-hydrogeologists",
+"jsaWeekly": 2914,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Geologists, Geophysicists and Hydrogeologists study the composition, structure and other physical attributes of the earth, locate and advise on the extraction of minerals, petroleum and ground water, and detect, monitor and forecast seismic, magnetic, electrical, thermal and oceanographic activity. Geographers are excluded from this unit group. Geographers are included in Unit Group 2724 Social Pr"
+},
+"2345": {
+"jsaSlug": "2345-life-scientists",
+"jsaWeekly": 1544,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Life Scientists examine the anatomy, physiology and biochemistry of humans, animals, plants, insects, and other living organisms to better understand how living organisms function and interact with each other and the environment in which they live."
+},
+"2346": {
+"jsaSlug": "2346-medical-laboratory-scientists",
+"jsaWeekly": 2056,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Medical Scientists conduct medical tests to assist in the diagnosis, treatment and prevention of diseases and health conditions."
+},
+"2347": {
+"jsaSlug": "2347-veterinarians",
+"jsaWeekly": 2413,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Veterinarians diagnose, treat and prevent animal diseases, ailments and injuries."
+},
+"2349": {
+"jsaSlug": "2349-other-natural-and-physical-science-professionals",
+"jsaWeekly": 1848,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Natural and Physical Science Professionals not elsewhere classified. It includes Conservators, Metallurgists, Meteorologists and Physicists and Exercise Physiologists."
+},
+"2411": {
+"jsaSlug": "2411-early-childhood-pre-primary-school-teachers",
+"jsaWeekly": 1906,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Early Childhood (Pre-primary School) Teachers teach the basics of numeracy, literacy, music, art and literature to early childhood (pre-primary) students and promote students' social, emotional, intellectual and physical development."
+},
+"2412": {
+"jsaSlug": "2412-primary-school-teachers",
+"jsaWeekly": 2226,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Primary School Teachers teach a range of subjects within a prescribed curriculum to primary school students and promote students' social, emotional, intellectual and physical development."
+},
+"2413": {
+"jsaSlug": "2413-middle-school-teachers",
+"jsaWeekly": 2424,
+"levels": [
+1
+],
+"lic": true,
+"desc": "School Teachers Middle School Teachers or Intermediate School Teachers teach one or more subjects within a prescribed curriculum to middle school or intermediate school students and promote students' social, emotional, intellectual and physical development."
+},
+"2414": {
+"jsaSlug": "2414-secondary-school-teachers",
+"jsaWeekly": 2322,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Secondary School Teachers teach one or more subjects within a prescribed curriculum to secondary school students and promote students' social, emotional, intellectual and physical development."
+},
+"2415": {
+"jsaSlug": "2415-special-education-teachers",
+"jsaWeekly": 2160,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Special Education Teachers teach primary, middle or intermediate, and secondary school students with learning difficulties, hearing impairment and sight impairment, and promote students' social, emotional, intellectual and physical development."
+},
+"2421": {
+"jsaSlug": "2421-university-lecturers-and-tutors",
+"jsaWeekly": 2924,
+"levels": [
+1
+],
+"lic": false,
+"desc": "University Lecturers and Tutors prepare and deliver lectures and conduct tutorials in one or more subjects within a prescribed course of study at a university and conduct research in a particular field of knowledge."
+},
+"2422": {
+"jsaSlug": "2422-vocational-education-teachers",
+"jsaWeekly": 2128,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Teachers Vocational Education Teachers / Polytechnic Teachers teach one or more subjects within a prescribed course of study at technical and further education (TAFE) institutes, polytechnics and other training institutes to tertiary students for vocational education and training purposes."
+},
+"2491": {
+"jsaSlug": "2491-education-advisers-and-reviewers",
+"jsaWeekly": 2524,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Education Advisers and Reviewers conduct educational research, develop course curricula and associated teaching materials for use by educational institutions, and review and examine the work of teachers and the results from curriculum programs in school settings."
+},
+"2492": {
+"jsaSlug": "2492-private-tutors-and-teachers",
+"jsaWeekly": 2518,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Private Tutors and Teachers teach students in the practice, theory and performance of subjects, such as art, dance, drama and music, in private training establishments."
+},
+"2493": {
+"jsaSlug": "2493-teachers-english-speakers-other-languages",
+"jsaWeekly": 2366,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Teachers of English to Speakers of Other Languages teach classes in English to students whose first language is a language other than English."
+},
+"2511": {
+"jsaSlug": "2511-nutrition-professionals",
+"jsaWeekly": 1667,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Nutrition Professionals apply the science of human nutrition to assist people to attain better health and to help prevent and treat various illnesses and diseases."
+},
+"2512": {
+"jsaSlug": "2512-medical-imaging-professionals",
+"jsaWeekly": 2360,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Medical Imaging Professionals operate X-ray and other radiation producing and imaging equipment for diagnostic, monitoring and treatment purposes under the direction of Radiologists and other Medical Practitioners."
+},
+"2513": {
+"jsaSlug": "2513-occupational-and-environmental-health-professionals",
+"jsaWeekly": 2284,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Occupational and Environmental Health Professionals develop, implement and evaluate policies and programs to monitor environmental health and occupational health and safety and related legislation to ensure safe and healthy working conditions, and assist injured staff through the workers' compensation and rehabilitation process."
+},
+"2514": {
+"jsaSlug": "2514-optometrists-and-orthoptists",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Optometrists and Orthoptists perform eye examinations and vision tests, prescribe lenses, other optical aids and therapy, and diagnose and manage eye movement disorders and associated sensory problems."
+},
+"2515": {
+"jsaSlug": "2515-pharmacists",
+"jsaWeekly": 1956,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Pharmacists ensure safe and quality use of medicines, and optimise health outcomes by contributing to selecting, prescribing, monitoring and evaluating medicine therapy, and researching, testing and developing pharmaceuticals and medical products."
+},
+"2519": {
+"jsaSlug": "2519-other-health-diagnostic-and-promotion-professionals",
+"jsaWeekly": 2024,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Health Diagnostic and Promotion Professionals not elsewhere classified. It includes Health Promotion Officers and Orthotists or Prosthetists."
+},
+"2521": {
+"jsaSlug": "2521-chiropractors-and-osteopaths",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Chiropractors and Osteopaths diagnose and treat physiological and mechanical disorders of the locomotor system and tissue strain, stress and dysfunction that impede normal neural, vascular and biochemical mechanisms, and provide advice on preventing these disorders."
+},
+"2522": {
+"jsaSlug": "2522-complementary-health-therapists",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Complementary Health Therapists treat patients with physical, mental, spiritual and emotional needs by considering the whole person rather than focusing on specific symptoms and by using various therapies, techniques and practices."
+},
+"2523": {
+"jsaSlug": "2523-dental-practitioners",
+"jsaWeekly": 3232,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Dental Practitioners diagnose and treat dental disease, restore normal oral function using a broad range of treatments, such as surgery and other specialist techniques, and advise on oral health."
+},
+"2524": {
+"jsaSlug": "2524-occupational-therapists",
+"jsaWeekly": 1913,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Occupational Therapists assess functional limitations of people resulting from illnesses and disabilities, and provide therapy to enable people to perform their daily activities and occupations."
+},
+"2525": {
+"jsaSlug": "2525-physiotherapists",
+"jsaWeekly": 1888,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Physiotherapists assess, treat and prevent disorders in human movement caused by injury or disease."
+},
+"2526": {
+"jsaSlug": "2526-podiatrists",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Podiatrists prevent, diagnose and treat disorders of the feet."
+},
+"2527": {
+"jsaSlug": "2527-audiologists-and-speech-pathologists-therapists",
+"jsaWeekly": 2003,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Audiologists and Speech Pathologists or Therapists provide diagnostic assessment, treatment, rehabilitative services and management of human hearing defects, and communication and swallowing impairments."
+},
+"2531": {
+"jsaSlug": "2531-general-practitioners-and-resident-medical-officers",
+"jsaWeekly": 2446,
+"levels": [
+1
+],
+"lic": true,
+"desc": "General Practitioners and Resident Medical Officers diagnose and treat physical and mental illnesses, disorders and injuries, recommend preventative action and refer patients to specialist Medical Practitioners, other health care workers, and social, welfare and support workers."
+},
+"2532": {
+"jsaSlug": "2532-anaesthetists",
+"jsaWeekly": 8293,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Anaesthetists provide direct medical care to patients requiring general or local anaesthesia for surgical, diagnostic and other procedures such as prevention of pain and maintenance of body function. Anaesthetic Registrars training as Anaesthetists are included in this unit group."
+},
+"2533": {
+"jsaSlug": "2533-specialist-physicians",
+"jsaWeekly": 3620,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Specialist Physicians diagnose and treat internal human disorders and diseases using specialist testing, diagnostic and medical techniques. Medical Registrars training as Specialist Physicians are included in this unit group."
+},
+"2534": {
+"jsaSlug": "2534-psychiatrists",
+"jsaWeekly": null,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Psychiatrists diagnose, assess, treat and prevent human mental, emotional and behavioural disorders. Psychiatric Registrars training as Psychiatrists are included in this unit group."
+},
+"2535": {
+"jsaSlug": "2535-surgeons",
+"jsaWeekly": 3905,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Surgeons perform surgery to correct deformities, repair injuries, prevent and treat diseases, and improve human functioning and appearance. Medical Registrars training as Surgeons are included in this unit group."
+},
+"2539": {
+"jsaSlug": "2539-other-medical-practitioners",
+"jsaWeekly": 5013,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Medical Practitioners not elsewhere classified. It includes Dermatologists, Emergency Medicine Specialists, Obstetricians and Gynaecologists, Ophthalmologists, Pathologists, Diagnostic and Interventional Radiologists, and Radiation Oncologists. Medical Registrars training in these specialties are included in this unit group."
+},
+"2541": {
+"jsaSlug": "2541-midwives",
+"jsaWeekly": 2114,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Midwives provide care and advice to women during pregnancy, labour and childbirth, and postnatal care for women and babies in a range of settings such as the home, community, hospitals, clinics and health units."
+},
+"2542": {
+"jsaSlug": "2542-nurse-educators-and-researchers",
+"jsaWeekly": 2732,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Nurse Educators and Researchers provide clinical and theoretical education to and promote professional development of nurses and midwives, and conduct research into nursing practice."
+},
+"2543": {
+"jsaSlug": "2543-nurse-managers",
+"jsaWeekly": 2658,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Nurse Managers manage health service units and sub-units of hospitals, aged care and community health care facilities, supervise nursing staff and financial resources to enable the provision of safe, cost effective nursing care within specified fields or for particular units, and monitor quality, clinical standards and professional development of nurses. Directors of Nursing are excluded from this"
+},
+"2544": {
+"jsaSlug": "2544-registered-nurses",
+"jsaWeekly": 2192,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Registered Nurses provide nursing care to patients in hospitals, aged care and other health care facilities, and in the community."
+},
+"2611": {
+"jsaSlug": "2611-ict-business-and-systems-analysts",
+"jsaWeekly": 2697,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Business and Systems Analysts work with users to formulate system requirements, develop system plans and documentation, review and evaluate existing systems, and design and modify systems to meet users' business needs. Non-ICT Business Analysts (for example, Management Consultants) are excluded from this unit group. Non-ICT Business Analysts are included in Unit Group 2247 Management and Organisat"
+},
+"2612": {
+"jsaSlug": "2612-multimedia-specialists-and-web-developers",
+"jsaWeekly": 2476,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Multimedia Specialists and Web Developers create computer animation, audio, video and graphic image files for multimedia presentations, games, motion pictures, CD-ROMs, information kiosks and the web, and plan, produce and maintain websites and web applications using web programming, scripting, authoring, content management and file transfer software."
+},
+"2613": {
+"jsaSlug": "2613-software-and-applications-programmers",
+"jsaWeekly": 2537,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Software and Applications Programmers design, develop, test, maintain and document program code in accordance with user requirements, and system and technical specifications."
+},
+"2621": {
+"jsaSlug": "2621-database-and-systems-administrators-and-ict-security-specialists",
+"jsaWeekly": 2461,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Database and Systems Administrators, and ICT Security Specialists plan, develop, maintain, manage and administer organisations' database management systems, operating systems and security policies and procedures to ensure optimal database and system integrity, security, backup, reliability and performance."
+},
+"2631": {
+"jsaSlug": "2631-computer-network-professionals",
+"jsaWeekly": 2309,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Computer Network Professionals research, analyse and recommend strategies for network architecture and development, implement, manage, maintain and configure network hardware and software, and monitor and optimise performance, and troubleshoot and provide user support."
+},
+"2632": {
+"jsaSlug": "2632-ict-support-and-test-engineers",
+"jsaWeekly": 2115,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Support and Test Engineers develop procedures and strategies to support, create, maintain and manage technical quality assurance processes and guidelines and systems infrastructure, investigate, analyse and resolve system problems and performance issues, and test the behaviour, functionality and integrity of systems."
+},
+"2633": {
+"jsaSlug": "2633-telecommunications-engineering-professionals",
+"jsaWeekly": 2797,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Telecommunications Engineering Professionals design, construct, install, service and support telecommunications equipment, systems and facilities."
+},
+"2711": {
+"jsaSlug": "2711-barristers",
+"jsaWeekly": 3495,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Barristers plead cases before civil, criminal and industrial courts and other tribunals."
+},
+"2712": {
+"jsaSlug": "2712-judicial-and-other-legal-professionals",
+"jsaWeekly": 2803,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Judicial and Other Legal Professionals hear legal and other matters in courts and tribunals; interpret, analyse, administer and provide advice on the law; and draft legislation."
+},
+"2713": {
+"jsaSlug": "2713-solicitors",
+"jsaWeekly": 2070,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Solicitors provide legal advice, prepare and draft legal documents, and conduct negotiations on behalf of clients on matters associated with the law."
+},
+"2721": {
+"jsaSlug": "2721-counsellors",
+"jsaWeekly": 2154,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Counsellors provide information on vocational, relationship, social and educational difficulties and issues, and work with people to help them to identify and define their emotional issues through therapies such as cognitive behaviour therapy, interpersonal therapy and other talking therapies."
+},
+"2722": {
+"jsaSlug": "2722-ministers-religion",
+"jsaWeekly": 1994,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Ministers of Religion perform spiritual functions associated with beliefs and practices of religious faiths, and provide motivation, guidance and training in religious life for the people of congregations and parishes, and the wider community."
+},
+"2723": {
+"jsaSlug": "2723-psychologists-and-psychotherapists",
+"jsaWeekly": 2204,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Psychologists investigate, assess and provide treatment and counselling to foster optimal personal, social, educational and occupational adjustment and development."
+},
+"2724": {
+"jsaSlug": "2724-social-professionals",
+"jsaWeekly": 2113,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Social Professionals research and study human behaviour, society and institutions from current and historical perspectives, and verbally render spoken statements, and transcribe text and recorded spoken material from one language into another."
+},
+"2725": {
+"jsaSlug": "2725-social-workers",
+"jsaWeekly": 2172,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Social Workers assess the social needs of individuals, families and groups, assist and empower people to develop and use the skills and resources needed to resolve social and other problems, and further human wellbeing and human rights, social justice and social development."
+},
+"2726": {
+"jsaSlug": "2726-welfare-recreation-and-community-arts-workers",
+"jsaWeekly": 1960,
+"levels": [
+1
+],
+"lic": false,
+"desc": "Welfare, Recreation and Community Arts Workers design and implement strategies and programs to meet community and individual needs and assist individuals, families and groups with social, emotional and financial difficulties to improve quality of life by educating and supporting them and working towards change in their social environment."
+},
+"3111": {
+"jsaSlug": "3111-agricultural-technicians",
+"jsaWeekly": 1808,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Agricultural, Agritech and Aquaculture Technicians perform tests and experiments, and provide technical support to assist Agricultural and Fisheries Scientists, Agronomists and Farmers in areas such as research, crop and animal health, production, servicing and marketing."
+},
+"3112": {
+"jsaSlug": "3112-medical-technicians",
+"jsaWeekly": 1539,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Medical Technicians operate anaesthetic, cardiac, operating theatre and medical testing equipment, perform and assist with laboratory tests, and fill prescriptions in support of Health Professionals."
+},
+"3113": {
+"jsaSlug": "3113-primary-products-inspectors",
+"jsaWeekly": 1330,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Primary Products Assurance and Inspection Officers inspect animals, plants and agricultural produce and facilities to ensure compliance with government and industry standards with respect to quality, health and licensing."
+},
+"3114": {
+"jsaSlug": "3114-science-technicians",
+"jsaWeekly": 1794,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Science Technicians perform tests and experiments, and provide technical support functions to assist with research, design, production and teaching in chemistry, earth sciences, life sciences, and physical sciences."
+},
+"3121": {
+"jsaSlug": "3121-architectural-building-and-surveying-technicians",
+"jsaWeekly": 2280,
+"levels": [
+2
+],
+"lic": true,
+"desc": "Architectural, Building and Surveying Technicians perform technical functions to assist Construction Managers, Architects and Surveyors by supervising and inspecting construction sites, estimating time, costs and resources, inspecting plumbing work, and collecting and evaluating survey data and preparing maps and plans."
+},
+"3122": {
+"jsaSlug": "3122-civil-engineering-draftspersons-and-technicians",
+"jsaWeekly": 1730,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Civil Engineering Draftspersons and Technicians assist in civil engineering research, design, construction, operations and maintenance."
+},
+"3123": {
+"jsaSlug": "3123-electrical-engineering-draftspersons-technicians",
+"jsaWeekly": 2854,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Electrical Engineering Draftspersons and Technicians assist in electrical engineering research, design, manufacture, assembly, construction, operation and maintenance of equipment, facilities and distribution systems."
+},
+"3124": {
+"jsaSlug": "3124-electronic-engineering-draftspersons-technicians",
+"jsaWeekly": 2142,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Electronic Engineering Draftspersons and Technicians assist in electronic engineering research, design, manufacture, assembly, construction, operation and maintenance of equipment, facilities and systems."
+},
+"3125": {
+"jsaSlug": "3125-mechanical-engineering-draftspersons-technicians",
+"jsaWeekly": 2589,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Mechanical Engineering Draftspersons and Technicians assist in mechanical engineering research, design, manufacture, construction, operation and maintenance of machines, manufacturing equipment, mechanical installations and facilities."
+},
+"3126": {
+"jsaSlug": "3126-safety-inspectors",
+"jsaWeekly": 2382,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Safety Inspectors inspect machines, equipment, working conditions and public places to ensure compliance with government and industry standards and regulations, in relation to occupational health and safety."
+},
+"3129": {
+"jsaSlug": "3129-other-building-and-engineering-technicians",
+"jsaWeekly": 2954,
+"levels": [
+2
+],
+"lic": true,
+"desc": "Building and Engineering Technicians not elsewhere classified. It includes Maintenance Planners, Metallurgical or Materials Technicians, and Mine Deputies."
+},
+"3131": {
+"jsaSlug": "3131-ict-support-technicians",
+"jsaWeekly": 1687,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Support Technicians provide support for the deployment and maintenance of computer infrastructure and web technology and the diagnosis and resolution of technical problems."
+},
+"3132": {
+"jsaSlug": "3132-telecommunications-technical-specialists",
+"jsaWeekly": 2286,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Telecommunications Technical Specialists develop, monitor and carry out technical support functions for telecommunications networks and install computer equipment, computer systems and microwave, telemetry, multiplexing, satellite and other radio and electromagnetic wave communication systems."
+},
+"3211": {
+"jsaSlug": "3211-automotive-electricians",
+"jsaWeekly": 2808,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Automotive Electricians install, maintain and repair electrical wiring and electronic components in motor vehicles."
+},
+"3212": {
+"jsaSlug": "3212-motor-mechanics",
+"jsaWeekly": 1622,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Motor Mechanics repair, maintain and test motor vehicle and other internal combustion engines and related mechanical components. Motor Vehicle Parts and Accessories Fitters are excluded from this unit group. Motor Vehicle Parts and Accessories Fitters are included in Unit Group 8994 Motor Vehicle Parts and Accessories Fitters."
+},
+"3221": {
+"jsaSlug": "3221-metal-casting-forging-and-finishing-trades",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Metal Casting, Forging and Finishing Trades Workers fabricate mould patterns and form sand moulds and cores for the production of metal castings, heat and hammer metal into shape, and make, repair, coat and polish metal parts and articles."
+},
+"3222": {
+"jsaSlug": "3222-sheetmetal-trades-workers",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Sheetmetal Workers mark out, shape, form and join sheetmetal and other materials to make products and components. Second Class Sheetmetal Workers are excluded from this unit group. Second Class Sheetmetal Workers are included in Unit Group 7123 Engineering Production Workers."
+},
+"3223": {
+"jsaSlug": "3223-structural-steel-and-welding-trades-workers",
+"jsaWeekly": 1688,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Structural Steel and Welding Trades Workers cut, shape, join and repair components of iron, steel and other metal structures, boilers, pressure vessels and pipes, ships and other vessels."
+},
+"3231": {
+"jsaSlug": "3231-aircraft-maintenance-engineers",
+"jsaWeekly": 1980,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Aircraft Maintenance Engineers maintain and repair aircraft structures, and avionic and mechanical systems."
+},
+"3232": {
+"jsaSlug": "3232-metal-fitters-and-machinists",
+"jsaWeekly": 2606,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Metal Fitters and Machinists fit and assemble fabricated metal parts into products, set up machining tools, production machines and textile machines, and operate machining tools and machines to shape metal stock and castings."
+},
+"3233": {
+"jsaSlug": "3233-precision-metal-trades-workers",
+"jsaWeekly": 1537,
+"levels": [
+3
+],
+"lic": true,
+"desc": "Precision Metal Trades Workers fabricate, assemble, maintain and repair metal precision instruments."
+},
+"3234": {
+"jsaSlug": "3234-toolmakers-and-engineering-patternmakers",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Toolmakers and Engineering Patternmakers make and repair tools, dies, jigs, fixtures and other precision parts and equipment to fine tolerances for machine tools and other production machinery, and construct full-size engineering, visual and experimental models and models for the manufacture of prototype developmental products."
+},
+"3241": {
+"jsaSlug": "3241-panelbeaters",
+"jsaWeekly": 1848,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Panelbeaters repair damage to metal, fibreglass and plastic body work on vehicles, and form replacement vehicle panels."
+},
+"3242": {
+"jsaSlug": "3242-vehicle-body-builders-and-trimmers",
+"jsaWeekly": 1924,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Vehicle Body Builders and Trimmers manufacture and repair prototype production units and purpose-built vehicle bodies, and install, repair and replace the interior trim of vehicles."
+},
+"3243": {
+"jsaSlug": "3243-vehicle-painters",
+"jsaWeekly": 1880,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Vehicle Painters prepare surfaces of vehicles, match and mix colours and apply paint."
+},
+"3311": {
+"jsaSlug": "3311-bricklayers-and-stonemasons",
+"jsaWeekly": 2317,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Bricklayers and Stonemasons lay bricks, pre-cut stones and other types of building blocks in mortar to construct and repair walls, segmental paving, partitions, arches and other structures, and cut and shape hard and soft stone blocks and masonry slabs for the construction and renovation of stone structures and monumental masonry."
+},
+"3312": {
+"jsaSlug": "3312-carpenters-and-joiners",
+"jsaWeekly": 1760,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Carpenters and Joiners construct, erect, install, renovate and repair structures and fixtures made of wood, plywood, lightweight steel, wallboard and other materials, and cut, shape and fit timber parts to form structures and fittings."
+},
+"3321": {
+"jsaSlug": "3321-floor-finishers",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Floor Finishers measure, cut, install and repair carpet, timber, vinyl, resilient resin and concrete floor coverings."
+},
+"3322": {
+"jsaSlug": "3322-painting-trades-workers",
+"jsaWeekly": 1379,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Painters apply paint, varnish, wallpaper and other finishes to protect, maintain and decorate surfaces of buildings and structures. Painters (Visual Arts), Vehicle Painters and Industrial Spraypainters are excluded from this unit group. Painters (Visual Arts) are included in Unit Group 2114 Visual Arts and Craft Professionals. Vehicle Painters are included in Unit Group 3243 Vehicle Painters. Indu"
+},
+"3331": {
+"jsaSlug": "3331-glaziers",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Glaziers measure, cut, finish, fit and install flat glass and mirrors. Autoglaziers are excluded from this occupation. Autoglaziers are included in Unit Group 8994 Motor Vehicle Parts and Accessories Fitters, in Occupation 899412 Autoglazier."
+},
+"3332": {
+"jsaSlug": "3332-plasterers",
+"jsaWeekly": 1841,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Plasterers and Renderers apply and fix plasterboard partitions, suspended ceilings, fire rating systems, acoustic ceiling panels, and composite wall linings to buildings, and apply decorative and protective coverings of plaster, cement and similar materials to the interiors and exteriors of structures."
+},
+"3333": {
+"jsaSlug": "3333-roof-tilers",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Roof Tilers cover roofs with tiles, sheets and shingles to form a waterproof surface. Roof Plumbers (installers of sheetmetal roofing and guttering) are excluded from this occupation. Roof Plumbers are included in Unit Group 3341 Plumbers, in Occupation 334115 Roof Plumber."
+},
+"3334": {
+"jsaSlug": "3334-wall-and-floor-tilers",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Wall and Floor Tilers lay ceramic, clay, slate, marble and glass tiles on external and internal walls and floors to provide protective and decorative finishes."
+},
+"3341": {
+"jsaSlug": "3341-plumbers",
+"jsaWeekly": 1990,
+"levels": [
+3
+],
+"lic": true,
+"desc": "Plumbers install, maintain and repair pipes, drains, guttering and metal roofing, mechanical services and related equipment for water supply, gas, drainage, sewerage, heating, cooling and ventilation systems."
+},
+"3411": {
+"jsaSlug": "3411-electricians",
+"jsaWeekly": 2191,
+"levels": [
+3
+],
+"lic": true,
+"desc": "Electricians design, assemble, install, test, commission, diagnose, maintain and repair electrical networks, systems, circuits, equipment, components, appliances and facilities for industrial, commercial and domestic purposes, and service and repair lifts, escalators and related equipment. Automotive Electricians are excluded from this unit group. Automotive Electricians are included in Unit Group"
+},
+"3421": {
+"jsaSlug": "3421-airconditioning-and-refrigeration-mechanics",
+"jsaWeekly": 2100,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Airconditioning and Refrigeration Mechanics assemble, install, maintain and repair industrial, commercial and domestic airconditioning and refrigeration systems and equipment."
+},
+"3422": {
+"jsaSlug": "3422-electrical-distribution-trades-workers",
+"jsaWeekly": 2731,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Electrical Distribution Trades Workers prepare, install, repair, maintain and patrol electric power distribution networks."
+},
+"3423": {
+"jsaSlug": "3423-electronics-trades-workers",
+"jsaWeekly": 1882,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Electronics Trades Workers maintain, adjust and repair electronic equipment such as business machines, video and audio equipment, and electronic instruments and control systems, and transmit and receive radio messages."
+},
+"3424": {
+"jsaSlug": "3424-telecommunications-trades-workers",
+"jsaWeekly": 2060,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Telecommunications Trades Workers install, maintain and repair data transmission equipment, aerial lines, conduits, cables, radio antennae and telecommunications equipment and appliances."
+},
+"3511": {
+"jsaSlug": "3511-bakers-and-pastrycooks",
+"jsaWeekly": 1417,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Bakers and Pastrycooks prepare and bake bread loaves and rolls, buns, cakes, biscuits and pastry goods. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"3512": {
+"jsaSlug": "3512-butchers-and-smallgoods-makers",
+"jsaWeekly": 1550,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Butchers and Smallgoods Makers select, cut, trim, prepare and arrange meat for sale and supply, operate meat and smallgoods processing machines, and manage the processes in the production of smallgoods. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"3513": {
+"jsaSlug": "3513-chefs",
+"jsaWeekly": 1423,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Chefs plan and organise the preparation and cooking of food in dining and catering establishments. Cooks, Fast Food Cooks and Kitchenhands are excluded from this unit group. Cooks are included in Unit Group 3514 Cooks. Fast Food Cooks and Kitchenhands are included in Minor Group 851 Food Preparation Assistants. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"3514": {
+"jsaSlug": "3514-cooks",
+"jsaWeekly": 1432,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Cooks prepare, season and cook food in dining and catering establishments. Chefs, Fast Food Cooks and Kitchenhands are excluded from this unit group. Chefs are included in Unit Group 3513 Chefs. Fast Food Cooks and Kitchenhands are included in Minor Group 851 Food Preparation Assistants. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"3611": {
+"jsaSlug": "3611-animal-attendants-and-trainers",
+"jsaWeekly": 1276,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Animal Attendants and Trainers train, exercise, feed, groom, and care for animals."
+},
+"3612": {
+"jsaSlug": "3612-shearers",
+"jsaWeekly": null,
+"levels": [
+4
+],
+"lic": null,
+"desc": null,
+"levelEst": true
+},
+"3613": {
+"jsaSlug": "3613-veterinary-nurses",
+"jsaWeekly": 1667,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Veterinary Nurses care for animals under treatment and in temporary residence at veterinary facilities and assist Veterinarians to perform procedures and operations."
+},
+"3621": {
+"jsaSlug": "3621-florists",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Florists prepare and sell floral arrangements."
+},
+"3622": {
+"jsaSlug": "3622-gardeners",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": null,
+"desc": null,
+"levelEst": true
+},
+"3623": {
+"jsaSlug": "3623-greenkeepers",
+"jsaWeekly": 1468,
+"levels": [
+2,
+3
+],
+"lic": false,
+"desc": "Sports Turf Managers and Trades Workers establish and maintain fine turf, grassed areas and synthetic surfaces used for sporting events."
+},
+"3624": {
+"jsaSlug": "3624-nurserypersons",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Nurserypersons propagate and cultivate trees, shrubs, and ornamental and flowering plants in a plant or forestry nursery."
+},
+"3911": {
+"jsaSlug": "3911-hairdressers",
+"jsaWeekly": 1209,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Hairdressers cut, style, colour, straighten and permanently wave hair, and treat hair and scalp conditions."
+},
+"3921": {
+"jsaSlug": "3921-print-finishers-and-screen-printers",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Printers Print Finishers and Screen Printers bind books and other publications, finish printed products by hand and machine, prepare stencils, and set up and operate power-driven and hand-operated screen print equipment."
+},
+"3922": {
+"jsaSlug": "3922-graphic-pre-press-trades-workers",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Graphic Pre-press Trades Workers manipulate, set and compose text and graphics into a format suitable for printing and other visual media."
+},
+"3923": {
+"jsaSlug": "3923-printers",
+"jsaWeekly": 1408,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Printers set up and operate letterpress, lithographic, flexographic, gravure, newspaper, instant, digital and offset printing presses."
+},
+"3931": {
+"jsaSlug": "3931-canvas-and-leather-goods-makers",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Canvas and Leather Goods Makers make and repair boots, shoes, leather goods, canvas and sailcloth articles, and related products."
+},
+"3932": {
+"jsaSlug": "3932-clothing-trades-workers",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Clothing Trades Workers prepare and cut garment patterns and fabric, and make and repair garments."
+},
+"3933": {
+"jsaSlug": "3933-upholsterers",
+"jsaWeekly": 1527,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Upholsterers make, rebuild and repair upholstered articles such as chairs, sofas, beds and mattresses."
+},
+"3941": {
+"jsaSlug": "3941-cabinetmakers",
+"jsaWeekly": 1400,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Cabinet and Furniture Makers fabricate and install cabinetry, and fabricate, assemble and repair wooden and cane furniture, and fit and assemble prepared wooden parts to make furniture."
+},
+"3942": {
+"jsaSlug": "3942-wood-machinists-and-other-wood-trades-workers",
+"jsaWeekly": 1405,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Wood Trades Workers Wood Machinists and Other Wood Trades Workers set up and operate woodworking machines and wood turning lathes to shape wood stock, finish and polish furniture, and make picture frames and frame paintings, photographs and other artwork."
+},
+"3991": {
+"jsaSlug": "3991-boat-builders-and-shipwrights",
+"jsaWeekly": 2197,
+"levels": [
+3
+],
+"lic": true,
+"desc": "Boat Builders and Shipwrights construct, fit out and repair boats and ships."
+},
+"3992": {
+"jsaSlug": "3992-chemical-gas-petroleum-and-power-plant-operators",
+"jsaWeekly": 3532,
+"levels": [
+3
+],
+"lic": true,
+"desc": "Chemical, Gas, Petroleum and Power Generation Plant Operators control the operation of chemical production equipment, pump gas and oil from wellheads, refine and process petroleum products, and operate boilers, turbogenerators and associated plant to generate electrical power."
+},
+"3993": {
+"jsaSlug": "3993-gallery-library-and-museum-technicians",
+"jsaWeekly": 1498,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Gallery, Library and Museum Technicians prepare artworks, specimens and artefacts for collections, arrange and construct gallery exhibits, and assist Librarians to organise and operate systems for handling recorded material and files."
+},
+"3994": {
+"jsaSlug": "3994-jewellers",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Jewellers make and repair jewellery such as rings, brooches, chains and bracelets, craft objects out of precious metals, and cut, shape and polish rough gemstones to produce fashion and industrial jewels."
+},
+"3995": {
+"jsaSlug": "3995-performing-arts-technicians",
+"jsaWeekly": 1844,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Performing Arts Technicians provide technical and other assistance for the production, recording and broadcasting of artistic performances."
+},
+"3996": {
+"jsaSlug": "3996-signwriters",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Signwriters design, fabricate and paint signs for displays, buildings, hoardings, boats and structures."
+},
+"3999": {
+"jsaSlug": "3999-other-miscellaneous-technicians-and-trades-workers",
+"jsaWeekly": 2036,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Technicians and Trades Workers not elsewhere classified. It includes Divers, Interior Decorators, Optical Dispensers / Dispensing Opticians, Optical Mechanics, Photographer's Assistants, Plastics Technicians and Fire Protection Equipment Technicians."
+},
+"4111": {
+"jsaSlug": "4111-ambulance-officers-and-paramedics",
+"jsaWeekly": 2852,
+"levels": [
+2
+],
+"lic": true,
+"desc": "Ambulance Officers and Paramedics provide emergency health care and transport for injured, sick, infirm and aged persons to medical facilities. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"4112": {
+"jsaSlug": "4112-dental-hygienists-technicians-and-therapists",
+"jsaWeekly": 2210,
+"levels": [
+1
+],
+"lic": true,
+"desc": "Dental Hygienists, Technicians and Therapists provide supportive dental services in preventative and restorative dental procedures, and construct and repair dental appliances. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"4113": {
+"jsaSlug": "4113-diversional-therapists",
+"jsaWeekly": 1434,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Diversional Therapists plan, design, coordinate and implement recreation and leisure-based activity programs to support, challenge and enhance the psychological, spiritual, social, emotional and physical wellbeing of individuals. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"4114": {
+"jsaSlug": "4114-enrolled-and-mothercraft-nurses",
+"jsaWeekly": 1777,
+"levels": [
+2
+],
+"lic": true,
+"desc": "Enrolled and Mothercraft Nurses provide nursing care to patients in hospitals, aged care and other health care facilities and in the community, and assist parents in providing care to newborn infants under the supervision of a Registered Nurse or Midwife. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"4115": {
+"jsaSlug": "4115-indigenous-health-workers",
+"jsaWeekly": 1460,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Indigenous Health Workers assist with the coordination and provision of health care delivery to Indigenous communities. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"4116": {
+"jsaSlug": "4116-massage-therapists",
+"jsaWeekly": null,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Massage Therapists perform therapeutic massage and administer body treatments for health, fitness and remedial purposes. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"4117": {
+"jsaSlug": "4117-welfare-support-workers",
+"jsaWeekly": 1844,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Welfare Support Workers provide support, information and advice to clients on emotional, financial, recreational, health, housing and other social welfare matters, and evaluate and coordinate the services of welfare and community service agencies. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"4211": {
+"jsaSlug": "4211-child-carers",
+"jsaWeekly": 1341,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Child Carers provide care and supervision for children in residential homes and non-residential childcare centres. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"4221": {
+"jsaSlug": "4221-education-aides",
+"jsaWeekly": 1342,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Education Aides perform non-teaching duties to assist teaching staff in schools, provide care and supervision for children in preschools, and provide assistance to Aboriginal, Torres Strait Islander and Maori students and their teachers. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"4231": {
+"jsaSlug": "4231-aged-and-disabled-carers",
+"jsaWeekly": 1761,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Aged and Disabled Carers provide general household assistance, emotional support, care and companionship for aged and disabled persons in their own homes. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"4232": {
+"jsaSlug": "4232-dental-assistants",
+"jsaWeekly": 1211,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Dental Assistants prepare patients for dental examination and assist Dental Practitioners, Hygienists and Therapists in providing care and treatment. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"4233": {
+"jsaSlug": "4233-nursing-support-and-personal-care-workers",
+"jsaWeekly": 1612,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Nursing Support and Personal Care Workers provide assistance, support and direct care to patients in a variety of health, welfare and community settings. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"4234": {
+"jsaSlug": "4234-special-care-workers",
+"jsaWeekly": 1708,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Special Care Workers provide care and supervision for children and young people in residential and institutional facilities, and provide care and support to people in refuges. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"4311": {
+"jsaSlug": "4311-bar-attendants-and-baristas",
+"jsaWeekly": 1500,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Bar Attendants and Baristas prepare, mix and serve alcoholic and non-alcoholic drinks to patrons in bars in licensed establishments, and prepare and serve espresso coffee and other hot beverages to patrons in cafes, coffee shops and dining establishments."
+},
+"4312": {
+"jsaSlug": "4312-cafe-workers",
+"jsaWeekly": 1346,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Cafe Workers sell and serve food and beverages for consumption on premises in cafes and similar establishments."
+},
+"4313": {
+"jsaSlug": "4313-gaming-workers",
+"jsaWeekly": 1539,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Gaming Workers provide gaming services within casinos and other gambling establishments."
+},
+"4314": {
+"jsaSlug": "4314-hotel-service-managers",
+"jsaWeekly": 1410,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Hotel Service Managers supervise and coordinate the activities of hotel service workers."
+},
+"4315": {
+"jsaSlug": "4315-waiters",
+"jsaWeekly": 1346,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Waiters serve food and beverages in hotels, restaurants, clubs and dining establishments."
+},
+"4319": {
+"jsaSlug": "4319-other-hospitality-workers",
+"jsaWeekly": 1574,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Hospitality Workers not elsewhere classified. It includes Bar Usefuls or Bussers, and Doorpersons or Luggage Porters."
+},
+"4411": {
+"jsaSlug": "4411-defence-force-members-other-ranks",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Defence Force Members - Other Ranks provide specialised military services to the Australian and New Zealand Defence Forces."
+},
+"4412": {
+"jsaSlug": "4412-fire-and-emergency-workers",
+"jsaWeekly": 2473,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Fire and Emergency Workers attend emergencies to minimise risk to community safety and security and protect life and property."
+},
+"4413": {
+"jsaSlug": "4413-police",
+"jsaWeekly": 2560,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Police protect and preserve property, public order and safety through the enforcement of laws."
+},
+"4421": {
+"jsaSlug": "4421-prison-officers",
+"jsaWeekly": 2080,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Prison Officers supervise and control the activities of inmates in prisons and other correctional institutions."
+},
+"4422": {
+"jsaSlug": "4422-security-officers-and-guards",
+"jsaWeekly": 1818,
+"levels": [
+4
+],
+"lic": true,
+"desc": "Security Officers and Guards provide security and investigative services to organisations and individuals."
+},
+"4511": {
+"jsaSlug": "4511-beauty-therapists",
+"jsaWeekly": 1178,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Beauty Therapists provide skin analyses, facial therapies, skin-care treatments and body treatments such as massage to clients."
+},
+"4512": {
+"jsaSlug": "4512-driving-instructors",
+"jsaWeekly": 2224,
+"levels": [
+3
+],
+"lic": true,
+"desc": "Driving Instructors instruct individuals and groups in the theory and application of driving motor vehicles."
+},
+"4513": {
+"jsaSlug": "4513-funeral-workers",
+"jsaWeekly": null,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Funeral Workers prepare bodies for viewing and burial, arrange and conduct funerals, and perform other specialist funereal services."
+},
+"4514": {
+"jsaSlug": "4514-gallery-museum-and-tour-guides",
+"jsaWeekly": 1432,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Gallery, Museum and Tour Guides direct and guide visitors in galleries and museums, and escort visitors on sightseeing, educational and other tours."
+},
+"4515": {
+"jsaSlug": "4515-personal-care-consultants",
+"jsaWeekly": null,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Personal Care Consultants provide personal care services, such as natural relaxation and health treatments, and weight loss advice."
+},
+"4516": {
+"jsaSlug": "4516-tourism-and-travel-advisers",
+"jsaWeekly": 1330,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Tourism and Travel Advisers plan and organise travel and accommodation for clients, and provide travel and accommodation information to tourists."
+},
+"4517": {
+"jsaSlug": "4517-travel-attendants",
+"jsaWeekly": 1504,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Travel Attendants provide services for the safety and comfort of passengers in aircraft, ships and railway sleeping cars."
+},
+"4518": {
+"jsaSlug": "4518-other-personal-service-workers",
+"jsaWeekly": null,
+"levels": [
+4
+],
+"lic": true,
+"desc": "Personal Service Workers not elsewhere classified. It includes Civil Celebrants, Hair or Beauty Salon Assistants, Sex Workers or Escorts, Body Artists, First Aid Trainers and Religious Assistants."
+},
+"4521": {
+"jsaSlug": "4521-fitness-instructors",
+"jsaWeekly": 1500,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Fitness Instructors direct, instruct and guide individuals and groups in the pursuit of physical fitness and wellbeing."
+},
+"4522": {
+"jsaSlug": "4522-outdoor-adventure-guides",
+"jsaWeekly": 1298,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Outdoor Adventure Guides direct, instruct and guide individuals and groups in outdoor adventure activities such as bungy jumping, fishing and hunting, mountaineering, trekking and whitewater rafting."
+},
+"4523": {
+"jsaSlug": "4523-sports-coaches-instructors-and-officials",
+"jsaWeekly": 1442,
+"levels": [
+3
+],
+"lic": true,
+"desc": "Sports Coaches, Instructors and Officials coach, train and instruct participants in sports, and officiate at sporting events."
+},
+"4524": {
+"jsaSlug": "4524-sportspersons",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": true,
+"desc": "Sportspersons participate in sporting events for monetary gain either as individuals or as members of a team."
+},
+"5111": {
+"jsaSlug": "5111-contract-program-and-project-administrators",
+"jsaWeekly": 2130,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Contract, Program and Project Administrators plan and undertake administration of contracts, organisational programs, special projects and support services."
+},
+"5121": {
+"jsaSlug": "5121-office-managers",
+"jsaWeekly": 1730,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Office Managers organise and control the functions and resources of offices such as administrative systems and office personnel."
+},
+"5122": {
+"jsaSlug": "5122-practice-managers",
+"jsaWeekly": 1655,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Practice Managers organise and control the functions and resources of professional practices such as administrative systems and practice personnel."
+},
+"5211": {
+"jsaSlug": "5211-personal-assistants",
+"jsaWeekly": 1832,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Personal Assistants perform liaison, coordination and organisational tasks in support of Managers and Professionals."
+},
+"5212": {
+"jsaSlug": "5212-secretaries",
+"jsaWeekly": 1626,
+"levels": [
+2
+],
+"lic": false,
+"desc": "Secretaries perform secretarial, clerical and other administrative tasks in support of Managers, Legal Professionals and other professionals. Medical Secretaries are excluded from this unit group. Medical Secretaries are included in Unit Group 5421 Receptionists, in Occupation 542114 Medical Receptionist."
+},
+"5311": {
+"jsaSlug": "5311-general-clerks",
+"jsaWeekly": 1438,
+"levels": [
+4
+],
+"lic": false,
+"desc": "General Clerks perform a range of clerical and administrative tasks."
+},
+"5321": {
+"jsaSlug": "5321-keyboard-operators",
+"jsaWeekly": 1371,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Keyboard Operators input and process text and data, and prepare, edit and generate documents for storage, processing, publication and transmission."
+},
+"5411": {
+"jsaSlug": "5411-call-or-contact-centre-workers",
+"jsaWeekly": 1414,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Call or Contact Centre Workers respond to telephone, Internet and email inquiries and complaints about an organisation's goods and services, and promote the goods and services."
+},
+"5412": {
+"jsaSlug": "5412-information-officers",
+"jsaWeekly": 1462,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Information Officers respond to personal, written and telephone inquiries and complaints about the organisation's goods and services, provide information and refer people to other sources."
+},
+"5421": {
+"jsaSlug": "5421-receptionists",
+"jsaWeekly": 1229,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Receptionists receive and welcome visitors, patients, guests and clients, and respond to inquiries and requests. Medical Secretaries are included in this unit group, in Occupation 542114 Medical Receptionist."
+},
+"5511": {
+"jsaSlug": "5511-accounting-clerks",
+"jsaWeekly": 1442,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Accounting Clerks monitor creditor and debtor accounts, undertake related routine documentation, and calculate and investigate the cost of wages, materials, overheads and other operating costs. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"5512": {
+"jsaSlug": "5512-bookkeepers",
+"jsaWeekly": 1400,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Bookkeepers maintain and evaluate records of financial transactions in account books and computerised accounting systems. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"5513": {
+"jsaSlug": "5513-payroll-clerks",
+"jsaWeekly": 1606,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Payroll Clerks prepare payrolls and related records for employee salaries and statutory record-keeping purposes. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"5521": {
+"jsaSlug": "5521-bank-workers",
+"jsaWeekly": 1610,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Bank Workers receive deposits and pay out money in financial and commercial institutions, keep records of transactions, issue receipts and cash cheques. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"5522": {
+"jsaSlug": "5522-credit-and-loans-officers",
+"jsaWeekly": 1806,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Credit and Loans Officers (AUS) / Finance Clerks (NZ) analyse, evaluate and process credit and loan applications. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"5523": {
+"jsaSlug": "5523-insurance-money-market-and-statistical-clerks",
+"jsaWeekly": 1501,
+"levels": [
+4
+],
+"lic": true,
+"desc": "Insurance, Money Market and Statistical Clerks prepare and check documentation associated with insurance, maintain records of securities transactions and registrations, offer odds and accept bets, and compile data and undertake statistical and actuarial computations."
+},
+"5611": {
+"jsaSlug": "5611-betting-clerks",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": true,
+"desc": "Betting Clerks take bets from customers at betting agencies, over the telephone and on course."
+},
+"5612": {
+"jsaSlug": "5612-couriers-and-postal-deliverers",
+"jsaWeekly": 1503,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Couriers and Postal Deliverers deliver small items such as documents, messages, mail and parcels."
+},
+"5613": {
+"jsaSlug": "5613-filing-and-registry-clerks",
+"jsaWeekly": 1602,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Filing and Registry Clerks process and handle information and documents to maintain access to and security of database and record management systems."
+},
+"5614": {
+"jsaSlug": "5614-mail-sorters",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Mail Sorters receive, sort and despatch mail in organisations and postal sorting centres."
+},
+"5615": {
+"jsaSlug": "5615-survey-interviewers",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Survey Interviewers interview people and record their responses to survey and market research questions on a range of topics."
+},
+"5616": {
+"jsaSlug": "5616-switchboard-operators",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Switchboard Operators operate telecommunication switchboards and consoles to assist callers establish telephone connections, and receive caller inquiries and fault reports."
+},
+"5619": {
+"jsaSlug": "5619-other-clerical-and-office-support-workers",
+"jsaWeekly": 1433,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Clerical and Office Support Workers not elsewhere classified. It includes Classified Advertising Clerks, Meter Readers and Parking Inspectors."
+},
+"5911": {
+"jsaSlug": "5911-purchasing-and-supply-logistics-clerks",
+"jsaWeekly": 1553,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Purchasing and Supply Logistics Clerks prepare and process orders for goods and services, monitor stock levels and supply sources and maintain stock and inventory levels, record and coordinate the flow of materials between departments, prepare production schedules, and administer and coordinate storage and distribution operations within organisations."
+},
+"5912": {
+"jsaSlug": "5912-transport-and-despatch-clerks",
+"jsaWeekly": 1707,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Transport and Despatch Clerks verify and maintain records of incoming and outgoing goods, prepare goods for despatch, arrange clearance and collection of imported cargo from customs and bond stores, and arrange shipment of cargo for export."
+},
+"5991": {
+"jsaSlug": "5991-conveyancers-and-legal-executives",
+"jsaWeekly": 1575,
+"levels": [
+2
+],
+"lic": true,
+"desc": "Conveyancers and Legal Executives act for and on behalf of clients in the areas of property transfer, company and business law, trusts, wills, probate and litigation."
+},
+"5992": {
+"jsaSlug": "5992-court-and-legal-clerks",
+"jsaWeekly": 1345,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Court and Legal Clerks provide administrative and operational support to Legal Professionals by performing clerical work associated with the functions of courts, legal practices and the administration of trusts and estates. Legal Secretaries, Court Reporters and Legal Executives are excluded from this unit group. Legal Secretaries are included in Unit Group 5212\u00a0Secretaries. Court Reporters are in"
+},
+"5993": {
+"jsaSlug": "5993-debt-collectors",
+"jsaWeekly": 1519,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Debt Collectors collect consumer, commercial, insurance and other forms of debt for clients, make arrangements to settle overdue accounts, formalise payment arrangements and follow up until accounts are fully paid."
+},
+"5994": {
+"jsaSlug": "5994-human-resource-clerks",
+"jsaWeekly": 1476,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Human Resource Clerks maintain and update personnel records such as information on transfers and promotions, employee leave taken and accumulated, salaries, superannuation and taxation, qualifications and training."
+},
+"5995": {
+"jsaSlug": "5995-inspectors-and-regulatory-officers",
+"jsaWeekly": 1862,
+"levels": [
+4
+],
+"lic": true,
+"desc": "Inspectors and Regulatory Officers administer and enforce government and corporate regulations and standards."
+},
+"5996": {
+"jsaSlug": "5996-insurance-investigators-loss-adjusters-and-risk-surveyors",
+"jsaWeekly": 1995,
+"levels": [
+3
+],
+"lic": true,
+"desc": "Insurance Investigators, Loss Adjusters and Risk Surveyors conduct investigations into insurance claims to ensure their validity, inspect and assess the damage and loss to insured properties and businesses, estimate insurance costs, and inspect insured properties to evaluate conditions affecting underwriting standards."
+},
+"5997": {
+"jsaSlug": "5997-library-assistants",
+"jsaWeekly": 1779,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Library Assistants issue, receive and shelve library items and maintain associated records."
+},
+"5999": {
+"jsaSlug": "5999-other-miscellaneous-clerical-and-administrative-workers",
+"jsaWeekly": 1590,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Clerical and Administrative Workers not elsewhere classified. It includes Production Assistants (Film, Television, Radio or Stage), Proof Readers, Radio Despatchers, Clinical Coders and Facilities Administrators."
+},
+"6111": {
+"jsaSlug": "6111-auctioneers-and-stock-and-station-agents",
+"jsaWeekly": null,
+"levels": [
+3
+],
+"lic": true,
+"desc": "Auctioneers, and Stock and Station Agents sell property at auction, and advise and represent farmers in business transactions such as buying and selling livestock, rural property, and goods and services."
+},
+"6112": {
+"jsaSlug": "6112-insurance-agents",
+"jsaWeekly": 1559,
+"levels": [
+3
+],
+"lic": true,
+"desc": "Insurance Agents represent insurance companies in selling insurance to clients."
+},
+"6113": {
+"jsaSlug": "6113-sales-representatives",
+"jsaWeekly": 1692,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Sales Representatives represent companies to sell their goods and business services to wholesale and retail establishments. ICT and Technical Sales Representatives are excluded from this unit group. ICT Sales Representatives are included in Unit Group 2252 ICT Sales Professionals. Technical Sales Representatives are included in Unit Group 2254 Technical Sales Representatives."
+},
+"6121": {
+"jsaSlug": "6121-real-estate-sales-agents",
+"jsaWeekly": 1504,
+"levels": [
+3
+],
+"lic": true,
+"desc": "Real Estate Sales Agents sell, lease and manage commercial and private properties, and broker the buying and selling of businesses."
+},
+"6211": {
+"jsaSlug": "6211-sales-assistants-general",
+"jsaWeekly": 1241,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Sales Assistants (General) sell goods and services, such as food, clothing, hardware, household appliances, office supplies and cosmetics, in retail and wholesale establishments."
+},
+"6212": {
+"jsaSlug": "6212-ict-sales-assistants",
+"jsaWeekly": 1178,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Sales Assistants sell computing and telecommunications related goods and services in retail and wholesale establishments."
+},
+"6213": {
+"jsaSlug": "6213-motor-vehicle-and-vehicle-parts-salespersons",
+"jsaWeekly": 1316,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Vehicle Parts Salespersons Motor Vehicle and Vehicle Parts Salespersons sell motor vehicles, boats, caravans, earthmoving equipment, vehicle accessories and parts in retail and wholesale establishments."
+},
+"6214": {
+"jsaSlug": "6214-pharmacy-sales-assistants",
+"jsaWeekly": 1112,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Pharmacy Sales Assistants sell pharmaceutical goods, toiletries and related goods in retail pharmacies. Pharmacy Technicians are excluded from this unit group. Pharmacy Technicians are included in Unit Group 3112 Medical Technicians."
+},
+"6215": {
+"jsaSlug": "6215-retail-supervisors",
+"jsaWeekly": 1267,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Retail Supervisors supervise and coordinate the activities of retail sales workers."
+},
+"6216": {
+"jsaSlug": "6216-service-station-attendants",
+"jsaWeekly": 1233,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Service Station Attendants sell fuel, lubricants and other automotive accessories, and perform minor maintenance on motor vehicles at service stations."
+},
+"6217": {
+"jsaSlug": "6217-street-vendors-and-related-salespersons",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Street Vendors and Related Salespersons sell goods and services on established routes, door-to-door, and at street and market locations."
+},
+"6219": {
+"jsaSlug": "6219-other-sales-assistants-and-salespersons",
+"jsaWeekly": 1318,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Salespersons This unit group covers Sales Assistants and Salespersons not elsewhere classified. It includes Materials Recyclers and Rental Salespersons."
+},
+"6311": {
+"jsaSlug": "6311-checkout-operators-and-office-cashiers",
+"jsaWeekly": 1077,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Checkout Operators and Office Cashiers operate cash registers and receive payments from customers, and issue receipts and return change due."
+},
+"6391": {
+"jsaSlug": "6391-models-and-sales-demonstrators",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Models and Sales Demonstrators wear and display clothing and accessories and pose for art and photography, and demonstrate goods at commercial premises, exhibitions and private homes."
+},
+"6392": {
+"jsaSlug": "6392-retail-and-wool-buyers",
+"jsaWeekly": 1535,
+"levels": [
+3
+],
+"lic": false,
+"desc": "Retail and Wool Buyers select and buy goods for resale in retail establishments, and value and buy wool sold by wool growers."
+},
+"6393": {
+"jsaSlug": "6393-telemarketers",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Telemarketers telephone existing and prospective customers to promote goods and services, and obtain sales and arrange sales visits."
+},
+"6394": {
+"jsaSlug": "6394-ticket-salespersons",
+"jsaWeekly": 1276,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Ticket Salespersons sell tickets and make reservations for services such as travel and admission to sporting and entertainment venues, and collect fares on transport vehicles."
+},
+"6395": {
+"jsaSlug": "6395-visual-merchandisers",
+"jsaWeekly": 1200,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Visual Merchandisers plan and install internal, window and fixed displays to show goods to their best advantage."
+},
+"7111": {
+"jsaSlug": "7111-clay-concrete-glass-and-stone-processing-machine-operators",
+"jsaWeekly": 1716,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Clay, Concrete, Glass and Stone Processing Machine Operators operate machines to manufacture and finish a variety of clay, concrete, glassware and stone products by extruding, shaping, mixing, grinding, cutting and other processes."
+},
+"7112": {
+"jsaSlug": "7112-industrial-spraypainters",
+"jsaWeekly": null,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Industrial Spraypainters operate spray painting equipment to paint and apply other industrial coatings to manufactured items. Vehicle Painters are excluded from this unit group. Vehicle Painters are included in Unit Group 3243 Vehicle Painters."
+},
+"7113": {
+"jsaSlug": "7113-paper-and-wood-processing-machine-operators",
+"jsaWeekly": 1451,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Paper and Wood Processing Machine Operators operate machines to manufacture paper packaging and other paper products, fibreboard stock, logs, plywood, particle board, solid laminate and similar timber products."
+},
+"7114": {
+"jsaSlug": "7114-photographic-developers-and-printers",
+"jsaWeekly": 1406,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Photographic Developers and Printers edit and adjust digital images, develop photographic film, and print photographic images from digital media, negatives and positives using computer software, fully automatic equipment and by separate processes."
+},
+"7115": {
+"jsaSlug": "7115-plastics-and-rubber-production-machine-operators",
+"jsaWeekly": 1708,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Plastics and Rubber Production Machine Operators operate machines to manufacture and finish plastic and rubber products."
+},
+"7116": {
+"jsaSlug": "7116-sewing-machinists",
+"jsaWeekly": 1067,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Sewing Machinists operate industrial sewing machines to sew and finish garments and soft furnishings such as curtains."
+},
+"7117": {
+"jsaSlug": "7117-textile-and-footwear-production-machine-operators",
+"jsaWeekly": 1225,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Textile and Footwear Production Machine Operators operate machines to process raw hides and skins, raw textile fibres, and dye, weave and knit fibres for use in textile and footwear production."
+},
+"7119": {
+"jsaSlug": "7119-other-machine-operators",
+"jsaWeekly": 1554,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Machine Operators not elsewhere classified. It includes Chemical Production Machine Operators, Motion Picture Projectionists, Sand Blasters and Sterilisation Technicians."
+},
+"7121": {
+"jsaSlug": "7121-crane-hoist-and-lift-operators",
+"jsaWeekly": 3411,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Crane, Hoist and Lift Operators operate stationary and mobile cranes, hoists, lifts and winches to lift, move and place materials, equipment and people in areas such as building sites, factories, mines, sawmills, wharves and shipyards."
+},
+"7122": {
+"jsaSlug": "7122-drillers-miners-and-shot-firers",
+"jsaWeekly": 2908,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Drillers, Miners and Shot Firers assemble, position and operate drilling rigs and mining plant, and detonate explosives to extract materials from the earth and demolish structures."
+},
+"7123": {
+"jsaSlug": "7123-engineering-production-workers",
+"jsaWeekly": 1656,
+"levels": [
+4
+],
+"lic": true,
+"desc": "Engineering Production Workers perform a range of production process tasks to refine and treat metals and mineral ore, fire ceramics, and operate plant to produce and finish metal products such as rods, tubing and structural shapes, and moulds for casting."
+},
+"7129": {
+"jsaSlug": "7129-other-stationary-plant-operators",
+"jsaWeekly": 2019,
+"levels": [
+4
+],
+"lic": true,
+"desc": "Stationary Plant Operators not elsewhere classified. It includes Boiler or Engine Operators, Bulk Materials Handling Plant Operators, Cement Production Plant Operators, Concrete Batching Plant Operators, Concrete Pump Operators, Paper and Pulp Mill Operators, Railway Signal Operators, Train Controllers, Waste Water or Water Plant Operators and Weighbridge Operators."
+},
+"7211": {
+"jsaSlug": "7211-agricultural-forestry-and-horticultural-plant-operators",
+"jsaWeekly": 1403,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Agricultural, Forestry and Horticultural Plant Operators operate agricultural, forestry and horticultural plant to clear and cultivate land, sow and harvest crops, and fell trees and move logs."
+},
+"7212": {
+"jsaSlug": "7212-earthmoving-plant-operators",
+"jsaWeekly": 1900,
+"levels": [
+4
+],
+"lic": true,
+"desc": "Earthmoving Plant Operators operate plant to excavate earth, ore and rock, break up pavement, road, rock and obstructions, move and load earth, rock and debris, and level, smooth and compact surfaces in construction and other projects."
+},
+"7213": {
+"jsaSlug": "7213-forklift-drivers",
+"jsaWeekly": 1340,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Forklift Drivers operate forklifts to move bulk materials, containers, crates, palletised goods, cartons and bales."
+},
+"7219": {
+"jsaSlug": "7219-other-mobile-plant-operators",
+"jsaWeekly": 1696,
+"levels": [
+4
+],
+"lic": true,
+"desc": "Mobile Plant Operators not elsewhere classified. It includes Aircraft Baggage Handlers and Airline Ground Crew, Linemarkers, Paving Plant Operators, Railway Track Plant Operators, Road Roller Operators and Streetsweeper Operators."
+},
+"7311": {
+"jsaSlug": "7311-automobile-drivers",
+"jsaWeekly": null,
+"levels": [
+4
+],
+"lic": true,
+"desc": "Automobile Drivers drive motor cars to transport passengers to destinations."
+},
+"7312": {
+"jsaSlug": "7312-bus-and-coach-drivers",
+"jsaWeekly": 1795,
+"levels": [
+4
+],
+"lic": true,
+"desc": "Bus and Coach Drivers drive buses and coaches to transport passengers over established and special routes."
+},
+"7313": {
+"jsaSlug": "7313-train-and-tram-drivers",
+"jsaWeekly": 3001,
+"levels": [
+4
+],
+"lic": true,
+"desc": "Train and Tram Drivers drive trains and trams to transport passengers and freight on rail networks."
+},
+"7321": {
+"jsaSlug": "7321-delivery-drivers",
+"jsaWeekly": 1308,
+"levels": [
+4
+],
+"lic": true,
+"desc": "Delivery Drivers drive vans and cars to deliver goods."
+},
+"7331": {
+"jsaSlug": "7331-truck-drivers",
+"jsaWeekly": 1960,
+"levels": [
+4
+],
+"lic": true,
+"desc": "Truck Drivers drive heavy trucks, removal vans, tankers and tow trucks to transport bulky goods and liquids."
+},
+"7411": {
+"jsaSlug": "7411-storepersons",
+"jsaWeekly": 1328,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Storepersons receive, handle and despatch goods in stores and warehouses."
+},
+"8111": {
+"jsaSlug": "8111-car-detailers",
+"jsaWeekly": 1240,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Car Detailers wash and clean exteriors and interiors of motor vehicles, and touch up paint work, glass and upholstery to prepare them for sale or rent. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"8112": {
+"jsaSlug": "8112-commercial-cleaners",
+"jsaWeekly": 1254,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Commercial Cleaners clean offices, residential complexes, hospitals, schools, industrial work areas, industrial machines, construction sites and other commercial premises using heavy duty cleaning equipment."
+},
+"8113": {
+"jsaSlug": "8113-domestic-cleaners",
+"jsaWeekly": 1302,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Domestic Cleaners clean and tidy private dwellings such as houses, units, flats, apartments and townhouses."
+},
+"8114": {
+"jsaSlug": "8114-housekeepers",
+"jsaWeekly": 1230,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Housekeepers perform cleaning and housekeeping duties in hotels, motels and other commercial premises, and in private residences."
+},
+"8115": {
+"jsaSlug": "8115-laundry-workers",
+"jsaWeekly": 1154,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Laundry Workers sort, clean, fold, iron and package linen, clothing and other items in laundries and drycleaning establishments, and private residences."
+},
+"8116": {
+"jsaSlug": "8116-other-cleaners",
+"jsaWeekly": 1342,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Other Cleaners clean surfaces, materials and objects, such as carpets, windows, walls, swimming pools and cooling towers, using specialised cleaning equipment and chemicals."
+},
+"8211": {
+"jsaSlug": "8211-building-and-plumbing-labourers",
+"jsaWeekly": 1827,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Building and Plumbing Labourers perform a variety of routine tasks associated with erecting and repairing structures and facilities, maintaining stormwater, drainage and sewerage systems, excavating earth and clearing and levelling sites, and installing and maintaining piping systems, fixtures and water regulators."
+},
+"8212": {
+"jsaSlug": "8212-concreters",
+"jsaWeekly": 2209,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Concreters pour, spread, smooth and finish concrete for structures such as floors, stairs, ramps, footpaths and bridges. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"8213": {
+"jsaSlug": "8213-fencers",
+"jsaWeekly": 1249,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Fencers erect and repair fences and gates."
+},
+"8214": {
+"jsaSlug": "8214-insulation-and-home-improvement-installers",
+"jsaWeekly": 1606,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Insulation and Home Improvement Installers install a variety of insulation materials to improve resistance to heat, cold, air, sound and moisture, and install functional and decorative home improvements."
+},
+"8215": {
+"jsaSlug": "8215-paving-and-surfacing-labourers",
+"jsaWeekly": 1383,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Paving and Surfacing Labourers perform routine tasks associated in laying bituminous and other paving materials on roads, runways, parking areas and other surfaces to be paved."
+},
+"8216": {
+"jsaSlug": "8216-railway-track-workers",
+"jsaWeekly": null,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Railway Track Workers lay and repair tracks for railways, tramways, quarries and mines, and install and repair signals and other equipment."
+},
+"8217": {
+"jsaSlug": "8217-structural-steel-construction-workers",
+"jsaWeekly": 2910,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Structural Steel Construction Workers assemble rigging gear to move and position equipment and structural components, erect scaffolding, position and secure steel reinforcing in concrete forms, and erect and dismantle structural steel frames. \u200b\u200b\u200b\u200b\u200b\u200b\u200b"
+},
+"8219": {
+"jsaSlug": "8219-other-construction-and-mining-labourers",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Construction and Mining Labourers not elsewhere classified. It includes Crane Chasers, Driller's Assistants, Laggers, Mining Support Workers and Surveyor's Assistants."
+},
+"8311": {
+"jsaSlug": "8311-food-and-drink-factory-workers",
+"jsaWeekly": 1647,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Food and Drink Factory Workers perform routine tasks in manufacturing food and beverages."
+},
+"8312": {
+"jsaSlug": "8312-meat-boners-and-slicers-and-slaughterers",
+"jsaWeekly": 1627,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Meat Boners and Slicers, and Slaughterers trim and cut meat from bones, sides and carcasses, and slaughter livestock in abattoirs."
+},
+"8313": {
+"jsaSlug": "8313-meat-poultry-and-seafood-process-workers",
+"jsaWeekly": 1244,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Meat, Poultry and Seafood Process Workers slaughter and eviscerate poultry, and process, grade and package meat, poultry, fish and shellfish."
+},
+"8321": {
+"jsaSlug": "8321-packers",
+"jsaWeekly": 1366,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Packers weigh, wrap, seal and label chocolate, fruit, vegetables, meat, seafood and other products."
+},
+"8322": {
+"jsaSlug": "8322-product-assemblers",
+"jsaWeekly": 1196,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Product Assemblers put together components and subassemblies that go into the production of metal products, electrical and electronic equipment, jewellery and precious metal articles, and joinery products."
+},
+"8391": {
+"jsaSlug": "8391-metal-engineering-process-workers",
+"jsaWeekly": 1212,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Metal Engineering Process Workers perform routine tasks in manufacturing metal products."
+},
+"8392": {
+"jsaSlug": "8392-plastics-and-rubber-factory-workers",
+"jsaWeekly": 1609,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Plastics and Rubber Factory Workers perform routine tasks in manufacturing plastic and rubber products."
+},
+"8393": {
+"jsaSlug": "8393-product-quality-controllers",
+"jsaWeekly": 1404,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Product Quality Controllers examine manufactured products and primary produce to ensure conformity to specifications and standards of presentation and quality."
+},
+"8394": {
+"jsaSlug": "8394-timber-and-wood-process-workers",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Timber and Wood Process Workers perform routine tasks in paper and pulp mills, sawmills, timber yards, and wood processing and timber products factories."
+},
+"8399": {
+"jsaSlug": "8399-other-factory-process-workers",
+"jsaWeekly": 1519,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Factory Process Workers not elsewhere classified. It includes Cement and Concrete Plant Workers, Chemical Plant Workers, Clay Processing Factory Workers, Fabric and Textile Factory Workers, Footwear Factory Workers, Glass Processing Workers, Hide and Skin Processing Workers and Recycling Workers."
+},
+"8411": {
+"jsaSlug": "8411-aquaculture-workers",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": null,
+"desc": null,
+"levelEst": true
+},
+"8412": {
+"jsaSlug": "8412-crop-farm-workers",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": null,
+"desc": null,
+"levelEst": true
+},
+"8413": {
+"jsaSlug": "8413-forestry-and-logging-workers",
+"jsaWeekly": null,
+"levels": [
+4
+],
+"lic": null,
+"desc": null,
+"levelEst": true
+},
+"8414": {
+"jsaSlug": "8414-garden-and-nursery-labourers",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": null,
+"desc": null,
+"levelEst": true
+},
+"8415": {
+"jsaSlug": "8415-livestock-farm-workers",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": null,
+"desc": null,
+"levelEst": true
+},
+"8416": {
+"jsaSlug": "8416-mixed-crop-and-livestock-farm-workers",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": null,
+"desc": null,
+"levelEst": true
+},
+"8419": {
+"jsaSlug": "8419-other-farm-forestry-and-garden-workers",
+"jsaWeekly": null,
+"levels": [
+5
+],
+"lic": null,
+"desc": null,
+"levelEst": true
+},
+"8511": {
+"jsaSlug": "8511-fast-food-cooks",
+"jsaWeekly": 977,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Fast Food Cooks prepare a restricted range of foods in fast food establishments."
+},
+"8512": {
+"jsaSlug": "8512-food-trades-assistants",
+"jsaWeekly": 1380,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Food Trades Assistants assist Food Trades Workers by performing routine food preparation, cleaning and storage tasks."
+},
+"8513": {
+"jsaSlug": "8513-kitchenhands",
+"jsaWeekly": 1292,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Kitchenhands assist kitchen and service staff in preparing and serving food, and clean food preparation and service areas."
+},
+"8911": {
+"jsaSlug": "8911-freight-and-furniture-handlers",
+"jsaWeekly": 1652,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Freight and Furniture Handlers load and unload trucks, containers and rail cars, and transfer cargo between ships and other forms of transport and storage facilities."
+},
+"8912": {
+"jsaSlug": "8912-shelf-fillers",
+"jsaWeekly": 1022,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Shelf Fillers fill up shelves and display areas in stores and supermarkets."
+},
+"8991": {
+"jsaSlug": "8991-caretakers",
+"jsaWeekly": 1383,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Caretakers maintain and clean residential buildings, schools, offices, holiday camps, caravan parks and associated grounds."
+},
+"8992": {
+"jsaSlug": "8992-deck-and-fishing-hands",
+"jsaWeekly": 1720,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Deck and Fishing Hands maintain ships' equipment and structures, and catch fish, crustacea and molluscs."
+},
+"8993": {
+"jsaSlug": "8993-handypersons",
+"jsaWeekly": 1538,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Handypersons clean, paint, repair and maintain buildings, grounds and facilities."
+},
+"8994": {
+"jsaSlug": "8994-motor-vehicle-parts-and-accessories-fitters",
+"jsaWeekly": null,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Motor Vehicle Parts and Accessories Fitters fit and replace parts and accessories on motor vehicles."
+},
+"8995": {
+"jsaSlug": "8995-printing-assistants-and-table-workers",
+"jsaWeekly": 1253,
+"levels": [
+4
+],
+"lic": false,
+"desc": "Printing Assistants and Table Workers perform routine printing tasks, operate bindery machines and perform manual binding and finishing of books and printed products."
+},
+"8996": {
+"jsaSlug": "8996-recycling-and-rubbish-collectors",
+"jsaWeekly": 1462,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Recycling and Rubbish Collectors collect household, commercial and industrial waste for recycling and disposal."
+},
+"8997": {
+"jsaSlug": "8997-vending-machine-attendants",
+"jsaWeekly": 1150,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Vending Machine Attendants stock and maintain vending and amusement machines and collect money from coin boxes."
+},
+"8999": {
+"jsaSlug": "8999-other-miscellaneous-labourers",
+"jsaWeekly": 1543,
+"levels": [
+5
+],
+"lic": false,
+"desc": "Labourers not elsewhere classified. It includes Bicycle Mechanics, Car Park Attendants, Crossing Supervisors, Electrical or Telecommunications Trades Assistants, Leaflet or Newspaper Deliverers, Mechanic's Assistants, Railways Assistants, Sign Erectors, Ticket Collectors or Ushers, Trolley Collectors and Road Traffic Controllers."
+}
+}

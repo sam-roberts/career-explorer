@@ -1,0 +1,3863 @@
+[
+{
+"sm": "00",
+"smLabel": "Occupation blank",
+"code": "0000",
+"label": "Occupation blank",
+"people": 3319076,
+"medSal": 43639.5,
+"medTotal": 25225.0
+},
+{
+"sm": "11",
+"smLabel": "Chief executives, general managers and legislators",
+"code": "1111",
+"label": "Chief executive officer or managing director",
+"people": 237168,
+"medSal": 80000.0,
+"medTotal": 99876.0
+},
+{
+"sm": "11",
+"smLabel": "Chief executives, general managers and legislators",
+"code": "1112",
+"label": "General manager",
+"people": 261218,
+"medSal": 99726.0,
+"medTotal": 111922.0
+},
+{
+"sm": "11",
+"smLabel": "Chief executives, general managers and legislators",
+"code": "1113",
+"label": "Legislator",
+"people": 4450,
+"medSal": 80220.0,
+"medTotal": 88865.5
+},
+{
+"sm": "12",
+"smLabel": "Farmers and farm managers",
+"code": "1211",
+"label": "Aquaculture farmer",
+"people": 3591,
+"medSal": 53042.0,
+"medTotal": 55890.0
+},
+{
+"sm": "12",
+"smLabel": "Farmers and farm managers",
+"code": "1213",
+"label": "Livestock farmer",
+"people": 19234,
+"medSal": 61983.5,
+"medTotal": 67230.0
+},
+{
+"sm": "12",
+"smLabel": "Farmers and farm managers",
+"code": "1215",
+"label": "Broadacre Crop Growers",
+"people": 802,
+"medSal": 56136.0,
+"medTotal": 90093.5
+},
+{
+"sm": "12",
+"smLabel": "Farmers and farm managers",
+"code": "1216",
+"label": "Horticultural Crop Growers",
+"people": 3722,
+"medSal": 50302.5,
+"medTotal": 55812.0
+},
+{
+"sm": "12",
+"smLabel": "Farmers and farm managers",
+"code": "1217",
+"label": "Mixed Production Farmers",
+"people": 3043,
+"medSal": 57966.0,
+"medTotal": 73864.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1311",
+"label": "Advertising and sales manager",
+"people": 188724,
+"medSal": 105230.0,
+"medTotal": 114419.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1321",
+"label": "Corporate services manager",
+"people": 13557,
+"medSal": 118385.0,
+"medTotal": 125666.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1322",
+"label": "Finance manager",
+"people": 68544,
+"medSal": 107362.0,
+"medTotal": 116343.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1323",
+"label": "Human resource manager",
+"people": 34283,
+"medSal": 124918.0,
+"medTotal": 131697.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1324",
+"label": "Policy and planning manager",
+"people": 49691,
+"medSal": 128177.5,
+"medTotal": 132305.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1325",
+"label": "Research and development manager",
+"people": 11846,
+"medSal": 111746.5,
+"medTotal": 119513.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1331",
+"label": "Construction manager",
+"people": 86710,
+"medSal": 116666.0,
+"medTotal": 124870.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1332",
+"label": "Engineering manager",
+"people": 26852,
+"medSal": 160399.5,
+"medTotal": 171776.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1333",
+"label": "Importer, exporter or wholesaler",
+"people": 3105,
+"medSal": 74882.5,
+"medTotal": 88634.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1334",
+"label": "Manufacturer",
+"people": 23228,
+"medSal": 79239.0,
+"medTotal": 82104.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1335",
+"label": "Production manager",
+"people": 18463,
+"medSal": 126008.0,
+"medTotal": 136767.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1336",
+"label": "Supply and distribution manager",
+"people": 25404,
+"medSal": 110698.0,
+"medTotal": 115831.5
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1341",
+"label": "Child care centre director",
+"people": 9484,
+"medSal": 82876.0,
+"medTotal": 87027.5
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1342",
+"label": "Health and welfare services manager",
+"people": 54367,
+"medSal": 70050.0,
+"medTotal": 75645.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1343",
+"label": "School principal",
+"people": 14077,
+"medSal": 151648.5,
+"medTotal": 156499.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1344",
+"label": "Other education manager",
+"people": 20694,
+"medSal": 67751.0,
+"medTotal": 74201.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1351",
+"label": "IT manager",
+"people": 83788,
+"medSal": 147777.0,
+"medTotal": 153327.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1391",
+"label": "Commissioned officer - management",
+"people": 14779,
+"medSal": 103538.0,
+"medTotal": 114542.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1392",
+"label": "Senior non-commissioned defence force member",
+"people": 5396,
+"medSal": 110789.0,
+"medTotal": 118734.0
+},
+{
+"sm": "13",
+"smLabel": "Specialist managers",
+"code": "1399",
+"label": "Other specialist manager",
+"people": 35259,
+"medSal": 90000.0,
+"medTotal": 94302.0
+},
+{
+"sm": "14",
+"smLabel": "Hospitality, retail and service managers",
+"code": "1411",
+"label": "Caf\u00e9 or restaurant manager",
+"people": 52407,
+"medSal": 55063.0,
+"medTotal": 58700.0
+},
+{
+"sm": "14",
+"smLabel": "Hospitality, retail and service managers",
+"code": "1412",
+"label": "Caravan park manager",
+"people": 2508,
+"medSal": 56533.5,
+"medTotal": 63547.0
+},
+{
+"sm": "14",
+"smLabel": "Hospitality, retail and service managers",
+"code": "1413",
+"label": "Hotel or motel manager",
+"people": 13053,
+"medSal": 72849.5,
+"medTotal": 75905.0
+},
+{
+"sm": "14",
+"smLabel": "Hospitality, retail and service managers",
+"code": "1414",
+"label": "Licensed club manager",
+"people": 3693,
+"medSal": 82523.0,
+"medTotal": 85003.0
+},
+{
+"sm": "14",
+"smLabel": "Hospitality, retail and service managers",
+"code": "1419",
+"label": "Other accommodation or hospitality manager",
+"people": 1713,
+"medSal": 70545.0,
+"medTotal": 75293.0
+},
+{
+"sm": "14",
+"smLabel": "Hospitality, retail and service managers",
+"code": "1421",
+"label": "Retail manager",
+"people": 127698,
+"medSal": 63120.0,
+"medTotal": 66183.0
+},
+{
+"sm": "14",
+"smLabel": "Hospitality, retail and service managers",
+"code": "1491",
+"label": "Amusement, fitness or sports centre manager",
+"people": 6208,
+"medSal": 63792.0,
+"medTotal": 67927.5
+},
+{
+"sm": "14",
+"smLabel": "Hospitality, retail and service managers",
+"code": "1492",
+"label": "Call or contact centre or customer service manager",
+"people": 129827,
+"medSal": 65463.0,
+"medTotal": 68134.0
+},
+{
+"sm": "14",
+"smLabel": "Hospitality, retail and service managers",
+"code": "1493",
+"label": "Conference and event organiser",
+"people": 23437,
+"medSal": 68528.0,
+"medTotal": 72327.0
+},
+{
+"sm": "14",
+"smLabel": "Hospitality, retail and service managers",
+"code": "1494",
+"label": "Transport services manager",
+"people": 24110,
+"medSal": 94346.5,
+"medTotal": 98807.0
+},
+{
+"sm": "14",
+"smLabel": "Hospitality, retail and service managers",
+"code": "1499",
+"label": "Other hospitality, retail or service manager",
+"people": 37107,
+"medSal": 109970.0,
+"medTotal": 115097.0
+},
+{
+"sm": "21",
+"smLabel": "Arts and media professionals",
+"code": "2111",
+"label": "Actor, dancer or other entertainer",
+"people": 12839,
+"medSal": 19659.0,
+"medTotal": 38554.0
+},
+{
+"sm": "21",
+"smLabel": "Arts and media professionals",
+"code": "2112",
+"label": "Music professional",
+"people": 6072,
+"medSal": 43241.0,
+"medTotal": 63811.0
+},
+{
+"sm": "21",
+"smLabel": "Arts and media professionals",
+"code": "2113",
+"label": "Photographer",
+"people": 6013,
+"medSal": 41821.0,
+"medTotal": 55247.0
+},
+{
+"sm": "21",
+"smLabel": "Arts and media professionals",
+"code": "2114",
+"label": "Visual arts and crafts professional",
+"people": 3585,
+"medSal": 47605.0,
+"medTotal": 56219.0
+},
+{
+"sm": "21",
+"smLabel": "Arts and media professionals",
+"code": "2121",
+"label": "Artistic director, media producer or presenter",
+"people": 12553,
+"medSal": 88108.0,
+"medTotal": 96471.0
+},
+{
+"sm": "21",
+"smLabel": "Arts and media professionals",
+"code": "2122",
+"label": "Author, or book or script editor",
+"people": 1873,
+"medSal": 60927.0,
+"medTotal": 74440.0
+},
+{
+"sm": "21",
+"smLabel": "Arts and media professionals",
+"code": "2123",
+"label": "Film, television radio or stage director",
+"people": 11925,
+"medSal": 76463.0,
+"medTotal": 84098.0
+},
+{
+"sm": "21",
+"smLabel": "Arts and media professionals",
+"code": "2124",
+"label": "Journalist or other writer",
+"people": 15649,
+"medSal": 83294.0,
+"medTotal": 90238.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2211",
+"label": "Accountant",
+"people": 191675,
+"medSal": 98490.0,
+"medTotal": 105119.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2212",
+"label": "Auditor, company secretary or corporate treasurer",
+"people": 31552,
+"medSal": 102488.5,
+"medTotal": 107255.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2221",
+"label": "Financial broker",
+"people": 21719,
+"medSal": 90252.0,
+"medTotal": 98553.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2222",
+"label": "Financial dealer",
+"people": 5148,
+"medSal": 175431.0,
+"medTotal": 196045.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2223",
+"label": "Financial investment advisor or manager",
+"people": 20385,
+"medSal": 120000.0,
+"medTotal": 134551.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2231",
+"label": "Human resource professional",
+"people": 70114,
+"medSal": 81674.0,
+"medTotal": 85376.5
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2233",
+"label": "Training and development officer",
+"people": 11795,
+"medSal": 88741.0,
+"medTotal": 94436.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2241",
+"label": "Actuary, mathematician or statistician",
+"people": 24121,
+"medSal": 98003.0,
+"medTotal": 101982.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2242",
+"label": "Archivist, curator or records manager",
+"people": 13300,
+"medSal": 71941.0,
+"medTotal": 77716.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2243",
+"label": "Economist",
+"people": 4109,
+"medSal": 128928.0,
+"medTotal": 136251.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2244",
+"label": "Intelligence or policy analyst",
+"people": 20392,
+"medSal": 103412.0,
+"medTotal": 108852.5
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2245",
+"label": "Land economist or valuer",
+"people": 5201,
+"medSal": 112635.5,
+"medTotal": 121704.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2246",
+"label": "Librarian",
+"people": 8495,
+"medSal": 75291.0,
+"medTotal": 80842.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2247",
+"label": "Management and organisation analyst",
+"people": 24235,
+"medSal": 100157.0,
+"medTotal": 106461.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2249",
+"label": "Other information and organisation professional",
+"people": 22562,
+"medSal": 9989.5,
+"medTotal": 45966.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2251",
+"label": "Advertising and marketing professional",
+"people": 69804,
+"medSal": 80486.5,
+"medTotal": 85034.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2252",
+"label": "IT sales professional",
+"people": 23834,
+"medSal": 126148.0,
+"medTotal": 133219.5
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2253",
+"label": "Public relations officer",
+"people": 20521,
+"medSal": 93514.0,
+"medTotal": 99036.0
+},
+{
+"sm": "22",
+"smLabel": "Business, human resource and marketing professionals",
+"code": "2254",
+"label": "Technical sales representative",
+"people": 27017,
+"medSal": 98173.0,
+"medTotal": 106852.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2311",
+"label": "Air transport professionals",
+"people": 16365,
+"medSal": 142769.0,
+"medTotal": 156599.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2312",
+"label": "Marine transport professional",
+"people": 12095,
+"medSal": 116269.5,
+"medTotal": 128682.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2321",
+"label": "Architect or landscape architect",
+"people": 22773,
+"medSal": 89499.5,
+"medTotal": 96142.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2322",
+"label": "Cartographer or surveyor",
+"people": 12385,
+"medSal": 111341.5,
+"medTotal": 118076.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2323",
+"label": "Fashion, industrial or jewellery designer",
+"people": 9145,
+"medSal": 75448.5,
+"medTotal": 80292.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2324",
+"label": "Graphic or web designer, or illustrator",
+"people": 38828,
+"medSal": 73392.0,
+"medTotal": 78675.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2325",
+"label": "Interior designer",
+"people": 8678,
+"medSal": 66435.0,
+"medTotal": 71555.5
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2326",
+"label": "Urban and regional planner",
+"people": 12150,
+"medSal": 106575.0,
+"medTotal": 112257.5
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2330",
+"label": "Engineer - type not specified",
+"people": 2,
+"medSal": 91913.5,
+"medTotal": 88674.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2331",
+"label": "Chemical or materials engineer",
+"people": 10096,
+"medSal": 126323.0,
+"medTotal": 133182.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2332",
+"label": "Civil engineering professional",
+"people": 71248,
+"medSal": 119222.0,
+"medTotal": 124297.5
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2333",
+"label": "Electrical engineer",
+"people": 34797,
+"medSal": 130630.0,
+"medTotal": 137456.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2334",
+"label": "Electronics engineer",
+"people": 7595,
+"medSal": 113202.0,
+"medTotal": 119722.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2335",
+"label": "Industrial, mechanical or production engineer",
+"people": 53693,
+"medSal": 113199.0,
+"medTotal": 118253.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2336",
+"label": "Mining engineer",
+"people": 10619,
+"medSal": 176375.5,
+"medTotal": 191720.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2339",
+"label": "Other engineering professional",
+"people": 30927,
+"medSal": 119111.0,
+"medTotal": 126645.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2341",
+"label": "Agricultural or forestry scientist",
+"people": 11473,
+"medSal": 87192.0,
+"medTotal": 91348.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2342",
+"label": "Chemist, or food and wine scientist",
+"people": 14888,
+"medSal": 90657.0,
+"medTotal": 94887.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2343",
+"label": "Environmental scientist",
+"people": 33418,
+"medSal": 89999.0,
+"medTotal": 94983.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2344",
+"label": "Geologist or geophysicist",
+"people": 11381,
+"medSal": 137248.5,
+"medTotal": 149363.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2345",
+"label": "Life scientist",
+"people": 17782,
+"medSal": 92987.0,
+"medTotal": 97669.5
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2346",
+"label": "Medical laboratory scientist",
+"people": 14533,
+"medSal": 89291.5,
+"medTotal": 93086.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2347",
+"label": "Veterinarian",
+"people": 12335,
+"medSal": 96288.0,
+"medTotal": 108853.0
+},
+{
+"sm": "23",
+"smLabel": "Design, engineering, science and transport professionals",
+"code": "2349",
+"label": "Other natural or physical science professional",
+"people": 13430,
+"medSal": 86387.0,
+"medTotal": 92845.5
+},
+{
+"sm": "24",
+"smLabel": "Education professionals",
+"code": "2400",
+"label": "Teacher - type not specified",
+"people": 1,
+"medSal": 1187.0,
+"medTotal": 16470.0
+},
+{
+"sm": "24",
+"smLabel": "Education professionals",
+"code": "2410",
+"label": "School teacher - type not specified",
+"people": 34189,
+"medSal": 73919.0,
+"medTotal": 84311.0
+},
+{
+"sm": "24",
+"smLabel": "Education professionals",
+"code": "2411",
+"label": "Pre-school or kindergarten teacher",
+"people": 25422,
+"medSal": 63794.0,
+"medTotal": 68197.0
+},
+{
+"sm": "24",
+"smLabel": "Education professionals",
+"code": "2412",
+"label": "Infant or primary school teacher",
+"people": 192536,
+"medSal": 87539.0,
+"medTotal": 91508.0
+},
+{
+"sm": "24",
+"smLabel": "Education professionals",
+"code": "2413",
+"label": "Middle school teacher",
+"people": 10221,
+"medSal": 88117.0,
+"medTotal": 93905.0
+},
+{
+"sm": "24",
+"smLabel": "Education professionals",
+"code": "2414",
+"label": "Secondary school teacher",
+"people": 172516,
+"medSal": 97755.0,
+"medTotal": 102459.5
+},
+{
+"sm": "24",
+"smLabel": "Education professionals",
+"code": "2415",
+"label": "Special needs teacher",
+"people": 20545,
+"medSal": 64414.0,
+"medTotal": 70443.0
+},
+{
+"sm": "24",
+"smLabel": "Education professionals",
+"code": "2421",
+"label": "University lecturer or tutor",
+"people": 72571,
+"medSal": 90370.0,
+"medTotal": 100598.0
+},
+{
+"sm": "24",
+"smLabel": "Education professionals",
+"code": "2422",
+"label": "TAFE teacher or tutor",
+"people": 25069,
+"medSal": 78924.0,
+"medTotal": 85229.0
+},
+{
+"sm": "24",
+"smLabel": "Education professionals",
+"code": "2491",
+"label": "Education advisor or reviewer",
+"people": 18734,
+"medSal": 71643.5,
+"medTotal": 78337.0
+},
+{
+"sm": "24",
+"smLabel": "Education professionals",
+"code": "2492",
+"label": "Private teacher or tutor",
+"people": 25624,
+"medSal": 22830.5,
+"medTotal": 36681.0
+},
+{
+"sm": "24",
+"smLabel": "Education professionals",
+"code": "2493",
+"label": "Teacher of English to speakers of other languages",
+"people": 3577,
+"medSal": 56565.0,
+"medTotal": 61063.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2511",
+"label": "Dietician",
+"people": 7474,
+"medSal": 67484.0,
+"medTotal": 75983.5
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2512",
+"label": "Medical imaging professional",
+"people": 21217,
+"medSal": 102989.0,
+"medTotal": 108107.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2513",
+"label": "Occupational and environmental health professional",
+"people": 17545,
+"medSal": 111589.5,
+"medTotal": 117185.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2514",
+"label": "Optometrist or orthoptist",
+"people": 6608,
+"medSal": 87688.0,
+"medTotal": 99823.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2515",
+"label": "Pharmacist",
+"people": 31487,
+"medSal": 79058.0,
+"medTotal": 89965.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2519",
+"label": "Other health diagnostic and promotion professionals",
+"people": 4915,
+"medSal": 72221.0,
+"medTotal": 76692.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2521",
+"label": "Chiropractor or osteopath",
+"people": 4303,
+"medSal": 62256.0,
+"medTotal": 81984.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2522",
+"label": "Complementary health therapist",
+"people": 5186,
+"medSal": 44593.0,
+"medTotal": 53043.5
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2523",
+"label": "Dental practitioner",
+"people": 9904,
+"medSal": 94643.0,
+"medTotal": 144637.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2524",
+"label": "Occupational therapist",
+"people": 25828,
+"medSal": 72860.5,
+"medTotal": 80780.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2525",
+"label": "Physiotherapist",
+"people": 32906,
+"medSal": 76527.0,
+"medTotal": 85353.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2526",
+"label": "Podiatrist",
+"people": 3928,
+"medSal": 77928.0,
+"medTotal": 89300.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2527",
+"label": "Speech professional or audiologist",
+"people": 16417,
+"medSal": 73442.0,
+"medTotal": 82446.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2531",
+"label": "General medical practitioner",
+"people": 49156,
+"medSal": 122497.0,
+"medTotal": 149281.5
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2532",
+"label": "Anaesthetist",
+"people": 3735,
+"medSal": 235037.0,
+"medTotal": 479642.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2533",
+"label": "Internal medicine specialist",
+"people": 10896,
+"medSal": 207579.0,
+"medTotal": 332910.5
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2534",
+"label": "Psychiatrist",
+"people": 3335,
+"medSal": 197138.0,
+"medTotal": 290835.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2535",
+"label": "Surgeon",
+"people": 4280,
+"medSal": 200000.0,
+"medTotal": 427080.5
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2539",
+"label": "Other medical practitioners",
+"people": 32087,
+"medSal": 151269.5,
+"medTotal": 193188.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2541",
+"label": "Midwife",
+"people": 22628,
+"medSal": 76614.0,
+"medTotal": 82365.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2542",
+"label": "Nurse educator or researcher",
+"people": 7964,
+"medSal": 87602.0,
+"medTotal": 93296.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2543",
+"label": "Nursing supervisor or manager",
+"people": 6873,
+"medSal": 99917.5,
+"medTotal": 103512.0
+},
+{
+"sm": "25",
+"smLabel": "Health professionals",
+"code": "2544",
+"label": "Registered nurse",
+"people": 360020,
+"medSal": 78624.0,
+"medTotal": 82640.0
+},
+{
+"sm": "26",
+"smLabel": "IT professionals",
+"code": "2611",
+"label": "IT business or systems analyst",
+"people": 61141,
+"medSal": 118630.0,
+"medTotal": 122602.0
+},
+{
+"sm": "26",
+"smLabel": "IT professionals",
+"code": "2612",
+"label": "Multimedia specialist or web developer",
+"people": 8453,
+"medSal": 100188.0,
+"medTotal": 104551.0
+},
+{
+"sm": "26",
+"smLabel": "IT professionals",
+"code": "2613",
+"label": "Software and applications programmer",
+"people": 151272,
+"medSal": 125617.0,
+"medTotal": 130495.0
+},
+{
+"sm": "26",
+"smLabel": "IT professionals",
+"code": "2621",
+"label": "Database or systems administrator, or IT security specialist",
+"people": 36669,
+"medSal": 104961.5,
+"medTotal": 109489.0
+},
+{
+"sm": "26",
+"smLabel": "IT professionals",
+"code": "2631",
+"label": "Computer network professional",
+"people": 35464,
+"medSal": 124372.0,
+"medTotal": 128846.0
+},
+{
+"sm": "26",
+"smLabel": "IT professionals",
+"code": "2632",
+"label": "IT support or test engineer",
+"people": 29756,
+"medSal": 91578.0,
+"medTotal": 94616.0
+},
+{
+"sm": "26",
+"smLabel": "IT professionals",
+"code": "2633",
+"label": "Telecommunications engineering professional",
+"people": 8816,
+"medSal": 125838.0,
+"medTotal": 128830.5
+},
+{
+"sm": "27",
+"smLabel": "Legal, social and welfare professionals",
+"code": "2711",
+"label": "Barrister",
+"people": 1545,
+"medSal": 35829.5,
+"medTotal": 61747.0
+},
+{
+"sm": "27",
+"smLabel": "Legal, social and welfare professionals",
+"code": "2712",
+"label": "Judicial or other legal professionals",
+"people": 4338,
+"medSal": 120626.0,
+"medTotal": 147381.5
+},
+{
+"sm": "27",
+"smLabel": "Legal, social and welfare professionals",
+"code": "2713",
+"label": "Solicitor",
+"people": 73929,
+"medSal": 119210.0,
+"medTotal": 129879.0
+},
+{
+"sm": "27",
+"smLabel": "Legal, social and welfare professionals",
+"code": "2721",
+"label": "Counsellor",
+"people": 18630,
+"medSal": 66558.5,
+"medTotal": 72418.0
+},
+{
+"sm": "27",
+"smLabel": "Legal, social and welfare professionals",
+"code": "2722",
+"label": "Religious leader",
+"people": 17607,
+"medSal": 30085.0,
+"medTotal": 37143.0
+},
+{
+"sm": "27",
+"smLabel": "Legal, social and welfare professionals",
+"code": "2723",
+"label": "Psychologist",
+"people": 27038,
+"medSal": 76640.0,
+"medTotal": 94275.0
+},
+{
+"sm": "27",
+"smLabel": "Legal, social and welfare professionals",
+"code": "2724",
+"label": "Social professionals",
+"people": 8266,
+"medSal": 45591.0,
+"medTotal": 62990.5
+},
+{
+"sm": "27",
+"smLabel": "Legal, social and welfare professionals",
+"code": "2725",
+"label": "Social worker",
+"people": 54565,
+"medSal": 76058.0,
+"medTotal": 80170.0
+},
+{
+"sm": "27",
+"smLabel": "Legal, social and welfare professionals",
+"code": "2726",
+"label": "Welfare, recreation or community arts worker",
+"people": 6466,
+"medSal": 65672.0,
+"medTotal": 69293.5
+},
+{
+"sm": "31",
+"smLabel": "Engineering, IT and science technicians",
+"code": "3111",
+"label": "Agricultural technician",
+"people": 4055,
+"medSal": 69977.0,
+"medTotal": 72471.0
+},
+{
+"sm": "31",
+"smLabel": "Engineering, IT and science technicians",
+"code": "3112",
+"label": "Medical technician",
+"people": 38191,
+"medSal": 55009.0,
+"medTotal": 57602.0
+},
+{
+"sm": "31",
+"smLabel": "Engineering, IT and science technicians",
+"code": "3113",
+"label": "Primary products inspector",
+"people": 7938,
+"medSal": 78834.0,
+"medTotal": 81368.5
+},
+{
+"sm": "31",
+"smLabel": "Engineering, IT and science technicians",
+"code": "3114",
+"label": "Science technician",
+"people": 21025,
+"medSal": 68592.5,
+"medTotal": 70954.0
+},
+{
+"sm": "31",
+"smLabel": "Engineering, IT and science technicians",
+"code": "3121",
+"label": "Architectural, building or surveying technician",
+"people": 61114,
+"medSal": 93640.0,
+"medTotal": 98763.0
+},
+{
+"sm": "31",
+"smLabel": "Engineering, IT and science technicians",
+"code": "3122",
+"label": "Civil engineering draftsperson or technician",
+"people": 11798,
+"medSal": 90702.0,
+"medTotal": 94055.0
+},
+{
+"sm": "31",
+"smLabel": "Engineering, IT and science technicians",
+"code": "3123",
+"label": "Electrical engineering draftsperson or technician",
+"people": 14890,
+"medSal": 109130.5,
+"medTotal": 116897.5
+},
+{
+"sm": "31",
+"smLabel": "Engineering, IT and science technicians",
+"code": "3124",
+"label": "Electronic engineering draftsperson or technician",
+"people": 5370,
+"medSal": 91985.0,
+"medTotal": 97813.5
+},
+{
+"sm": "31",
+"smLabel": "Engineering, IT and science technicians",
+"code": "3125",
+"label": "Mechanical engineering draftsperson or technician",
+"people": 11962,
+"medSal": 98275.0,
+"medTotal": 102210.0
+},
+{
+"sm": "31",
+"smLabel": "Engineering, IT and science technicians",
+"code": "3126",
+"label": "Safety inspector",
+"people": 8108,
+"medSal": 111430.0,
+"medTotal": 117015.0
+},
+{
+"sm": "31",
+"smLabel": "Engineering, IT and science technicians",
+"code": "3129",
+"label": "Other building or engineering technician",
+"people": 29727,
+"medSal": 131318.0,
+"medTotal": 140248.0
+},
+{
+"sm": "31",
+"smLabel": "Engineering, IT and science technicians",
+"code": "3131",
+"label": "IT support technician",
+"people": 39250,
+"medSal": 69649.0,
+"medTotal": 71905.0
+},
+{
+"sm": "31",
+"smLabel": "Engineering, IT and science technicians",
+"code": "3132",
+"label": "Telecommunications technical specialist",
+"people": 5861,
+"medSal": 101386.0,
+"medTotal": 105708.0
+},
+{
+"sm": "32",
+"smLabel": "Automotive and engineering trades workers",
+"code": "3211",
+"label": "Automotive electrician",
+"people": 13604,
+"medSal": 102807.0,
+"medTotal": 110238.5
+},
+{
+"sm": "32",
+"smLabel": "Automotive and engineering trades workers",
+"code": "3212",
+"label": "Motor mechanic",
+"people": 114450,
+"medSal": 83962.5,
+"medTotal": 87716.0
+},
+{
+"sm": "32",
+"smLabel": "Automotive and engineering trades workers",
+"code": "3221",
+"label": "Metal casting, forging or finishing trades worker",
+"people": 1298,
+"medSal": 61912.0,
+"medTotal": 65011.5
+},
+{
+"sm": "32",
+"smLabel": "Automotive and engineering trades workers",
+"code": "3222",
+"label": "Sheetmetal trades worker",
+"people": 6592,
+"medSal": 77807.0,
+"medTotal": 80751.5
+},
+{
+"sm": "32",
+"smLabel": "Automotive and engineering trades workers",
+"code": "3223",
+"label": "Structural steel or welding trades worker",
+"people": 76646,
+"medSal": 86500.0,
+"medTotal": 89496.0
+},
+{
+"sm": "32",
+"smLabel": "Automotive and engineering trades workers",
+"code": "3231",
+"label": "Aircraft maintenance engineer",
+"people": 11580,
+"medSal": 107674.5,
+"medTotal": 113950.5
+},
+{
+"sm": "32",
+"smLabel": "Automotive and engineering trades workers",
+"code": "3232",
+"label": "Metal fitter or machinist",
+"people": 64650,
+"medSal": 108387.0,
+"medTotal": 113357.5
+},
+{
+"sm": "32",
+"smLabel": "Automotive and engineering trades workers",
+"code": "3233",
+"label": "Precision metal trades worker",
+"people": 3172,
+"medSal": 68167.0,
+"medTotal": 72176.0
+},
+{
+"sm": "32",
+"smLabel": "Automotive and engineering trades workers",
+"code": "3234",
+"label": "Toolmaker or engineering patternmaker",
+"people": 1999,
+"medSal": 85035.5,
+"medTotal": 89123.0
+},
+{
+"sm": "32",
+"smLabel": "Automotive and engineering trades workers",
+"code": "3241",
+"label": "Panel beater",
+"people": 9967,
+"medSal": 78194.0,
+"medTotal": 81610.0
+},
+{
+"sm": "32",
+"smLabel": "Automotive and engineering trades workers",
+"code": "3242",
+"label": "Vehicle body builder or trimmer",
+"people": 2629,
+"medSal": 74910.0,
+"medTotal": 77523.0
+},
+{
+"sm": "32",
+"smLabel": "Automotive and engineering trades workers",
+"code": "3243",
+"label": "Vehicle painter",
+"people": 8033,
+"medSal": 75398.0,
+"medTotal": 77207.0
+},
+{
+"sm": "33",
+"smLabel": "Construction trades workers",
+"code": "3311",
+"label": "Bricklayer or stonemason",
+"people": 12397,
+"medSal": 65159.0,
+"medTotal": 71208.0
+},
+{
+"sm": "33",
+"smLabel": "Construction trades workers",
+"code": "3312",
+"label": "Carpenter and joiner",
+"people": 92832,
+"medSal": 76678.0,
+"medTotal": 82722.0
+},
+{
+"sm": "33",
+"smLabel": "Construction trades workers",
+"code": "3321",
+"label": "Floor finisher",
+"people": 4500,
+"medSal": 60000.0,
+"medTotal": 66885.0
+},
+{
+"sm": "33",
+"smLabel": "Construction trades workers",
+"code": "3322",
+"label": "Painting trades worker",
+"people": 19705,
+"medSal": 56701.0,
+"medTotal": 62651.0
+},
+{
+"sm": "33",
+"smLabel": "Construction trades workers",
+"code": "3331",
+"label": "Glazier",
+"people": 8294,
+"medSal": 70191.5,
+"medTotal": 73103.5
+},
+{
+"sm": "33",
+"smLabel": "Construction trades workers",
+"code": "3332",
+"label": "Plasterer",
+"people": 14428,
+"medSal": 64742.5,
+"medTotal": 71417.0
+},
+{
+"sm": "33",
+"smLabel": "Construction trades workers",
+"code": "3333",
+"label": "Roof tiler",
+"people": 3777,
+"medSal": 57510.5,
+"medTotal": 62718.0
+},
+{
+"sm": "33",
+"smLabel": "Construction trades workers",
+"code": "3334",
+"label": "Wall and floor tiler",
+"people": 7740,
+"medSal": 54653.0,
+"medTotal": 62333.0
+},
+{
+"sm": "33",
+"smLabel": "Construction trades workers",
+"code": "3341",
+"label": "Plumber",
+"people": 62150,
+"medSal": 87607.0,
+"medTotal": 93930.5
+},
+{
+"sm": "34",
+"smLabel": "Electrotechnology and telecommunications trades workers",
+"code": "3411",
+"label": "Electrician",
+"people": 91785,
+"medSal": 108931.0,
+"medTotal": 116926.0
+},
+{
+"sm": "34",
+"smLabel": "Electrotechnology and telecommunications trades workers",
+"code": "3421",
+"label": "Air conditioning and refrigeration mechanic",
+"people": 17317,
+"medSal": 94817.5,
+"medTotal": 100514.0
+},
+{
+"sm": "34",
+"smLabel": "Electrotechnology and telecommunications trades workers",
+"code": "3422",
+"label": "Electrical distribution trades worker",
+"people": 11335,
+"medSal": 134811.0,
+"medTotal": 144549.0
+},
+{
+"sm": "34",
+"smLabel": "Electrotechnology and telecommunications trades workers",
+"code": "3423",
+"label": "Electronic equipment trades worker",
+"people": 27990,
+"medSal": 84367.0,
+"medTotal": 89336.0
+},
+{
+"sm": "34",
+"smLabel": "Electrotechnology and telecommunications trades workers",
+"code": "3424",
+"label": "Telecommunications trades worker",
+"people": 13568,
+"medSal": 85615.0,
+"medTotal": 90344.5
+},
+{
+"sm": "35",
+"smLabel": "Food trades workers",
+"code": "3511",
+"label": "Baker or pastrycook",
+"people": 19431,
+"medSal": 58241.0,
+"medTotal": 60402.0
+},
+{
+"sm": "35",
+"smLabel": "Food trades workers",
+"code": "3512",
+"label": "Butcher or smallgoods maker",
+"people": 12778,
+"medSal": 60062.0,
+"medTotal": 62337.5
+},
+{
+"sm": "35",
+"smLabel": "Food trades workers",
+"code": "3513",
+"label": "Chef",
+"people": 142550,
+"medSal": 57771.5,
+"medTotal": 59613.0
+},
+{
+"sm": "35",
+"smLabel": "Food trades workers",
+"code": "3514",
+"label": "Cook",
+"people": 41976,
+"medSal": 36948.5,
+"medTotal": 39668.5
+},
+{
+"sm": "36",
+"smLabel": "Skilled animal and horticultural workers",
+"code": "3611",
+"label": "Animal attendant or trainer",
+"people": 16583,
+"medSal": 42701.0,
+"medTotal": 46738.0
+},
+{
+"sm": "36",
+"smLabel": "Skilled animal and horticultural workers",
+"code": "3613",
+"label": "Veterinary nurse",
+"people": 14788,
+"medSal": 54263.0,
+"medTotal": 56948.0
+},
+{
+"sm": "36",
+"smLabel": "Skilled animal and horticultural workers",
+"code": "3621",
+"label": "Florist",
+"people": 4065,
+"medSal": 35928.0,
+"medTotal": 42723.0
+},
+{
+"sm": "36",
+"smLabel": "Skilled animal and horticultural workers",
+"code": "3623",
+"label": "Greenkeeper",
+"people": 2826,
+"medSal": 68802.0,
+"medTotal": 71660.5
+},
+{
+"sm": "36",
+"smLabel": "Skilled animal and horticultural workers",
+"code": "3624",
+"label": "Nurseryperson",
+"people": 9288,
+"medSal": 48094.0,
+"medTotal": 51616.5
+},
+{
+"sm": "36",
+"smLabel": "Skilled animal and horticultural workers",
+"code": "3625",
+"label": "Arboriculture Workers",
+"people": 8039,
+"medSal": 69804.0,
+"medTotal": 73408.0
+},
+{
+"sm": "36",
+"smLabel": "Skilled animal and horticultural workers",
+"code": "3626",
+"label": "Gardeners (General)",
+"people": 18466,
+"medSal": 49229.0,
+"medTotal": 53777.5
+},
+{
+"sm": "36",
+"smLabel": "Skilled animal and horticultural workers",
+"code": "3627",
+"label": "Landscape Gardeners and Irrigation Technicians",
+"people": 30185,
+"medSal": 55380.0,
+"medTotal": 58678.0
+},
+{
+"sm": "36",
+"smLabel": "Skilled animal and horticultural workers",
+"code": "3631",
+"label": "Senior Aquaculture, Crop and Forestry Workers",
+"people": 4741,
+"medSal": 73073.0,
+"medTotal": 75804.0
+},
+{
+"sm": "36",
+"smLabel": "Skilled animal and horticultural workers",
+"code": "3632",
+"label": "Senior Livestock Farm Workers",
+"people": 1842,
+"medSal": 64386.0,
+"medTotal": 66854.0
+},
+{
+"sm": "36",
+"smLabel": "Skilled animal and horticultural workers",
+"code": "3633",
+"label": "Shearers and Wool Classers",
+"people": 5940,
+"medSal": 53600.5,
+"medTotal": 61885.0
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3911",
+"label": "Hairdresser",
+"people": 32537,
+"medSal": 39758.0,
+"medTotal": 45584.0
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3921",
+"label": "Binder, finisher or screen printer",
+"people": 3067,
+"medSal": 58905.5,
+"medTotal": 61013.0
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3922",
+"label": "Graphic pre-press trades worker",
+"people": 1391,
+"medSal": 71478.5,
+"medTotal": 75045.0
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3923",
+"label": "Printer",
+"people": 4417,
+"medSal": 71686.0,
+"medTotal": 74691.0
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3931",
+"label": "Canvas or leather goods maker",
+"people": 831,
+"medSal": 53924.0,
+"medTotal": 57252.0
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3932",
+"label": "Clothing trades worker",
+"people": 2783,
+"medSal": 46745.0,
+"medTotal": 51990.0
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3933",
+"label": "Upholsterer",
+"people": 1730,
+"medSal": 58981.0,
+"medTotal": 62073.5
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3941",
+"label": "Cabinet maker",
+"people": 18832,
+"medSal": 65947.0,
+"medTotal": 68849.0
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3942",
+"label": "Wood machinist or other wood trades worker",
+"people": 2782,
+"medSal": 59000.5,
+"medTotal": 61650.0
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3991",
+"label": "Boat builder or shipwright",
+"people": 2886,
+"medSal": 69586.0,
+"medTotal": 72863.0
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3992",
+"label": "Chemical, gas, petroleum or power generation plant operator",
+"people": 10454,
+"medSal": 127982.5,
+"medTotal": 136874.0
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3993",
+"label": "Gallery, library or museum technician",
+"people": 6766,
+"medSal": 58342.0,
+"medTotal": 62415.0
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3994",
+"label": "Jeweller",
+"people": 1751,
+"medSal": 58697.0,
+"medTotal": 65479.0
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3995",
+"label": "Performing arts technician",
+"people": 12362,
+"medSal": 63524.5,
+"medTotal": 71918.5
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3996",
+"label": "Signwriter",
+"people": 3016,
+"medSal": 67967.5,
+"medTotal": 71224.0
+},
+{
+"sm": "39",
+"smLabel": "Other technicians and trades workers",
+"code": "3999",
+"label": "Other miscellaneous technician and trades worker",
+"people": 30648,
+"medSal": 67228.5,
+"medTotal": 70766.0
+},
+{
+"sm": "41",
+"smLabel": "Health and welfare support workers",
+"code": "4111",
+"label": "Ambulance officer or paramedic",
+"people": 23993,
+"medSal": 111206.0,
+"medTotal": 116527.0
+},
+{
+"sm": "41",
+"smLabel": "Health and welfare support workers",
+"code": "4112",
+"label": "Dental hygienist, technician or therapist",
+"people": 7778,
+"medSal": 71594.0,
+"medTotal": 78470.0
+},
+{
+"sm": "41",
+"smLabel": "Health and welfare support workers",
+"code": "4113",
+"label": "Diversional therapist",
+"people": 1361,
+"medSal": 48848.0,
+"medTotal": 52750.0
+},
+{
+"sm": "41",
+"smLabel": "Health and welfare support workers",
+"code": "4114",
+"label": "Enrolled or mothercraft nurse",
+"people": 29226,
+"medSal": 58793.0,
+"medTotal": 61672.5
+},
+{
+"sm": "41",
+"smLabel": "Health and welfare support workers",
+"code": "4115",
+"label": "Aboriginal and Torres Strait Islander health worker",
+"people": 3815,
+"medSal": 61527.0,
+"medTotal": 65165.0
+},
+{
+"sm": "41",
+"smLabel": "Health and welfare support workers",
+"code": "4116",
+"label": "Massage therapist",
+"people": 9584,
+"medSal": 24076.0,
+"medTotal": 31949.0
+},
+{
+"sm": "41",
+"smLabel": "Health and welfare support workers",
+"code": "4117",
+"label": "Welfare support worker",
+"people": 217589,
+"medSal": 53835.0,
+"medTotal": 60224.0
+},
+{
+"sm": "42",
+"smLabel": "Carers and aides",
+"code": "4211",
+"label": "Child carer",
+"people": 209371,
+"medSal": 43197.0,
+"medTotal": 46261.0
+},
+{
+"sm": "42",
+"smLabel": "Carers and aides",
+"code": "4221",
+"label": "Education aide",
+"people": 107804,
+"medSal": 42830.5,
+"medTotal": 47719.5
+},
+{
+"sm": "42",
+"smLabel": "Carers and aides",
+"code": "4230",
+"label": "Personal carers and assistants",
+"people": 5,
+"medSal": 22640.0,
+"medTotal": 25400.0
+},
+{
+"sm": "42",
+"smLabel": "Carers and aides",
+"code": "4231",
+"label": "Aged or disabled carer",
+"people": 221428,
+"medSal": 47498.0,
+"medTotal": 52943.5
+},
+{
+"sm": "42",
+"smLabel": "Carers and aides",
+"code": "4232",
+"label": "Dental nurse or assistant",
+"people": 35614,
+"medSal": 43408.0,
+"medTotal": 46475.5
+},
+{
+"sm": "42",
+"smLabel": "Carers and aides",
+"code": "4233",
+"label": "Nursing support or personal care worker",
+"people": 101049,
+"medSal": 50917.0,
+"medTotal": 53710.0
+},
+{
+"sm": "42",
+"smLabel": "Carers and aides",
+"code": "4234",
+"label": "Special care worker",
+"people": 5562,
+"medSal": 60278.5,
+"medTotal": 64237.0
+},
+{
+"sm": "43",
+"smLabel": "Hospitality workers",
+"code": "4311",
+"label": "Bar attendant or barista",
+"people": 116758,
+"medSal": 32652.0,
+"medTotal": 36264.0
+},
+{
+"sm": "43",
+"smLabel": "Hospitality workers",
+"code": "4312",
+"label": "Caf\u00e9 worker",
+"people": 61210,
+"medSal": 21141.0,
+"medTotal": 26249.5
+},
+{
+"sm": "43",
+"smLabel": "Hospitality workers",
+"code": "4313",
+"label": "Gaming worker",
+"people": 5279,
+"medSal": 63277.0,
+"medTotal": 65452.0
+},
+{
+"sm": "43",
+"smLabel": "Hospitality workers",
+"code": "4314",
+"label": "Hotel service manager",
+"people": 5611,
+"medSal": 60871.0,
+"medTotal": 63399.0
+},
+{
+"sm": "43",
+"smLabel": "Hospitality workers",
+"code": "4315",
+"label": "Waiter",
+"people": 150633,
+"medSal": 22873.0,
+"medTotal": 26640.0
+},
+{
+"sm": "43",
+"smLabel": "Hospitality workers",
+"code": "4319",
+"label": "Other hospitality worker",
+"people": 84607,
+"medSal": 30391.0,
+"medTotal": 34268.0
+},
+{
+"sm": "44",
+"smLabel": "Protective service workers",
+"code": "4411",
+"label": "Defence force member - other ranks",
+"people": 25012,
+"medSal": 82937.0,
+"medTotal": 90788.0
+},
+{
+"sm": "44",
+"smLabel": "Protective service workers",
+"code": "4412",
+"label": "Fire or emergency service worker",
+"people": 21280,
+"medSal": 114696.0,
+"medTotal": 122358.5
+},
+{
+"sm": "44",
+"smLabel": "Protective service workers",
+"code": "4413",
+"label": "Police",
+"people": 66688,
+"medSal": 109409.0,
+"medTotal": 120859.0
+},
+{
+"sm": "44",
+"smLabel": "Protective service workers",
+"code": "4421",
+"label": "Prison officer",
+"people": 24178,
+"medSal": 99888.0,
+"medTotal": 102974.0
+},
+{
+"sm": "44",
+"smLabel": "Protective service workers",
+"code": "4422",
+"label": "Security officer or guard",
+"people": 59788,
+"medSal": 70006.5,
+"medTotal": 72873.5
+},
+{
+"sm": "45",
+"smLabel": "Sports and personal service workers",
+"code": "4511",
+"label": "Beauty therapist",
+"people": 25399,
+"medSal": 30756.0,
+"medTotal": 36661.0
+},
+{
+"sm": "45",
+"smLabel": "Sports and personal service workers",
+"code": "4512",
+"label": "Driving instructor",
+"people": 1502,
+"medSal": 64712.0,
+"medTotal": 71056.0
+},
+{
+"sm": "45",
+"smLabel": "Sports and personal service workers",
+"code": "4513",
+"label": "Funeral worker",
+"people": 3959,
+"medSal": 62770.5,
+"medTotal": 69118.0
+},
+{
+"sm": "45",
+"smLabel": "Sports and personal service workers",
+"code": "4514",
+"label": "Gallery, museum or tour guide",
+"people": 5634,
+"medSal": 35720.0,
+"medTotal": 44184.5
+},
+{
+"sm": "45",
+"smLabel": "Sports and personal service workers",
+"code": "4515",
+"label": "Personal care consultant",
+"people": 807,
+"medSal": 22000.0,
+"medTotal": 30469.0
+},
+{
+"sm": "45",
+"smLabel": "Sports and personal service workers",
+"code": "4516",
+"label": "Tourism or travel adviser",
+"people": 11321,
+"medSal": 65129.0,
+"medTotal": 69577.0
+},
+{
+"sm": "45",
+"smLabel": "Sports and personal service workers",
+"code": "4517",
+"label": "Travel attendant",
+"people": 11946,
+"medSal": 60832.0,
+"medTotal": 69997.5
+},
+{
+"sm": "45",
+"smLabel": "Sports and personal service workers",
+"code": "4518",
+"label": "Other personal service worker",
+"people": 10829,
+"medSal": 25585.5,
+"medTotal": 32413.0
+},
+{
+"sm": "45",
+"smLabel": "Sports and personal service workers",
+"code": "4521",
+"label": "Fitness instructor",
+"people": 21084,
+"medSal": 32717.5,
+"medTotal": 45864.5
+},
+{
+"sm": "45",
+"smLabel": "Sports and personal service workers",
+"code": "4522",
+"label": "Outdoor adventure guide",
+"people": 4245,
+"medSal": 39485.0,
+"medTotal": 44446.0
+},
+{
+"sm": "45",
+"smLabel": "Sports and personal service workers",
+"code": "4523",
+"label": "Sports coaches, instructors and officials",
+"people": 42223,
+"medSal": 22815.0,
+"medTotal": 31780.0
+},
+{
+"sm": "45",
+"smLabel": "Sports and personal service workers",
+"code": "4524",
+"label": "Sportsperson",
+"people": 17192,
+"medSal": 34396.5,
+"medTotal": 41630.0
+},
+{
+"sm": "51",
+"smLabel": "Office managers and program administrators",
+"code": "5111",
+"label": "Contract, program or project administrator",
+"people": 300519,
+"medSal": 73800.0,
+"medTotal": 77634.0
+},
+{
+"sm": "51",
+"smLabel": "Office managers and program administrators",
+"code": "5121",
+"label": "Office administrator or manager",
+"people": 207008,
+"medSal": 61822.0,
+"medTotal": 69098.0
+},
+{
+"sm": "51",
+"smLabel": "Office managers and program administrators",
+"code": "5122",
+"label": "Practice manager",
+"people": 48256,
+"medSal": 90473.0,
+"medTotal": 100500.5
+},
+{
+"sm": "52",
+"smLabel": "Personal assistants and secretaries",
+"code": "5211",
+"label": "Personal assistant",
+"people": 44455,
+"medSal": 78089.0,
+"medTotal": 82475.0
+},
+{
+"sm": "52",
+"smLabel": "Personal assistants and secretaries",
+"code": "5212",
+"label": "Secretary",
+"people": 27261,
+"medSal": 57520.0,
+"medTotal": 64353.0
+},
+{
+"sm": "53",
+"smLabel": "General clerical workers",
+"code": "5300",
+"label": "Clerk - type not specified",
+"people": 2,
+"medSal": 62829.0,
+"medTotal": 73519.0
+},
+{
+"sm": "53",
+"smLabel": "General clerical workers",
+"code": "5310",
+"label": "Public servant - administrative service officer - levels 3-4",
+"people": 28541,
+"medSal": 78147.5,
+"medTotal": 81409.0
+},
+{
+"sm": "53",
+"smLabel": "General clerical workers",
+"code": "5311",
+"label": "Administration assistant or office worker",
+"people": 302903,
+"medSal": 50481.0,
+"medTotal": 57797.0
+},
+{
+"sm": "53",
+"smLabel": "General clerical workers",
+"code": "5321",
+"label": "Keyboard operator",
+"people": 13799,
+"medSal": 55162.0,
+"medTotal": 59275.0
+},
+{
+"sm": "54",
+"smLabel": "Inquiry clerks and receptionists",
+"code": "5411",
+"label": "Call or contact centre worker",
+"people": 45632,
+"medSal": 58628.0,
+"medTotal": 60358.0
+},
+{
+"sm": "54",
+"smLabel": "Inquiry clerks and receptionists",
+"code": "5412",
+"label": "Inquiry clerk",
+"people": 4826,
+"medSal": 76288.0,
+"medTotal": 80099.5
+},
+{
+"sm": "54",
+"smLabel": "Inquiry clerks and receptionists",
+"code": "5421",
+"label": "Receptionist",
+"people": 114241,
+"medSal": 40797.0,
+"medTotal": 45582.0
+},
+{
+"sm": "55",
+"smLabel": "Numerical clerks",
+"code": "5511",
+"label": "Accounting clerk",
+"people": 90804,
+"medSal": 67160.0,
+"medTotal": 70360.0
+},
+{
+"sm": "55",
+"smLabel": "Numerical clerks",
+"code": "5512",
+"label": "Bookkeeper",
+"people": 33700,
+"medSal": 47457.0,
+"medTotal": 58963.0
+},
+{
+"sm": "55",
+"smLabel": "Numerical clerks",
+"code": "5513",
+"label": "Payroll clerk",
+"people": 17429,
+"medSal": 76591.0,
+"medTotal": 79315.0
+},
+{
+"sm": "55",
+"smLabel": "Numerical clerks",
+"code": "5521",
+"label": "Bank teller, officer or employee",
+"people": 66766,
+"medSal": 83482.0,
+"medTotal": 87100.5
+},
+{
+"sm": "55",
+"smLabel": "Numerical clerks",
+"code": "5522",
+"label": "Credit or loans officer",
+"people": 11011,
+"medSal": 84183.0,
+"medTotal": 87177.0
+},
+{
+"sm": "55",
+"smLabel": "Numerical clerks",
+"code": "5523",
+"label": "Insurance, money market or statistical clerk",
+"people": 31089,
+"medSal": 80022.0,
+"medTotal": 83087.0
+},
+{
+"sm": "56",
+"smLabel": "Clerical and office support workers",
+"code": "5610",
+"label": "Public servant - administrative service officer - levels 1-2",
+"people": 11450,
+"medSal": 72622.0,
+"medTotal": 77686.0
+},
+{
+"sm": "56",
+"smLabel": "Clerical and office support workers",
+"code": "5611",
+"label": "Betting clerk",
+"people": 1303,
+"medSal": 48867.0,
+"medTotal": 53506.0
+},
+{
+"sm": "56",
+"smLabel": "Clerical and office support workers",
+"code": "5612",
+"label": "Courier or postal deliverer",
+"people": 23997,
+"medSal": 62655.0,
+"medTotal": 65983.0
+},
+{
+"sm": "56",
+"smLabel": "Clerical and office support workers",
+"code": "5613",
+"label": "Filing clerk",
+"people": 753,
+"medSal": 38452.0,
+"medTotal": 47409.0
+},
+{
+"sm": "56",
+"smLabel": "Clerical and office support workers",
+"code": "5614",
+"label": "Mail sorter",
+"people": 8077,
+"medSal": 62034.5,
+"medTotal": 64533.0
+},
+{
+"sm": "56",
+"smLabel": "Clerical and office support workers",
+"code": "5615",
+"label": "Market research interviewer",
+"people": 2094,
+"medSal": 24632.0,
+"medTotal": 35231.5
+},
+{
+"sm": "56",
+"smLabel": "Clerical and office support workers",
+"code": "5616",
+"label": "Switchboard operator",
+"people": 1465,
+"medSal": 56479.5,
+"medTotal": 60239.0
+},
+{
+"sm": "56",
+"smLabel": "Clerical and office support workers",
+"code": "5619",
+"label": "Other clerical or office support worker",
+"people": 6347,
+"medSal": 45189.0,
+"medTotal": 49648.0
+},
+{
+"sm": "59",
+"smLabel": "Other clerical and administrative workers",
+"code": "5911",
+"label": "Purchasing or supply logistics clerk",
+"people": 95183,
+"medSal": 65675.5,
+"medTotal": 68174.0
+},
+{
+"sm": "59",
+"smLabel": "Other clerical and administrative workers",
+"code": "5912",
+"label": "Receiving and dispatching clerk",
+"people": 18805,
+"medSal": 76346.5,
+"medTotal": 79029.0
+},
+{
+"sm": "59",
+"smLabel": "Other clerical and administrative workers",
+"code": "5991",
+"label": "Conveyancer or legal executive",
+"people": 15315,
+"medSal": 63144.5,
+"medTotal": 66615.0
+},
+{
+"sm": "59",
+"smLabel": "Other clerical and administrative workers",
+"code": "5992",
+"label": "Court or legal clerk",
+"people": 17053,
+"medSal": 66128.5,
+"medTotal": 69657.0
+},
+{
+"sm": "59",
+"smLabel": "Other clerical and administrative workers",
+"code": "5993",
+"label": "Debt collector",
+"people": 3536,
+"medSal": 66328.0,
+"medTotal": 68061.0
+},
+{
+"sm": "59",
+"smLabel": "Other clerical and administrative workers",
+"code": "5994",
+"label": "Human resource clerk",
+"people": 6170,
+"medSal": 68377.0,
+"medTotal": 71143.5
+},
+{
+"sm": "59",
+"smLabel": "Other clerical and administrative workers",
+"code": "5995",
+"label": "Inspector or regulatory officer",
+"people": 19717,
+"medSal": 94077.0,
+"medTotal": 99367.0
+},
+{
+"sm": "59",
+"smLabel": "Other clerical and administrative workers",
+"code": "5996",
+"label": "Insurance investigator, loss adjuster or risk surveyor",
+"people": 2159,
+"medSal": 101209.0,
+"medTotal": 107377.0
+},
+{
+"sm": "59",
+"smLabel": "Other clerical and administrative workers",
+"code": "5997",
+"label": "Library assistant",
+"people": 4243,
+"medSal": 44458.0,
+"medTotal": 50007.0
+},
+{
+"sm": "59",
+"smLabel": "Other clerical and administrative workers",
+"code": "5999",
+"label": "Other miscellaneous clerical or administrative worker",
+"people": 28475,
+"medSal": 52377.0,
+"medTotal": 62012.0
+},
+{
+"sm": "61",
+"smLabel": "Sales representatives and agents",
+"code": "6111",
+"label": "Auctioneer, or stock and station agent",
+"people": 2237,
+"medSal": 83974.5,
+"medTotal": 87725.0
+},
+{
+"sm": "61",
+"smLabel": "Sales representatives and agents",
+"code": "6112",
+"label": "Insurance agent or salesperson",
+"people": 9353,
+"medSal": 73134.0,
+"medTotal": 75812.0
+},
+{
+"sm": "61",
+"smLabel": "Sales representatives and agents",
+"code": "6113",
+"label": "Sales representative",
+"people": 180254,
+"medSal": 63840.0,
+"medTotal": 67559.0
+},
+{
+"sm": "61",
+"smLabel": "Sales representatives and agents",
+"code": "6121",
+"label": "Real estate sales agent",
+"people": 76547,
+"medSal": 72978.0,
+"medTotal": 80905.0
+},
+{
+"sm": "62",
+"smLabel": "Sales assistants and salespersons",
+"code": "6200",
+"label": "Sales assistant - type not specified",
+"people": 384,
+"medSal": 21129.0,
+"medTotal": 27884.5
+},
+{
+"sm": "62",
+"smLabel": "Sales assistants and salespersons",
+"code": "6211",
+"label": "Sales assistant - general",
+"people": 378516,
+"medSal": 30817.0,
+"medTotal": 35941.0
+},
+{
+"sm": "62",
+"smLabel": "Sales assistants and salespersons",
+"code": "6212",
+"label": "IT sales assistant",
+"people": 4434,
+"medSal": 53959.0,
+"medTotal": 56418.0
+},
+{
+"sm": "62",
+"smLabel": "Sales assistants and salespersons",
+"code": "6213",
+"label": "Motor vehicle and vehicle parts salesperson",
+"people": 12277,
+"medSal": 90811.0,
+"medTotal": 95392.0
+},
+{
+"sm": "62",
+"smLabel": "Sales assistants and salespersons",
+"code": "6214",
+"label": "Pharmacy sales assistant",
+"people": 39987,
+"medSal": 32772.0,
+"medTotal": 37284.0
+},
+{
+"sm": "62",
+"smLabel": "Sales assistants and salespersons",
+"code": "6215",
+"label": "Retail supervisor",
+"people": 24682,
+"medSal": 54764.0,
+"medTotal": 57301.0
+},
+{
+"sm": "62",
+"smLabel": "Sales assistants and salespersons",
+"code": "6216",
+"label": "Service station attendant",
+"people": 4138,
+"medSal": 38764.5,
+"medTotal": 43117.5
+},
+{
+"sm": "62",
+"smLabel": "Sales assistants and salespersons",
+"code": "6217",
+"label": "Street vendor or related salesperson",
+"people": 1378,
+"medSal": 35786.0,
+"medTotal": 40767.5
+},
+{
+"sm": "62",
+"smLabel": "Sales assistants and salespersons",
+"code": "6219",
+"label": "Other sales assistant or salesperson",
+"people": 85904,
+"medSal": 33327.0,
+"medTotal": 38320.0
+},
+{
+"sm": "63",
+"smLabel": "Sales support workers",
+"code": "6311",
+"label": "Checkout operator or office cashier",
+"people": 201304,
+"medSal": 25029.0,
+"medTotal": 29468.0
+},
+{
+"sm": "63",
+"smLabel": "Sales support workers",
+"code": "6391",
+"label": "Model or sales demonstrator",
+"people": 21007,
+"medSal": 37714.5,
+"medTotal": 45405.0
+},
+{
+"sm": "63",
+"smLabel": "Sales support workers",
+"code": "6392",
+"label": "Retail or wool buyer",
+"people": 10150,
+"medSal": 56823.0,
+"medTotal": 59177.0
+},
+{
+"sm": "63",
+"smLabel": "Sales support workers",
+"code": "6393",
+"label": "Telemarketer",
+"people": 3423,
+"medSal": 38510.0,
+"medTotal": 42923.0
+},
+{
+"sm": "63",
+"smLabel": "Sales support workers",
+"code": "6394",
+"label": "Ticket seller",
+"people": 9212,
+"medSal": 55273.0,
+"medTotal": 58917.5
+},
+{
+"sm": "63",
+"smLabel": "Sales support workers",
+"code": "6395",
+"label": "Window dresser",
+"people": 218,
+"medSal": 58195.0,
+"medTotal": 61807.0
+},
+{
+"sm": "71",
+"smLabel": "Machine and stationary plant operators",
+"code": "7111",
+"label": "Clay, concrete, glass or stone processing machine operator",
+"people": 6769,
+"medSal": 77552.0,
+"medTotal": 80284.0
+},
+{
+"sm": "71",
+"smLabel": "Machine and stationary plant operators",
+"code": "7112",
+"label": "Industrial spray painter",
+"people": 5936,
+"medSal": 84262.0,
+"medTotal": 86590.5
+},
+{
+"sm": "71",
+"smLabel": "Machine and stationary plant operators",
+"code": "7113",
+"label": "Paper or wood processing machine operator",
+"people": 6874,
+"medSal": 67767.0,
+"medTotal": 69991.0
+},
+{
+"sm": "71",
+"smLabel": "Machine and stationary plant operators",
+"code": "7114",
+"label": "Photographic developer and printer",
+"people": 1100,
+"medSal": 54038.0,
+"medTotal": 57831.5
+},
+{
+"sm": "71",
+"smLabel": "Machine and stationary plant operators",
+"code": "7115",
+"label": "Plastics or rubber production machine operator",
+"people": 5016,
+"medSal": 68682.0,
+"medTotal": 70269.5
+},
+{
+"sm": "71",
+"smLabel": "Machine and stationary plant operators",
+"code": "7116",
+"label": "Sewing machinist",
+"people": 5061,
+"medSal": 45386.5,
+"medTotal": 47711.0
+},
+{
+"sm": "71",
+"smLabel": "Machine and stationary plant operators",
+"code": "7117",
+"label": "Textile or footwear production machine operator",
+"people": 1315,
+"medSal": 54958.0,
+"medTotal": 57092.0
+},
+{
+"sm": "71",
+"smLabel": "Machine and stationary plant operators",
+"code": "7119",
+"label": "Other machine operator",
+"people": 50151,
+"medSal": 74600.0,
+"medTotal": 77134.0
+},
+{
+"sm": "71",
+"smLabel": "Machine and stationary plant operators",
+"code": "7121",
+"label": "Crane, hoist or lift operator",
+"people": 10601,
+"medSal": 120763.0,
+"medTotal": 129341.0
+},
+{
+"sm": "71",
+"smLabel": "Machine and stationary plant operators",
+"code": "7122",
+"label": "Driller, miner or shot firer",
+"people": 59761,
+"medSal": 135184.0,
+"medTotal": 143478.0
+},
+{
+"sm": "71",
+"smLabel": "Machine and stationary plant operators",
+"code": "7123",
+"label": "Metal press operator",
+"people": 2879,
+"medSal": 89100.0,
+"medTotal": 92627.0
+},
+{
+"sm": "71",
+"smLabel": "Machine and stationary plant operators",
+"code": "7129",
+"label": "Other stationary plant operator",
+"people": 20276,
+"medSal": 98673.0,
+"medTotal": 103587.5
+},
+{
+"sm": "72",
+"smLabel": "Mobile plant operators",
+"code": "7211",
+"label": "Agricultural, forestry or horticultural plant operator",
+"people": 50675,
+"medSal": 41204.5,
+"medTotal": 45058.0
+},
+{
+"sm": "72",
+"smLabel": "Mobile plant operators",
+"code": "7212",
+"label": "Earthmoving plant operator",
+"people": 50859,
+"medSal": 96000.0,
+"medTotal": 101325.0
+},
+{
+"sm": "72",
+"smLabel": "Mobile plant operators",
+"code": "7213",
+"label": "Forklift driver",
+"people": 41510,
+"medSal": 64549.0,
+"medTotal": 66238.5
+},
+{
+"sm": "72",
+"smLabel": "Mobile plant operators",
+"code": "7219",
+"label": "Other mobile plant operator",
+"people": 13113,
+"medSal": 74923.0,
+"medTotal": 78866.0
+},
+{
+"sm": "73",
+"smLabel": "Road and rail drivers",
+"code": "7311",
+"label": "Automobile driver",
+"people": 3458,
+"medSal": 24927.0,
+"medTotal": 38143.5
+},
+{
+"sm": "73",
+"smLabel": "Road and rail drivers",
+"code": "7312",
+"label": "Bus or coach driver",
+"people": 42818,
+"medSal": 64372.5,
+"medTotal": 69786.5
+},
+{
+"sm": "73",
+"smLabel": "Road and rail drivers",
+"code": "7313",
+"label": "Train or tram driver",
+"people": 14439,
+"medSal": 129270.0,
+"medTotal": 136809.0
+},
+{
+"sm": "73",
+"smLabel": "Road and rail drivers",
+"code": "7321",
+"label": "Delivery driver",
+"people": 58356,
+"medSal": 41600.0,
+"medTotal": 46693.0
+},
+{
+"sm": "73",
+"smLabel": "Road and rail drivers",
+"code": "7331",
+"label": "Truck driver",
+"people": 172319,
+"medSal": 82818.0,
+"medTotal": 86656.0
+},
+{
+"sm": "74",
+"smLabel": "Storepersons",
+"code": "7411",
+"label": "Storeperson",
+"people": 184839,
+"medSal": 52871.0,
+"medTotal": 54770.0
+},
+{
+"sm": "81",
+"smLabel": "Cleaners and laundry workers",
+"code": "8111",
+"label": "Car detailer",
+"people": 13045,
+"medSal": 42888.0,
+"medTotal": 45634.0
+},
+{
+"sm": "81",
+"smLabel": "Cleaners and laundry workers",
+"code": "8112",
+"label": "Cleaner - commercial",
+"people": 136859,
+"medSal": 35674.0,
+"medTotal": 40995.0
+},
+{
+"sm": "81",
+"smLabel": "Cleaners and laundry workers",
+"code": "8113",
+"label": "Cleaner - domestic",
+"people": 19363,
+"medSal": 22178.0,
+"medTotal": 32276.0
+},
+{
+"sm": "81",
+"smLabel": "Cleaners and laundry workers",
+"code": "8114",
+"label": "Housekeeper",
+"people": 44495,
+"medSal": 32235.0,
+"medTotal": 35717.0
+},
+{
+"sm": "81",
+"smLabel": "Cleaners and laundry workers",
+"code": "8115",
+"label": "Laundry worker",
+"people": 12412,
+"medSal": 42196.5,
+"medTotal": 45080.5
+},
+{
+"sm": "81",
+"smLabel": "Cleaners and laundry workers",
+"code": "8116",
+"label": "Other cleaner",
+"people": 44458,
+"medSal": 35511.0,
+"medTotal": 40795.5
+},
+{
+"sm": "82",
+"smLabel": "Construction and mining labourers",
+"code": "8211",
+"label": "Building or plumbing labourer",
+"people": 107472,
+"medSal": 57165.0,
+"medTotal": 61097.5
+},
+{
+"sm": "82",
+"smLabel": "Construction and mining labourers",
+"code": "8212",
+"label": "Concreter",
+"people": 24395,
+"medSal": 75480.0,
+"medTotal": 81023.0
+},
+{
+"sm": "82",
+"smLabel": "Construction and mining labourers",
+"code": "8213",
+"label": "Fencer",
+"people": 4649,
+"medSal": 53293.5,
+"medTotal": 57508.0
+},
+{
+"sm": "82",
+"smLabel": "Construction and mining labourers",
+"code": "8214",
+"label": "Insulation or home improvement installer",
+"people": 7612,
+"medSal": 63599.0,
+"medTotal": 67708.0
+},
+{
+"sm": "82",
+"smLabel": "Construction and mining labourers",
+"code": "8215",
+"label": "Paving and surfacing labourer",
+"people": 13876,
+"medSal": 77954.0,
+"medTotal": 81548.5
+},
+{
+"sm": "82",
+"smLabel": "Construction and mining labourers",
+"code": "8216",
+"label": "Railway track worker",
+"people": 7150,
+"medSal": 113551.5,
+"medTotal": 120733.0
+},
+{
+"sm": "82",
+"smLabel": "Construction and mining labourers",
+"code": "8217",
+"label": "Structural steel construction worker",
+"people": 39671,
+"medSal": 96474.5,
+"medTotal": 105279.0
+},
+{
+"sm": "82",
+"smLabel": "Construction and mining labourers",
+"code": "8219",
+"label": "Other construction or mining labourer",
+"people": 26302,
+"medSal": 101282.5,
+"medTotal": 106689.0
+},
+{
+"sm": "83",
+"smLabel": "Factory process workers",
+"code": "8300",
+"label": "Factory or process worker - type not specified",
+"people": 22,
+"medSal": 24312.0,
+"medTotal": 26180.0
+},
+{
+"sm": "83",
+"smLabel": "Factory process workers",
+"code": "8311",
+"label": "Food or drink factory worker",
+"people": 49266,
+"medSal": 56248.0,
+"medTotal": 58125.5
+},
+{
+"sm": "83",
+"smLabel": "Factory process workers",
+"code": "8312",
+"label": "Meat boners and slicer, or slaughterer",
+"people": 16451,
+"medSal": 60201.0,
+"medTotal": 60985.0
+},
+{
+"sm": "83",
+"smLabel": "Factory process workers",
+"code": "8313",
+"label": "Meat, poultry or seafood process worker",
+"people": 39358,
+"medSal": 55619.0,
+"medTotal": 56530.5
+},
+{
+"sm": "83",
+"smLabel": "Factory process workers",
+"code": "8321",
+"label": "Packer",
+"people": 68665,
+"medSal": 39915.0,
+"medTotal": 42400.0
+},
+{
+"sm": "83",
+"smLabel": "Factory process workers",
+"code": "8322",
+"label": "Assembly line worker",
+"people": 35929,
+"medSal": 52567.0,
+"medTotal": 54113.0
+},
+{
+"sm": "83",
+"smLabel": "Factory process workers",
+"code": "8391",
+"label": "Metal engineering process worker",
+"people": 10935,
+"medSal": 62701.5,
+"medTotal": 64408.0
+},
+{
+"sm": "83",
+"smLabel": "Factory process workers",
+"code": "8392",
+"label": "Plastics or rubber factory worker",
+"people": 3024,
+"medSal": 56275.0,
+"medTotal": 58090.0
+},
+{
+"sm": "83",
+"smLabel": "Factory process workers",
+"code": "8393",
+"label": "Product quality controller",
+"people": 3448,
+"medSal": 49908.0,
+"medTotal": 51638.5
+},
+{
+"sm": "83",
+"smLabel": "Factory process workers",
+"code": "8394",
+"label": "Timber or wood process worker",
+"people": 10586,
+"medSal": 55078.0,
+"medTotal": 56861.0
+},
+{
+"sm": "83",
+"smLabel": "Factory process workers",
+"code": "8399",
+"label": "Other factory process worker",
+"people": 67544,
+"medSal": 51858.0,
+"medTotal": 53731.0
+},
+{
+"sm": "84",
+"smLabel": "Farm, forestry and garden workers",
+"code": "8421",
+"label": "Aquaculture Workers",
+"people": 1282,
+"medSal": 57970.0,
+"medTotal": 61730.0
+},
+{
+"sm": "84",
+"smLabel": "Farm, forestry and garden workers",
+"code": "8422",
+"label": "Crop Farm Workers",
+"people": 34776,
+"medSal": 31876.0,
+"medTotal": 34681.0
+},
+{
+"sm": "84",
+"smLabel": "Farm, forestry and garden workers",
+"code": "8423",
+"label": "Livestock Farm Workers",
+"people": 25759,
+"medSal": 43324.5,
+"medTotal": 47417.0
+},
+{
+"sm": "84",
+"smLabel": "Farm, forestry and garden workers",
+"code": "8424",
+"label": "Mixed Production Farm Workers",
+"people": 3611,
+"medSal": 49770.0,
+"medTotal": 56794.0
+},
+{
+"sm": "84",
+"smLabel": "Farm, forestry and garden workers",
+"code": "8431",
+"label": "Forestry and Logging Workers",
+"people": 2966,
+"medSal": 66463.0,
+"medTotal": 70163.5
+},
+{
+"sm": "84",
+"smLabel": "Farm, forestry and garden workers",
+"code": "8432",
+"label": "Garden Labourers",
+"people": 9317,
+"medSal": 41776.0,
+"medTotal": 46097.0
+},
+{
+"sm": "84",
+"smLabel": "Farm, forestry and garden workers",
+"code": "8433",
+"label": "Horticultural Nursery Assistants",
+"people": 3279,
+"medSal": 37846.0,
+"medTotal": 41710.0
+},
+{
+"sm": "84",
+"smLabel": "Farm, forestry and garden workers",
+"code": "8434",
+"label": "Pest Control Technicians",
+"people": 4686,
+"medSal": 67070.0,
+"medTotal": 70158.5
+},
+{
+"sm": "84",
+"smLabel": "Farm, forestry and garden workers",
+"code": "8439",
+"label": "Other Forestry and Garden Workers",
+"people": 782,
+"medSal": 49348.0,
+"medTotal": 52744.5
+},
+{
+"sm": "85",
+"smLabel": "Food preparation assistants",
+"code": "8511",
+"label": "Fast food cook",
+"people": 93208,
+"medSal": 16329.0,
+"medTotal": 18966.0
+},
+{
+"sm": "85",
+"smLabel": "Food preparation assistants",
+"code": "8512",
+"label": "Pastry cook's assistant",
+"people": 12755,
+"medSal": 30857.5,
+"medTotal": 35636.0
+},
+{
+"sm": "85",
+"smLabel": "Food preparation assistants",
+"code": "8513",
+"label": "Kitchen hand",
+"people": 121185,
+"medSal": 25435.0,
+"medTotal": 29394.0
+},
+{
+"sm": "89",
+"smLabel": "Other labourers",
+"code": "8911",
+"label": "Freight or furniture handler",
+"people": 14182,
+"medSal": 73825.0,
+"medTotal": 77013.0
+},
+{
+"sm": "89",
+"smLabel": "Other labourers",
+"code": "8912",
+"label": "Shelf filler",
+"people": 23004,
+"medSal": 30043.0,
+"medTotal": 33718.5
+},
+{
+"sm": "89",
+"smLabel": "Other labourers",
+"code": "8991",
+"label": "Caretaker",
+"people": 3737,
+"medSal": 45677.0,
+"medTotal": 52027.0
+},
+{
+"sm": "89",
+"smLabel": "Other labourers",
+"code": "8992",
+"label": "Deck or fishing hand",
+"people": 8189,
+"medSal": 74056.0,
+"medTotal": 80977.0
+},
+{
+"sm": "89",
+"smLabel": "Other labourers",
+"code": "8993",
+"label": "Handyperson",
+"people": 13751,
+"medSal": 47342.5,
+"medTotal": 52968.0
+},
+{
+"sm": "89",
+"smLabel": "Other labourers",
+"code": "8994",
+"label": "Motor vehicle parts and accessories fitter",
+"people": 13511,
+"medSal": 63421.5,
+"medTotal": 65000.0
+},
+{
+"sm": "89",
+"smLabel": "Other labourers",
+"code": "8995",
+"label": "Printing assistant or table worker",
+"people": 1792,
+"medSal": 54712.0,
+"medTotal": 57143.5
+},
+{
+"sm": "89",
+"smLabel": "Other labourers",
+"code": "8996",
+"label": "Rubbish or recycling collector",
+"people": 3778,
+"medSal": 77166.0,
+"medTotal": 80327.0
+},
+{
+"sm": "89",
+"smLabel": "Other labourers",
+"code": "8997",
+"label": "Vending machine attendant",
+"people": 3802,
+"medSal": 45193.0,
+"medTotal": 47631.5
+},
+{
+"sm": "89",
+"smLabel": "Other labourers",
+"code": "8999",
+"label": "Other miscellaneous labourers",
+"people": 168012,
+"medSal": 51825.0,
+"medTotal": 55436.0
+},
+{
+"sm": "91",
+"smLabel": "Consultant - construction",
+"code": "9133",
+"label": "Consultant - construction manager",
+"people": 1690,
+"medSal": 109999.0,
+"medTotal": 121350.0
+},
+{
+"sm": "92",
+"smLabel": "Consultant - professional",
+"code": "9221",
+"label": "Consultant - tax accountant",
+"people": 7097,
+"medSal": 71919.5,
+"medTotal": 76963.0
+},
+{
+"sm": "92",
+"smLabel": "Consultant - professional",
+"code": "9222",
+"label": "Consultant - financial investment",
+"people": 4478,
+"medSal": 102963.0,
+"medTotal": 115274.0
+},
+{
+"sm": "92",
+"smLabel": "Consultant - professional",
+"code": "9223",
+"label": "Consultant - human resources",
+"people": 13047,
+"medSal": 91615.0,
+"medTotal": 97222.0
+},
+{
+"sm": "92",
+"smLabel": "Consultant - professional",
+"code": "9224",
+"label": "Consultant - management",
+"people": 29898,
+"medSal": 120000.0,
+"medTotal": 134982.5
+},
+{
+"sm": "92",
+"smLabel": "Consultant - professional",
+"code": "9225",
+"label": "Consultant - marketing and public relations",
+"people": 10653,
+"medSal": 80778.0,
+"medTotal": 88561.0
+},
+{
+"sm": "92",
+"smLabel": "Consultant - professional",
+"code": "9232",
+"label": "Consultant - urban and regional planner",
+"people": 923,
+"medSal": 87515.0,
+"medTotal": 94286.0
+},
+{
+"sm": "92",
+"smLabel": "Consultant - professional",
+"code": "9233",
+"label": "Consultant - engineering",
+"people": 12653,
+"medSal": 110753.0,
+"medTotal": 119359.0
+},
+{
+"sm": "92",
+"smLabel": "Consultant - professional",
+"code": "9234",
+"label": "Consultant - environmental",
+"people": 3992,
+"medSal": 79599.0,
+"medTotal": 84587.5
+},
+{
+"sm": "92",
+"smLabel": "Consultant - professional",
+"code": "9250",
+"label": "Consultant - medical",
+"people": 1344,
+"medSal": 79999.0,
+"medTotal": 97906.0
+},
+{
+"sm": "92",
+"smLabel": "Consultant - professional",
+"code": "9251",
+"label": "Consultant - occupational health and safety",
+"people": 3902,
+"medSal": 99545.0,
+"medTotal": 106368.0
+},
+{
+"sm": "92",
+"smLabel": "Consultant - professional",
+"code": "9254",
+"label": "Consultant - clinical nurse",
+"people": 1833,
+"medSal": 101264.0,
+"medTotal": 104110.0
+},
+{
+"sm": "92",
+"smLabel": "Consultant - professional",
+"code": "9261",
+"label": "Consultant - IT business analyst",
+"people": 22755,
+"medSal": 133951.0,
+"medTotal": 139135.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9311",
+"label": "Apprentice or trainee - agricultural or medical technician",
+"people": 1059,
+"medSal": 43080.5,
+"medTotal": 45820.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9313",
+"label": "Apprentice or trainee - information technology technician or telecommunications technical specialist",
+"people": 2253,
+"medSal": 49890.0,
+"medTotal": 52218.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9321",
+"label": "Apprentice or trainee - automotive mechanic or electrician",
+"people": 24411,
+"medSal": 46323.5,
+"medTotal": 47788.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9322",
+"label": "Apprentice or trainee - metal fabrication engineering trades worker",
+"people": 6635,
+"medSal": 50026.0,
+"medTotal": 51238.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9323",
+"label": "Apprentice or trainee - mechanical trades engineering trades worker",
+"people": 6076,
+"medSal": 60615.5,
+"medTotal": 62452.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9324",
+"label": "Apprentice or trainee - automotive - other",
+"people": 3391,
+"medSal": 47047.0,
+"medTotal": 48560.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9331",
+"label": "Apprentice or trainee - bricklayer, or carpenter and joiner",
+"people": 36744,
+"medSal": 44214.0,
+"medTotal": 47548.5
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9332",
+"label": "Apprentice or trainee - floor finisher",
+"people": 3269,
+"medSal": 41966.0,
+"medTotal": 44763.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9333",
+"label": "Apprentice or trainee - tiler or plasterer",
+"people": 2952,
+"medSal": 41533.0,
+"medTotal": 43774.5
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9334",
+"label": "Apprentice or trainee - plumber",
+"people": 18703,
+"medSal": 46653.0,
+"medTotal": 49180.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9341",
+"label": "Apprentice or trainee - electrician",
+"people": 40180,
+"medSal": 51110.0,
+"medTotal": 54756.5
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9342",
+"label": "Apprentice or trainee - electronics or telecommunications trades worker",
+"people": 7559,
+"medSal": 51794.0,
+"medTotal": 54286.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9351",
+"label": "Apprentice or trainee - food trades worker",
+"people": 11402,
+"medSal": 40149.0,
+"medTotal": 41627.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9361",
+"label": "Apprentice or trainee - animal attendant, trainer or shearer",
+"people": 1966,
+"medSal": 38098.5,
+"medTotal": 41359.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9362",
+"label": "Apprentice or trainee - horticultural trades worker",
+"people": 4574,
+"medSal": 43460.0,
+"medTotal": 45335.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9391",
+"label": "Apprentice or trainee - hair dresser",
+"people": 6516,
+"medSal": 32245.5,
+"medTotal": 33873.5
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9392",
+"label": "Apprentice or trainee - printer or graphic artist",
+"people": 446,
+"medSal": 48085.0,
+"medTotal": 48928.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9393",
+"label": "Apprentice or trainee - textile, clothing or footwear trades worker",
+"people": 291,
+"medSal": 40871.0,
+"medTotal": 42598.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9394",
+"label": "Apprentice or trainee - wood trades worker",
+"people": 843,
+"medSal": 43584.0,
+"medTotal": 45452.0
+},
+{
+"sm": "93",
+"smLabel": "Apprentice or trainee - technical or trades",
+"code": "9399",
+"label": "Apprentice or trainee - miscellaneous technicians or trades worker",
+"people": 1449,
+"medSal": 43576.0,
+"medTotal": 45502.0
+},
+{
+"sm": "94",
+"smLabel": "Consultant, apprentice or trainee - community and personal services",
+"code": "9410",
+"label": "Apprentice or trainee - health and welfare support services",
+"people": 1744,
+"medSal": 37363.0,
+"medTotal": 43797.5
+},
+{
+"sm": "94",
+"smLabel": "Consultant, apprentice or trainee - community and personal services",
+"code": "9420",
+"label": "Apprentice or trainee - care and community services",
+"people": 1046,
+"medSal": 31742.0,
+"medTotal": 37711.0
+},
+{
+"sm": "94",
+"smLabel": "Consultant, apprentice or trainee - community and personal services",
+"code": "9431",
+"label": "Apprentice or trainee - hospitality",
+"people": 3673,
+"medSal": 20827.0,
+"medTotal": 24519.0
+},
+{
+"sm": "94",
+"smLabel": "Consultant, apprentice or trainee - community and personal services",
+"code": "9442",
+"label": "Consultant, apprentice or trainee - security and correctional services",
+"people": 1607,
+"medSal": 93153.0,
+"medTotal": 100808.0
+},
+{
+"sm": "94",
+"smLabel": "Consultant, apprentice or trainee - community and personal services",
+"code": "9451",
+"label": "Consultant, apprentice or trainee - personal service or travel",
+"people": 3133,
+"medSal": 48527.5,
+"medTotal": 52365.0
+},
+{
+"sm": "94",
+"smLabel": "Consultant, apprentice or trainee - community and personal services",
+"code": "9452",
+"label": "Apprentice or trainee - sport and recreation",
+"people": 965,
+"medSal": 23690.0,
+"medTotal": 28030.0
+},
+{
+"sm": "95",
+"smLabel": "Consultant, apprentice or trainee - clerical and administrative",
+"code": "9510",
+"label": "Apprentice or trainee - business services",
+"people": 1323,
+"medSal": 37095.0,
+"medTotal": 40347.0
+},
+{
+"sm": "95",
+"smLabel": "Consultant, apprentice or trainee - clerical and administrative",
+"code": "9530",
+"label": "Apprentice or trainee - clerical services",
+"people": 566,
+"medSal": 33777.0,
+"medTotal": 44293.5
+},
+{
+"sm": "95",
+"smLabel": "Consultant, apprentice or trainee - clerical and administrative",
+"code": "9550",
+"label": "Apprentice or trainee - financial services",
+"people": 836,
+"medSal": 52330.0,
+"medTotal": 56008.5
+},
+{
+"sm": "95",
+"smLabel": "Consultant, apprentice or trainee - clerical and administrative",
+"code": "9552",
+"label": "Consultant - insurance (clerical)",
+"people": 1743,
+"medSal": 69430.5,
+"medTotal": 73380.0
+},
+{
+"sm": "95",
+"smLabel": "Consultant, apprentice or trainee - clerical and administrative",
+"code": "9599",
+"label": "Consultant, apprentice or trainee - justice and legal services, insurance claims investigation",
+"people": 1737,
+"medSal": 77915.0,
+"medTotal": 79917.0
+},
+{
+"sm": "96",
+"smLabel": "Consultant - sales",
+"code": "9611",
+"label": "Consultant - sales representative (wholesale)",
+"people": 3904,
+"medSal": 71802.0,
+"medTotal": 74794.0
+},
+{
+"sm": "96",
+"smLabel": "Consultant - sales",
+"code": "9612",
+"label": "Consultant - real estate representative",
+"people": 3636,
+"medSal": 66701.0,
+"medTotal": 73927.5
+},
+{
+"sm": "96",
+"smLabel": "Consultant - sales",
+"code": "9621",
+"label": "Consultant - sales assistant (retail)",
+"people": 33807,
+"medSal": 34018.0,
+"medTotal": 38299.0
+},
+{
+"sm": "97",
+"smLabel": "Apprentice or trainee - machinery operators or drivers",
+"code": "9712",
+"label": "Apprentice or trainee - miner",
+"people": 726,
+"medSal": 73679.0,
+"medTotal": 76692.5
+},
+{
+"sm": "97",
+"smLabel": "Apprentice or trainee - machinery operators or drivers",
+"code": "9730",
+"label": "Apprentice or trainee - transport and distribution driver",
+"people": 685,
+"medSal": 48269.0,
+"medTotal": 50736.0
+},
+{
+"sm": "97",
+"smLabel": "Apprentice or trainee - machinery operators or drivers",
+"code": "9741",
+"label": "Apprentice or trainee - storeperson",
+"people": 1101,
+"medSal": 31181.0,
+"medTotal": 35360.0
+},
+{
+"sm": "98",
+"smLabel": "Apprentice or trainee - labouring",
+"code": "9811",
+"label": "Apprentice or trainee - cleaning services",
+"people": 4389,
+"medSal": 22131.5,
+"medTotal": 30322.0
+},
+{
+"sm": "98",
+"smLabel": "Apprentice or trainee - labouring",
+"code": "9831",
+"label": "Apprentice or trainee - food, drink or meat processor",
+"people": 923,
+"medSal": 28437.5,
+"medTotal": 31199.0
+},
+{
+"sm": "98",
+"smLabel": "Apprentice or trainee - labouring",
+"code": "9841",
+"label": "Apprentice or trainee - farm, forestry or garden worker",
+"people": 2275,
+"medSal": 27565.5,
+"medTotal": 30836.0
+},
+{
+"sm": "98",
+"smLabel": "Apprentice or trainee - labouring",
+"code": "9899",
+"label": "Apprentice or trainee - deck or fishing hand, or autoglazier",
+"people": 728,
+"medSal": 46764.5,
+"medTotal": 48557.5
+},
+{
+"sm": "99",
+"smLabel": "Miscellaneous type not specified or not listed",
+"code": "9990",
+"label": "Occupation not matched",
+"people": 70554,
+"medSal": 48871.5,
+"medTotal": 56473.0
+},
+{
+"sm": "99",
+"smLabel": "Miscellaneous type not specified or not listed",
+"code": "9997",
+"label": "Miscellaneous type not specified",
+"people": 3,
+"medSal": 83801.0,
+"medTotal": 84001.0
+}
+]
