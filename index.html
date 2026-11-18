@@ -153,7 +153,6 @@
   #sky .tick { fill: #7F95C4; font-size: 11px; }
   #sky .cline { fill: none; stroke: #A9BEEA; stroke-width: 1.2; opacity: .7; }
   .star { cursor: pointer; transition: transform .45s ease, opacity .2s; }
-  .star .halo { opacity: .16; }
   .star text { fill: #F4F1FF; font-size: 11px; pointer-events: none; opacity: 0; paint-order: stroke; stroke: #13254A; stroke-width: 3px; }
   .star.lbl text, .star:hover text, .star:focus-visible text { opacity: 1; }
   .star.sel .core { stroke: #fff; stroke-width: 2; }
@@ -306,9 +305,9 @@
   </main>
 </div>
 
-<script src="data.js?v=28"></script>
-<script src="biz.js?v=28"></script>
-<script src="groups.js?v=28"></script>
+<script src="data.js?v=29"></script>
+<script src="biz.js?v=29"></script>
+<script src="groups.js?v=29"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -720,7 +719,7 @@ function renderSky() {
     if (!g) {
       g = el("g", { class: "star", tabindex: 0, role: "button" });
       g.appendChild(el("title"));
-      g.appendChild(el("circle", { class: "halo" })); g.appendChild(el("circle", { class: "core" }));
+      g.appendChild(el("circle", { class: "core" }));
       const t = el("text", { x: 0, y: -10, "text-anchor": "middle" }); g.appendChild(t);
       g.addEventListener("click", e => { e.stopPropagation(); onNodeClick(o); });
       g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); onNodeClick(o); g.focus(); } });
@@ -733,8 +732,7 @@ function renderSky() {
     const yv = A.y(o), bright = yv == null ? .45 : .55 + .45 * (Math.log(yv) - pMin) / ((pMax - pMin) || 1);
     const col = leafColor(o);
     g.style.transform = `translate(${xy[0]}px,${xy[1]}px)`;
-    const [halo, core] = g.querySelectorAll("circle");
-    halo.setAttribute("r", r * 2.6); halo.setAttribute("fill", col);
+    const core = g.querySelector("circle");
     core.setAttribute("r", r); core.setAttribute("fill", col); core.setAttribute("fill-opacity", bright.toFixed(2));
     g.querySelector("text").textContent = o.n; g.querySelector("text").setAttribute("y", -r - 5);
     const pass = passes(o);
