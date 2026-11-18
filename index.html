@@ -37,6 +37,20 @@
   .dd-head a { text-transform: none; letter-spacing: 0; font-size: 11px; }
   .dd-menu label { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: 12px; cursor: pointer; }
   .dd-foot { padding: 8px 12px 4px; text-align: right; }
+  .rng { margin: 2px 0 12px; } .rng:last-child { margin-bottom: 2px; }
+  .rng-head { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; }
+  .rng-head b { font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+  .dual { position: relative; height: 20px; }
+  .dual .track { position: absolute; left: 0; right: 0; top: 8px; height: 4px; border-radius: 2px; background: #2a2f3a; }
+  .dual .fill { position: absolute; top: 0; bottom: 0; background: #3e63dd; border-radius: 2px; }
+  .dual input[type=range] { position: absolute; left: 0; top: 0; width: 100%; height: 20px; margin: 0; background: none;
+    pointer-events: none; -webkit-appearance: none; appearance: none; }
+  .dual input[type=range]::-webkit-slider-runnable-track { background: none; height: 20px; }
+  .dual input[type=range]::-moz-range-track { background: none; }
+  .dual input[type=range]::-webkit-slider-thumb { pointer-events: auto; -webkit-appearance: none; width: 14px; height: 14px; margin-top: 3px;
+    border-radius: 50%; background: #fff; border: 2px solid #3e63dd; cursor: ew-resize; }
+  .dual input[type=range]::-moz-range-thumb { pointer-events: auto; width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 2px solid #3e63dd; cursor: ew-resize; }
+  .dual input[type=range]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 3px rgba(62,99,221,.5); }
   .chip { padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); cursor: pointer; font-size: 11px;
     color: var(--muted); user-select: none; }
   .chip.on { background: #26324a; border-color: #3e63dd; color: var(--text); }
@@ -116,6 +130,10 @@
     <div class="ctrl" role="group" aria-label="Explore data as">Explore data as:
       <div class="seg"><button id="vEmp" class="on" title="Working for someone else">Employee</button><button id="vOwn" title="Owning the business">Business owner</button></div>
     </div>
+    <label class="searchbox" aria-label="Search jobs">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input type="search" id="search" placeholder="Search 400+ jobs...">
+    </label>
     <label class="ctrl">Colour by
       <select id="colorBy">
         <option value="rep">AI replaces the job (estimate)</option>
@@ -130,13 +148,10 @@
         </optgroup>
       </select>
     </label>
-    <label class="searchbox" aria-label="Search jobs">
-      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      <input type="search" id="search" placeholder="Search 400+ jobs...">
-    </label>
     <div class="dd" id="filtersDd">
       <button id="filtersBtn" aria-haspopup="true" aria-expanded="false" aria-controls="filtersMenu">Filters<span class="badge" id="filterCount" hidden></span> <span class="caret">▾</span></button>
       <div class="dd-menu" id="filtersMenu" hidden>
+        <div class="dd-sec" id="rangeSec"></div>
         <div class="dd-sec">
           <div class="dd-head">Training needed <span><a href="#" id="trainAll">All</a> · <a href="#" id="trainNone">None</a></span></div>
           <div id="trainChips"></div>
@@ -168,9 +183,9 @@
   </main>
 </div>
 
-<script src="data.js?v=6"></script>
-<script src="biz.js?v=6"></script>
-<script src="groups.js?v=6"></script>
+<script src="data.js?v=7"></script>
+<script src="biz.js?v=7"></script>
+<script src="groups.js?v=7"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -333,7 +348,9 @@ const qTag = (o, short) => { const [c, l, t] = QTAG[quality(o)]; return `<span c
 const state = { view: "employee", easyOnly: false, colorBy: "rep", search: "", train: new Set(TRAINING.map(t => t.id)), auOnly: false,
   sel: DATA, sort: { key: "rep", dir: 1 } };
 
-const passes = o => state.train.has(o.t) && (!state.auOnly || !!o.med || !!o.ato || o.kind === "biz") &&
+const inRange = (v, r, full) => (r[0] === full[0] && r[1] === full[1]) || (v != null && v >= r[0] && v <= r[1]);
+const passes = o => state.train.has(o.t) &&
+  inRange(sal(o), state.inc, RANGES.inc.full) && inRange(o.ai, state.aiR, RANGES.aiR.full) && inRange(o.rep, state.repR, RANGES.repR.full) && (!state.auOnly || !!o.med || !!o.ato || o.kind === "biz") &&
   (!state.easyOnly || (o.biz && o.biz.start >= 60)) &&
   (!state.search || o.n.toLowerCase().includes(state.search) || (o.grp && (o.grp.title.toLowerCase().includes(state.search) || o.grp.code === state.search)));
 const branchPasses = n => n.c ? leaves(n).some(passes) : passes(n);
@@ -694,6 +711,44 @@ document.getElementById("zout").onclick = () => { const r = svg.getBoundingClien
 document.getElementById("fit").onclick = fit;
 
 // ---------- controls ----------
+// ---------- two-way range sliders ----------
+const RANGES = {};
+(function () {
+  const maxSal = Math.ceil(Math.max(...ALL.map(sal).filter(v => v != null)) / 10000) * 10000;
+  const defs = [
+    { key: "inc", label: "Income", min: 0, max: maxSal, step: 5000, fmt: v => v >= maxSal ? fmtK(v) + "+" : fmtK(v),
+      tip: "Median pay (or solo owner profit for business-only nodes). Jobs with no pay data are hidden when this is narrowed." },
+    { key: "aiR", label: "AI can do the tasks", min: 0, max: 100, step: 1, fmt: v => v + "%" },
+    { key: "repR", label: "AI replaces the job", min: 0, max: 100, step: 1, fmt: v => v + "%" },
+  ];
+  const sec = document.getElementById("rangeSec");
+  sec.innerHTML = `<div class="dd-head">Ranges</div>`;
+  defs.forEach(d => {
+    state[d.key] = [d.min, d.max];
+    const box = document.createElement("div"); box.className = "rng"; if (d.tip) box.title = d.tip;
+    box.innerHTML = `<div class="rng-head"><span>${d.label}</span><b></b></div>
+      <div class="dual"><div class="track"><div class="fill"></div></div>
+        <input type="range" min="${d.min}" max="${d.max}" step="${d.step}" value="${d.min}" aria-label="${d.label} minimum">
+        <input type="range" min="${d.min}" max="${d.max}" step="${d.step}" value="${d.max}" aria-label="${d.label} maximum"></div>`;
+    sec.appendChild(box);
+    const [lo, hi] = box.querySelectorAll("input"), fill = box.querySelector(".fill"), out = box.querySelector("b");
+    const pct = v => (v - d.min) / (d.max - d.min) * 100;
+    const draw = () => {
+      const a = +lo.value, b = +hi.value;
+      fill.style.left = pct(a) + "%"; fill.style.width = (pct(b) - pct(a)) + "%";
+      out.textContent = `${d.fmt(a)} – ${d.fmt(b)}`;
+      lo.style.zIndex = a > d.max - (d.max - d.min) * 0.05 ? 3 : 1;   // keep the low thumb grabbable at the far right
+    };
+    const onInput = which => () => {
+      if (+lo.value > +hi.value) (which === lo ? lo : hi).value = which === lo ? hi.value : lo.value;
+      state[d.key] = [+lo.value, +hi.value]; draw(); filtersChanged();
+    };
+    lo.oninput = onInput(lo); hi.oninput = onInput(hi);
+    RANGES[d.key] = { full: [d.min, d.max], reset: () => { lo.value = d.min; hi.value = d.max; state[d.key] = [d.min, d.max]; draw(); } };
+    draw();
+  });
+})();
+
 const chips = document.getElementById("trainChips");
 TRAINING.forEach(t => {
   const l = document.createElement("label");
@@ -702,7 +757,9 @@ TRAINING.forEach(t => {
   chips.appendChild(l);
 });
 function filtersChanged() {
-  const n = (state.train.size < TRAINING.length ? 1 : 0) + (state.auOnly ? 1 : 0) + (state.easyOnly ? 1 : 0);
+  const narrowed = k => state[k][0] !== RANGES[k].full[0] || state[k][1] !== RANGES[k].full[1];
+  const n = (state.train.size < TRAINING.length ? 1 : 0) + (state.auOnly ? 1 : 0) + (state.easyOnly ? 1 : 0)
+    + ["inc", "aiR", "repR"].filter(narrowed).length;
   const b = document.getElementById("filterCount"); b.hidden = !n; b.textContent = n;
   render(); renderPanel();
 }
@@ -714,6 +771,7 @@ document.getElementById("trainAll").onclick = e => { e.preventDefault(); setTrai
 document.getElementById("trainNone").onclick = e => { e.preventDefault(); setTrain(false); };
 document.getElementById("filtersReset").onclick = () => {
   state.auOnly = state.easyOnly = false;
+  Object.values(RANGES).forEach(r => r.reset());
   document.getElementById("auOnly").checked = document.getElementById("easyOnly").checked = false;
   setTrain(true);
 };
