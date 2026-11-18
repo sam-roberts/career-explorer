@@ -9,6 +9,10 @@ A node-map explorer of Australian careers: all **357 official ANZSCO job groups*
     Generative AI only; robots and self-driving vehicles are not counted.
 - **Explore as Business owner:** a business ladder (solo → small → company → large) with real counts of Australian businesses at each size, 4-year survival rates, ATO profit margins, and a "can one person start it?" score.
 
+The map has two views (**View as: Nodes | Constellation**). Constellation is a sky chart: across = AI replacement risk, up = pay,
+star size = number of workers, brightness = pay, colour = the "Colour by" choice; selecting a group draws its constellation.
+In Business owner mode, across = how hard to start, up = owner earnings ceiling, size = businesses in the industry.
+
 It is a static site: `index.html`, `data.js`, `biz.js` and `groups.js`. No build step and no server.
 
 ## Run locally

@@ -97,6 +97,24 @@
   main.collapsed #expandPanel { display: block; }
   #stage { position: relative; overflow: hidden; cursor: grab; }
   #svg { touch-action: none; }
+  #stage.sky { background: #13254A; }
+  #stage.sky #links, #stage.sky #nodes { display: none; }
+  #stage:not(.sky) #sky { display: none; }
+  #sky .axis { stroke: #3B5384; stroke-width: 1; }
+  #sky .grid { stroke: #22396A; stroke-width: 1; stroke-dasharray: 2 6; }
+  #sky .axlbl { fill: #9FB3DD; font-size: 13px; }
+  #sky .tick { fill: #7F95C4; font-size: 11px; }
+  #sky .cline { fill: none; stroke: #A9BEEA; stroke-width: 1.2; opacity: .7; }
+  .star { cursor: pointer; transition: transform .45s ease, opacity .2s; }
+  .star .halo { opacity: .16; }
+  .star text { fill: #F4F1FF; font-size: 11px; pointer-events: none; opacity: 0; paint-order: stroke; stroke: #13254A; stroke-width: 3px; }
+  .star.lbl text, .star:hover text, .star:focus-visible text { opacity: 1; }
+  .star.sel .core { stroke: #fff; stroke-width: 2; }
+  .star.dim { opacity: .1; }
+  .star.gone { display: none; }
+  .star:focus { outline: none; }
+  .star:focus-visible .core { stroke: #fff; stroke-width: 2.5; stroke-dasharray: 3 2; }
+  #stage.sky .legend { background: rgba(19,37,74,.92); border-color: #2C4478; color: #B9C7E6; }
   #stage.drag { cursor: grabbing; }
   svg { width: 100%; height: 100%; display: block; }
   .link { fill: none; stroke: #343a48; stroke-width: 1.5; }
@@ -174,6 +192,9 @@
       <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
       <input type="search" id="search" name="q" aria-label="Search jobs" autocomplete="off" spellcheck="false" placeholder="Search 400+ jobs…">
     </label>
+    <div class="ctrl" role="group" aria-label="View the map as"><span class="lbl">View as:</span>
+      <div class="seg"><button id="mNodes" class="on" aria-pressed="true">Nodes</button><button id="mSky" aria-pressed="false">Constellation</button></div>
+    </div>
     <label class="ctrl"><span class="lbl">Colour by</span>
       <select id="colorBy" aria-label="Colour the map by">
         <option value="rep">AI replaces the job (estimate)</option>
@@ -212,7 +233,7 @@
   </header>
   <main>
     <div id="stage" tabindex="0" role="region" aria-label="Career map. Arrow keys pan, plus and minus zoom, 0 fits the map. Tab moves between nodes.">
-      <svg id="svg"><g id="vp"><g id="links"></g><g id="nodes"></g></g></svg>
+      <svg id="svg"><g id="vp"><g id="sky"><g id="skyBg" aria-hidden="true"></g><g id="skyLines" aria-hidden="true"></g><g id="stars"></g></g><g id="links"></g><g id="nodes"></g></g></svg>
       <div class="legend" id="legend"></div>
       <button id="expandPanel" title="Show the list panel" aria-label="Show the list panel">‹</button>
       <div class="zoom"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="fit" aria-label="Fit the map to the screen">Fit</button></div>
@@ -223,9 +244,9 @@
   </main>
 </div>
 
-<script src="data.js?v=9"></script>
-<script src="biz.js?v=9"></script>
-<script src="groups.js?v=9"></script>
+<script src="data.js?v=12"></script>
+<script src="biz.js?v=12"></script>
+<script src="groups.js?v=12"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -385,7 +406,7 @@ const QTAG = {
 const qTag = (o, short) => { const [c, l, t] = QTAG[quality(o)]; return `<span class="tag ${c}" title="${t}">${short ? { v: '✓', g: 'grp', a: 'ATO', b: 'biz', n: '–', e: 'est', us: 'US' }[quality(o)] : l}</span>`; };
 
 // ---------- state ----------
-const state = { view: "employee", easyOnly: false, colorBy: "rep", search: "", train: new Set(TRAINING.map(t => t.id)), auOnly: false,
+const state = { mapMode: "nodes", view: "employee", easyOnly: false, colorBy: "rep", search: "", train: new Set(TRAINING.map(t => t.id)), auOnly: false,
   sel: DATA, sort: { key: "rep", dir: 1 } };
 
 const inRange = (v, r, full) => (r[0] === full[0] && r[1] === full[1]) || (v != null && v >= r[0] && v <= r[1]);
@@ -470,6 +491,9 @@ const gNodes = document.getElementById("nodes"), gLinks = document.getElementByI
 const nodeEls = new Map();
 
 function render() {
+  stage.classList.toggle("sky", state.mapMode === "sky");
+  document.getElementById("expandAll").hidden = document.getElementById("collapseAll").hidden = state.mapMode === "sky";
+  if (state.mapMode === "sky") { renderSky(); renderLegend(); syncURL(); return; }
   const vis = layout(); const visSet = new Set(vis);
   gLinks.innerHTML = "";
   vis.forEach(n => {
@@ -523,6 +547,106 @@ function render() {
   }
   renderLegend();
   syncURL();
+}
+
+// ---------- constellation view ----------
+// A sky chart: across = AI risk (or how hard to start, for owners), up = pay (or owner ceiling).
+// Star size = number of workers (or businesses), brightness = pay, colour = the "Colour by" choice.
+const SKY = { W: 1200, H: 760, L: 90, R: 30, T: 30, B: 70 };
+const starEls = new Map();
+const hash = s => { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) | 0; return h; };
+const jit = (o, k) => ((hash(o.n + k) % 1000) / 1000 - .5);
+function skyAxes(owner) {
+  if (owner) return { x: o => o.biz ? 100 - o.biz.start : null, y: o => { const M = bizModel(o); return M ? M.ceil.profit : null; },
+    yMin: 3e4, yMax: 3e7, size: o => o.ind ? o.ind.total : 0, sizeDiv: 30,
+    xl: ["Easy to start alone", "Hard to start"], yl: "Owner earnings ceiling", ticks: [1e5, 1e6, 1e7] };
+  return { x: o => o.rep, y: o => sal(o), yMin: 2e4, yMax: 5e5, size: o => o.ato ? o.ato.people : 0, sizeDiv: 45,
+    xl: ["Safer from AI", "AI could replace it"], yl: "Pay (median)", ticks: [5e4, 1e5, 2e5, 4e5] };
+}
+function skyXY(o, A) {
+  const xv = A.x(o), yv = A.y(o); if (xv == null) return null;
+  const pw = SKY.W - SKY.L - SKY.R, ph = SKY.H - SKY.T - SKY.B;
+  const x = SKY.L + (xv / 100) * pw + jit(o, "x") * 14;
+  const y = yv == null ? SKY.H - SKY.B + 22 + jit(o, "y") * 10
+    : SKY.T + ph * (1 - (Math.log(Math.max(A.yMin, Math.min(A.yMax, yv))) - Math.log(A.yMin)) / (Math.log(A.yMax) - Math.log(A.yMin))) + jit(o, "y") * 8;
+  return [x, y];
+}
+let skyBgFor = null;
+function drawSkyBg(A, owner) {
+  if (skyBgFor === owner) return; skyBgFor = owner;
+  const bg = document.getElementById("skyBg"); bg.innerHTML = "";
+  let seed = 20251118; const rnd = () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;   // fixed-seed random, same sky every time
+  for (let i = 0; i < 160; i++) {   // faint background stars (decorative)
+    const x = rnd() * SKY.W, y = rnd() * SKY.H;
+    bg.appendChild(el("circle", { cx: x, cy: y, r: (i % 3) * .4 + .4, fill: "#C9D6F2", opacity: .25 }));
+  }
+  const pw = SKY.W - SKY.L - SKY.R, ph = SKY.H - SKY.T - SKY.B, ly = v => SKY.T + ph * (1 - (Math.log(v) - Math.log(A.yMin)) / (Math.log(A.yMax) - Math.log(A.yMin)));
+  A.ticks.forEach(v => { bg.appendChild(el("line", { class: "grid", x1: SKY.L, x2: SKY.W - SKY.R, y1: ly(v), y2: ly(v) }));
+    const t = el("text", { class: "tick", x: SKY.L - 8, y: ly(v) + 4, "text-anchor": "end" }); t.textContent = fmtM(v); bg.appendChild(t); });
+  bg.appendChild(el("line", { class: "axis", x1: SKY.L, x2: SKY.W - SKY.R, y1: SKY.H - SKY.B, y2: SKY.H - SKY.B }));
+  bg.appendChild(el("line", { class: "axis", x1: SKY.L, x2: SKY.L, y1: SKY.T, y2: SKY.H - SKY.B }));
+  const lab = (txt, a) => { const t = el("text", { class: "axlbl", ...a }); t.textContent = txt; bg.appendChild(t); };
+  lab("← " + A.xl[0], { x: SKY.L, y: SKY.H - SKY.B + 52 });
+  lab(A.xl[1] + " →", { x: SKY.W - SKY.R, y: SKY.H - SKY.B + 52, "text-anchor": "end" });
+  lab(A.yl + " ↑", { x: 10, y: SKY.T - 10 });
+  if (!owner) { const t = el("text", { class: "tick", x: SKY.L - 8, y: SKY.H - SKY.B + 26, "text-anchor": "end" }); t.textContent = "No pay data"; bg.appendChild(t); }
+}
+function renderSky() {
+  const owner = state.view === "owner", A = skyAxes(owner);
+  drawSkyBg(A, owner);
+  const layer = document.getElementById("stars");
+  const sel = state.sel, group = sel.c ? sel : sel.parent;
+  // labels: every star in a small group; only the 12 biggest in a whole category (keeps it readable)
+  const members = group && group.depth > 0 ? leaves(group).filter(passes) : [];
+  const labelled = new Set(group && group.depth === 1 ? [...members].sort((a, b) => (A.size(b) || 0) - (A.size(a) || 0)).slice(0, 12) : members);
+  const inGroup = o => labelled.has(o);
+  const pays = ALL.map(A.y).filter(v => v != null), pMax = Math.log(Math.max(...pays)), pMin = Math.log(Math.min(...pays));
+  const order = [];
+  ALL.forEach(o => {
+    const xy = skyXY(o, A);
+    let g = starEls.get(o);
+    if (!g) {
+      g = el("g", { class: "star", tabindex: 0, role: "button" });
+      g.appendChild(el("title"));
+      g.appendChild(el("circle", { class: "halo" })); g.appendChild(el("circle", { class: "core" }));
+      const t = el("text", { x: 0, y: -10, "text-anchor": "middle" }); g.appendChild(t);
+      g.addEventListener("click", e => { e.stopPropagation(); onNodeClick(o); });
+      g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); onNodeClick(o); g.focus(); } });
+      g.addEventListener("focus", () => ensureVisible(o));
+      layer.appendChild(g); starEls.set(o, g);
+    }
+    if (!xy) { g.classList.add("gone"); return; }
+    o.sx = xy[0]; o.sy = xy[1];
+    const r = Math.max(2, Math.min(11, 2 + Math.sqrt(A.size(o) || 0) / A.sizeDiv));
+    const yv = A.y(o), bright = yv == null ? .45 : .55 + .45 * (Math.log(yv) - pMin) / ((pMax - pMin) || 1);
+    const col = leafColor(o);
+    g.style.transform = `translate(${xy[0]}px,${xy[1]}px)`;
+    const [halo, core] = g.querySelectorAll("circle");
+    halo.setAttribute("r", r * 2.6); halo.setAttribute("fill", col);
+    core.setAttribute("r", r); core.setAttribute("fill", col); core.setAttribute("fill-opacity", bright.toFixed(2));
+    g.querySelector("text").textContent = o.n; g.querySelector("text").setAttribute("y", -r - 5);
+    const pass = passes(o);
+    g.classList.toggle("gone", !pass && state.hideNoMatch);
+    g.classList.toggle("dim", !pass && !state.hideNoMatch);
+    g.classList.toggle("sel", o === sel);
+    g.classList.toggle("lbl", o === sel || (inGroup(o) && pass));
+    const desc = owner ? `start ${o.biz.start}/100, ceiling ${fmtM(A.y(o))}` : `pay ${yv == null ? "no data" : fmtK(yv)}, AI tasks ${o.ai}, replace ${o.rep}`;
+    g.querySelector("title").textContent = `${o.n}: ${desc}`;
+    g.setAttribute("aria-label", `${o.n}. ${desc}`);
+    if (o === sel) g.setAttribute("aria-current", "true"); else g.removeAttribute("aria-current");
+    if (!g.classList.contains("gone")) order.push([xy[0], xy[1], g]);
+  });
+  // Tab order: left to right
+  order.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const kids = [...layer.children];
+  if (order.some((x, i) => kids[i] !== x[2])) { const f = document.activeElement; order.forEach(x => layer.appendChild(x[2])); if (f && f.isConnected) f.focus({ preventScroll: true }); }
+  // constellation lines: join the stars of the selected group, left to right
+  const lines = document.getElementById("skyLines"); lines.innerHTML = "";
+  if (group && group.depth > 0) {
+    const pts = leaves(group).filter(o => passes(o) && starEls.has(o) && !starEls.get(o).classList.contains("gone") && o.sx != null)
+      .sort((a, b) => a.sx - b.sx).map(o => `${o.sx.toFixed(1)},${o.sy.toFixed(1)}`);
+    if (pts.length > 1) lines.appendChild(el("polyline", { class: "cline", points: pts.join(" ") }));
+  }
 }
 
 function onNodeClick(n) {
@@ -756,10 +880,13 @@ function renderLegend() {
     start: ["How easy to start alone", "Easy", "Hard"],
     survival: ["Business survival (4 yrs)", "80%+", "45%"],
   };
-  if (state.colorBy === "sector") { L.innerHTML = "Colour = sector"; return; }
+  const skyNote = state.mapMode === "sky" ? `<div class="lg-notes" style="margin-top:4px">${state.view === "owner"
+    ? "Across: how hard to start. Up: owner earnings ceiling.<br>Star size: number of businesses in the industry."
+    : "Across: AI could replace it. Up: pay.<br>Star size: number of workers. Brighter: higher pay."}<br>Select a group to draw its constellation.</div>` : "";
+  if (state.colorBy === "sector") { L.innerHTML = "Colour = sector" + skyNote; return; }
   const [t, a, b] = map[state.colorBy];
   L.innerHTML = `${t}<div class="grad" style="background:${g}"></div><div class="scale"><span>${a}</span><span>${b}</span></div>
-    <div class="lg-notes" style="margin-top:4px">✓ = official AU median · (group) = broader group<br>ATO = tax data only · est. = estimate · ⚠US→AUD = US wage converted</div>`;
+    ${skyNote || `<div class="lg-notes" style="margin-top:4px">✓ = official AU median · (group) = broader group<br>ATO = tax data only · est. = estimate · ⚠US→AUD = US wage converted</div>`}`;
 }
 
 // ---------- pan / zoom ----------
@@ -777,7 +904,7 @@ const pts = new Map();
 const pinchInfo = () => { const [a, b] = [...pts.values()], r = svg.getBoundingClientRect();
   return { d: Math.hypot(a.x - b.x, a.y - b.y), cx: (a.x + b.x) / 2 - r.left, cy: (a.y + b.y) / 2 - r.top }; };
 svg.addEventListener("pointerdown", e => {
-  if (e.target.closest(".node")) return;
+  if (e.target.closest(".node, .star")) return;
   pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
   if (pts.size === 1) { drag = { x: e.clientX - view.x, y: e.clientY - view.y }; stage.classList.add("drag"); }
   else if (pts.size === 2) { drag = null; pinch = pinchInfo(); }
@@ -802,10 +929,16 @@ stage.addEventListener("keydown", e => {
 });
 // keep a keyboard-focused node on screen
 function ensureVisible(n) {
-  const r = svg.getBoundingClientRect(), x = view.x + n.x * view.k, y = view.y + n.y * view.k;
+  const r = svg.getBoundingClientRect();
+  if (state.mapMode === "sky") { const x = view.x + n.sx * view.k, y = view.y + n.sy * view.k;
+    if (x < 20 || y < 20 || x > r.width - 20 || y > r.height - 20) centerOn(n); return; }
+  const x = view.x + n.x * view.k, y = view.y + n.y * view.k;
   if (x < 0 || y < 0 || x + NODE_W[n.depth] * view.k > r.width || y + NODE_H * view.k > r.height) centerOn(n);
 }
 function fit() {
+  if (state.mapMode === "sky") { const r = svg.getBoundingClientRect();
+    const k = Math.max(r.width < 600 ? .45 : .2, Math.min(1.4, (r.width - 20) / SKY.W, (r.height - 20) / SKY.H));
+    view = { k, x: (r.width - SKY.W * k) / 2, y: (r.height - SKY.H * k) / 2 }; applyView(); return; }
   const vis = layout(), r = svg.getBoundingClientRect();
   const maxX = Math.max(...vis.map(n => n.x + NODE_W[n.depth])), minY = Math.min(...vis.map(n => n.y)), maxY = Math.max(...vis.map(n => n.y + NODE_H));
   // small screens: keep text readable instead of shrinking the whole tree to fit
@@ -814,7 +947,12 @@ function fit() {
   const y = (maxY - minY) * k > r.height - 40 ? 20 - minY * k : (r.height - (maxY + minY) * k) / 2;
   view = { k, x: r.width < 600 ? 12 : 30, y }; applyView();
 }
-function centerOn(n) { const r = svg.getBoundingClientRect(); view.x = r.width / 2 - (n.x + 100) * view.k; view.y = r.height / 2 - n.y * view.k; applyView(); }
+function centerOn(n) {
+  const r = svg.getBoundingClientRect();
+  if (state.mapMode === "sky") { if (n.sx == null) return; view.x = r.width / 2 - n.sx * view.k; view.y = r.height / 2 - n.sy * view.k; applyView(); return; }
+  if (n.x == null || n.y == null) return;
+  view.x = r.width / 2 - (n.x + 100) * view.k; view.y = r.height / 2 - n.y * view.k; applyView();
+}
 document.getElementById("zin").onclick = () => { const r = svg.getBoundingClientRect(); zoomAt(1.2, r.width / 2, r.height / 2); };
 document.getElementById("zout").onclick = () => { const r = svg.getBoundingClientRect(); zoomAt(1 / 1.2, r.width / 2, r.height / 2); };
 document.getElementById("fit").onclick = fit;
@@ -918,6 +1056,15 @@ function setView(v) {
   state.sort = v === "owner" ? { key: "ceiling", dir: -1 } : { key: "rep", dir: 1 };
   render(); renderPanel();
 }
+function setMapMode(m) {
+  state.mapMode = m;
+  for (let p = state.sel.parent; p; p = p.parent) p.open = true;   // show the selected job's branch on the node map
+  [["mNodes", "nodes"], ["mSky", "sky"]].forEach(([id, v]) => { const b = document.getElementById(id); b.classList.toggle("on", m === v); b.setAttribute("aria-pressed", m === v); });
+  render(); fit();
+  if (state.sel !== DATA) centerOn(state.sel);
+}
+document.getElementById("mNodes").onclick = () => setMapMode("nodes");
+document.getElementById("mSky").onclick = () => setMapMode("sky");
 document.getElementById("vEmp").onclick = () => setView("employee");
 document.getElementById("vOwn").onclick = () => setView("owner");
 document.getElementById("auOnly").onchange = e => { state.auOnly = e.target.checked; filtersChanged(); };
@@ -983,6 +1130,7 @@ function syncURL() {
   if (state.easyOnly) q.set("easy", "1");
   ["inc", "aiR", "repR"].forEach(k => { const r = state[k], f = RANGES[k].full; if (r[0] !== f[0] || r[1] !== f[1]) q.set({ inc: "income", aiR: "tasks", repR: "replace" }[k], r.join("-")); });
   if (state.hideNoMatch) q.set("hide", "1");
+  if (state.mapMode === "sky") q.set("map", "sky");
   const def = state.view === "owner" ? "ceiling.-1" : "rep.1";
   if (state.sort.key + "." + state.sort.dir !== def) q.set("sort", state.sort.key + "." + state.sort.dir);
   const k = selKey(state.sel); if (k) q.set(k[0] === "j" ? "job" : "group", k.slice(2));
@@ -1018,6 +1166,8 @@ function readURL() {
   [["inc", "income"], ["aiR", "tasks"], ["repR", "replace"]].forEach(([k, name]) => {
     const r = q.get(name); if (r) RANGES[k].set(r.split("-").map(Number)); else RANGES[k].reset(); });
   state.hideNoMatch = q.get("hide") === "1";
+  state.mapMode = q.get("map") === "sky" ? "sky" : "nodes";
+  [["mNodes", "nodes"], ["mSky", "sky"]].forEach(([id, m]) => { const b = document.getElementById(id); b.classList.toggle("on", state.mapMode === m); b.setAttribute("aria-pressed", state.mapMode === m); });
   const hb = document.getElementById("hideNoMatch"); hb.checked = state.hideNoMatch;
   document.getElementById("hideNoMatchSub").textContent = hb.checked ? "On: non-matches disappear" : "Off: non-matches are faded";
   if (state.search) (function open(n) { if (n.c) { n.open = leaves(n).some(passes); n.c.forEach(open); } })(DATA);
@@ -1033,7 +1183,7 @@ function readURL() {
   lastSelKey = selKey(sel);
   return sel;
 }
-window.addEventListener("popstate", () => { const sel = readURL(); render(); renderPanel(); if (sel !== DATA) centerOn(sel); });
+window.addEventListener("popstate", () => { const sel = readURL(); render(); renderPanel(); fit(); if (sel !== DATA) centerOn(sel); });
 
 const startSel = readURL();
 render(); renderPanel(); fit();
