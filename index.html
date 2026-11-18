@@ -21,6 +21,22 @@
     border-radius: 6px; padding: 5px 8px; font: inherit; font-size: 12px; }
   button { cursor: pointer; } button:hover { border-color: #4a5263; }
   .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+  .searchbox { position: relative; display: flex; align-items: center; color: var(--muted); }
+  .searchbox svg { position: absolute; left: 8px; top: 50%; margin-top: -7px; width: 14px; height: 14px; display: block; pointer-events: none; }
+  .searchbox input { padding-left: 27px; width: 190px; }
+  .searchbox:focus-within { color: var(--text); }
+  .dd { position: relative; }
+  .dd > button { display: inline-flex; align-items: center; gap: 4px; }
+  .dd > button[aria-expanded="true"] { border-color: #3e63dd; }
+  .dd .caret { font-size: 10px; color: var(--muted); }
+  .badge { background: #3e63dd; color: #fff; border-radius: 999px; font-size: 10px; padding: 0 6px; margin-left: 2px; line-height: 16px; }
+  .dd-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 20; width: 290px; background: var(--panel);
+    border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,.45); padding: 6px 0; }
+  .dd-sec { padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  .dd-head { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+  .dd-head a { text-transform: none; letter-spacing: 0; font-size: 11px; }
+  .dd-menu label { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: 12px; cursor: pointer; }
+  .dd-foot { padding: 8px 12px 4px; text-align: right; }
   .chip { padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); cursor: pointer; font-size: 11px;
     color: var(--muted); user-select: none; }
   .chip.on { background: #26324a; border-color: #3e63dd; color: var(--text); }
@@ -97,7 +113,9 @@
 <div id="app">
   <header>
     <h1>Career Explorer <span style="color:var(--muted);font-weight:400">AU</span></h1>
-    <div class="seg"><button id="vEmp" class="on" title="Working for someone else">Employee view</button><button id="vOwn" title="Owning the business">Owner view</button></div>
+    <div class="ctrl" role="group" aria-label="Explore data as">Explore data as:
+      <div class="seg"><button id="vEmp" class="on" title="Working for someone else">Employee</button><button id="vOwn" title="Owning the business">Business owner</button></div>
+    </div>
     <label class="ctrl">Colour by
       <select id="colorBy">
         <option value="rep">AI replaces the job (estimate)</option>
@@ -105,17 +123,35 @@
         <option value="margin">Business margin ceiling</option>
         <option value="salary">Salary (midpoint)</option>
         <option value="sector">Sector</option>
-        <optgroup label="Owner view">
+        <optgroup label="Business owner">
           <option value="ceiling">Owner earnings ceiling</option>
           <option value="start">How easy to start alone</option>
           <option value="survival">Business survival (4 yrs)</option>
         </optgroup>
       </select>
     </label>
-    <label class="ctrl"><input type="search" id="search" placeholder="Search 400+ jobs..."></label>
-    <div class="ctrl">Training <div class="chips" id="trainChips"></div></div>
-    <label class="ctrl" title="Hide jobs with no official Australian median (estimates and US-converted)"><input type="checkbox" id="auOnly"> Verified AU data only</label>
-    <label class="ctrl" title="Only show businesses one person can realistically start (start score 60+)"><input type="checkbox" id="easyOnly"> Easy to start alone</label>
+    <label class="searchbox" aria-label="Search jobs">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input type="search" id="search" placeholder="Search 400+ jobs...">
+    </label>
+    <div class="dd" id="filtersDd">
+      <button id="filtersBtn" aria-haspopup="true" aria-expanded="false" aria-controls="filtersMenu">Filters<span class="badge" id="filterCount" hidden></span> <span class="caret">▾</span></button>
+      <div class="dd-menu" id="filtersMenu" hidden>
+        <div class="dd-sec">
+          <div class="dd-head">Training needed <span><a href="#" id="trainAll">All</a> · <a href="#" id="trainNone">None</a></span></div>
+          <div id="trainChips"></div>
+        </div>
+        <div class="dd-sec">
+          <div class="dd-head">Data</div>
+          <label title="Hide jobs with no official Australian pay figure (estimates and US-converted)"><input type="checkbox" id="auOnly"> Verified AU data only</label>
+        </div>
+        <div class="dd-sec">
+          <div class="dd-head">Business owner</div>
+          <label title="Only show businesses one person can realistically start (start score 60+)"><input type="checkbox" id="easyOnly"> Easy to start alone</label>
+        </div>
+        <div class="dd-foot"><button id="filtersReset">Reset filters</button></div>
+      </div>
+    </div>
     <button id="expandAll">Expand all</button>
     <button id="collapseAll">Collapse</button>
   </header>
@@ -132,9 +168,9 @@
   </main>
 </div>
 
-<script src="data.js?v=5"></script>
-<script src="biz.js?v=5"></script>
-<script src="groups.js?v=5"></script>
+<script src="data.js?v=6"></script>
+<script src="biz.js?v=6"></script>
+<script src="groups.js?v=6"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -431,7 +467,7 @@ function renderPanel() {
   panel.innerHTML = `
     <h2>${n.n}</h2><div class="crumb">${crumb(n) || "All sectors"} · ${rows.length} jobs shown</div>
     ${n.depth === 0 ? `<p class="help">Click a sector to open it. Click a job to see detail. Click column titles to rank. Use the filters at the top.</p>` : ""}
-    ${state.view === "owner" ? `<div class="card"><h3>Ranked businesses (owner view)</h3>
+    ${state.view === "owner" ? `<div class="card"><h3>Ranked businesses (business owner)</h3>
     <table><thead><tr>${th("name", "Business")}${th("start", "Start")}${th("solo", "Solo profit")}${th("ceiling", "Ceiling")}${th("surv", "Survive 4y")}</tr></thead>
     <tbody>${rows.filter(o => o.biz).map(o => { const M = bizModel(o); return `<tr class="row" data-id="${o.id}">
       <td>${o.biz.name}${o.kind === "biz" ? "" : `<div style="color:var(--muted);font-size:11px">from ${o.n}</div>`}</td>
@@ -605,7 +641,7 @@ const disclaimer = () => `<div class="disclaimer">For exploring, not advice.<br>
   <span class="tag us">US</span> = US wage converted to AUD at ${USD_TO_AUD}.<br>
   Medians count employees only. Owners and self-employed (common in trades, medicine and law) can earn more or less.
   AI exposure: ${AIX_SOURCE}. Skill levels: ABS ANZSCO. Pay ranges and margins are judgement estimates (edit <code>data.js</code>).<br>
-  Owner view: business counts and survival from ABS 8165.0 (2021–2025), margins from ATO small business benchmarks 2023-24.
+  Business owner data: business counts and survival from ABS 8165.0 (2021–2025), margins from ATO small business benchmarks 2023-24.
   Start score, money to start and $2m+ margins are estimates. Edit <code>tools/build_biz.py</code> and re-run it to change them.</div>`;
 
 function selectById(id) {
@@ -660,12 +696,36 @@ document.getElementById("fit").onclick = fit;
 // ---------- controls ----------
 const chips = document.getElementById("trainChips");
 TRAINING.forEach(t => {
-  const c = document.createElement("span"); c.className = "chip on"; c.textContent = t.short; c.title = t.label;
-  c.onclick = () => { state.train.has(t.id) ? state.train.delete(t.id) : state.train.add(t.id); c.classList.toggle("on"); render(); renderPanel(); };
-  chips.appendChild(c);
+  const l = document.createElement("label");
+  l.innerHTML = `<input type="checkbox" checked data-train="${t.id}"> ${t.label}`;
+  l.querySelector("input").onchange = e => { e.target.checked ? state.train.add(t.id) : state.train.delete(t.id); filtersChanged(); };
+  chips.appendChild(l);
 });
+function filtersChanged() {
+  const n = (state.train.size < TRAINING.length ? 1 : 0) + (state.auOnly ? 1 : 0) + (state.easyOnly ? 1 : 0);
+  const b = document.getElementById("filterCount"); b.hidden = !n; b.textContent = n;
+  render(); renderPanel();
+}
+function setTrain(all) {
+  state.train = new Set(all ? TRAINING.map(t => t.id) : []);
+  chips.querySelectorAll("input").forEach(i => i.checked = all); filtersChanged();
+}
+document.getElementById("trainAll").onclick = e => { e.preventDefault(); setTrain(true); };
+document.getElementById("trainNone").onclick = e => { e.preventDefault(); setTrain(false); };
+document.getElementById("filtersReset").onclick = () => {
+  state.auOnly = state.easyOnly = false;
+  document.getElementById("auOnly").checked = document.getElementById("easyOnly").checked = false;
+  setTrain(true);
+};
+(function () {
+  const btn = document.getElementById("filtersBtn"), menu = document.getElementById("filtersMenu");
+  const set = open => { menu.hidden = !open; btn.setAttribute("aria-expanded", open); };
+  btn.onclick = e => { e.stopPropagation(); set(menu.hidden); };
+  document.addEventListener("click", e => { if (!menu.hidden && !document.getElementById("filtersDd").contains(e.target)) set(false); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !menu.hidden) { set(false); btn.focus(); } });
+})();
 document.getElementById("colorBy").onchange = e => { state.colorBy = e.target.value; render(); };
-document.getElementById("easyOnly").onchange = e => { state.easyOnly = e.target.checked; render(); renderPanel(); };
+document.getElementById("easyOnly").onchange = e => { state.easyOnly = e.target.checked; filtersChanged(); };
 function setView(v) {
   state.view = v;
   document.getElementById("vEmp").classList.toggle("on", v === "employee");
@@ -677,7 +737,7 @@ function setView(v) {
 }
 document.getElementById("vEmp").onclick = () => setView("employee");
 document.getElementById("vOwn").onclick = () => setView("owner");
-document.getElementById("auOnly").onchange = e => { state.auOnly = e.target.checked; render(); renderPanel(); };
+document.getElementById("auOnly").onchange = e => { state.auOnly = e.target.checked; filtersChanged(); };
 document.getElementById("search").oninput = e => {
   state.search = e.target.value.trim().toLowerCase();
   if (state.search) (function open(n) { if (n.c) { n.open = leaves(n).some(passes); n.c.forEach(open); } })(DATA);

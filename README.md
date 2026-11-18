@@ -2,12 +2,12 @@
 
 A node-map explorer of Australian careers: all **357 official ANZSCO job groups**, plus 71 hand-checked jobs and 9 business-only paths (373 nodes), in 23 topic categories. For each job it shows:
 
-- **Employee view:** salary (official AU medians where they exist), training needed (official skill level), and two AI scores:
+- **Explore as Employee:** salary (official AU medians where they exist), training needed (official skill level), and two AI scores:
   - **AI can do the tasks** (official JSA automation exposure).
   - **AI replaces the job** (estimate): how replaceable one worker is. Formula in `replaceRisk()` in `index.html`:
     `automation^1.5 × (automation ÷ augmentation) × 1.25`, ×0.8 if a licence is required, ×0.9 for degree-level roles, capped at 95.
     Generative AI only; robots and self-driving vehicles are not counted.
-- **Owner view:** a business ladder (solo → small → company → large) with real counts of Australian businesses at each size, 4-year survival rates, ATO profit margins, and a "can one person start it?" score.
+- **Explore as Business owner:** a business ladder (solo → small → company → large) with real counts of Australian businesses at each size, 4-year survival rates, ATO profit margins, and a "can one person start it?" score.
 
 It is a static site: `index.html`, `data.js`, `biz.js` and `groups.js`. No build step and no server.
 
