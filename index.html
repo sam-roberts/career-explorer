@@ -36,6 +36,7 @@
   .tablewrap th:first-child { width: auto; }
   .tablewrap th:first-child { width: auto; } .tablewrap th.w-num { width: 70px; } .tablewrap th.w-pill { width: 64px; }
   .tablewrap th button { white-space: normal; line-height: 1.2; }
+  .pay-ato { color: #b4bccd; }
   .sub2 { color: var(--muted); font-size: 12px; margin-top: 2px; line-height: 1.3; }
   td .tag { margin-top: 2px; }
   .tablewrap td { overflow-wrap: anywhere; }
@@ -187,6 +188,11 @@
   .lg-toggle:focus-visible { outline: 2px solid #8fb5ff; outline-offset: 3px; border-radius: 4px; }
   .legend .scale { font-size: 11px; color: #b4bccd; }
   .lg-body .lg-notes { margin-top: 6px; line-height: 1.4; }
+  .sect-strip { display: flex; gap: 2px; margin-top: 5px; } .sect-strip i { flex: 1; height: 8px; border-radius: 2px; }
+  .sect-key { list-style: none; margin: 6px 0 0; padding: 0; columns: 2; column-gap: 10px; max-height: 40vh; overflow: auto; }
+  .sect-key li { display: flex; gap: 5px; align-items: center; break-inside: avoid; font-size: 11.5px; line-height: 1.5; }
+  .sect-key i { flex: none; width: 9px; height: 9px; border-radius: 2px; }
+  .star.out { opacity: .2; }
   .grad { width: 160px; height: 8px; border-radius: 4px; margin: 4px 0 2px; }
   .zoom { position: absolute; right: 12px; bottom: 12px; display: flex; gap: 4px; }
   aside { border-left: 1px solid var(--line); background: var(--panel); overflow-y: auto; padding: 16px; }
@@ -212,6 +218,7 @@
   .seg { display: inline-flex; gap: 0; }
   .seg button { border-radius: 0; } .seg button:first-child { border-radius: 6px 0 0 6px; } .seg button:last-child { border-radius: 0 6px 6px 0; margin-left: -1px; }
   .seg button.on { background: #26324a; border-color: #3e63dd; color: #fff; }
+  .primary-seg button { font-size: 14px; padding: 6px 13px; font-weight: 600; }
   .ladder td, .ladder th { cursor: default; vertical-align: top; }
   .tag.est { background: #2a2f3a; color: #b8bfcf; }
   a { color: #8fb5ff; }
@@ -257,7 +264,7 @@
   <header>
     <h1>Career Explorer <span style="color:var(--muted);font-weight:400">AU</span></h1>
     <div class="ctrl" role="group" aria-label="Explore data as"><span class="lbl">Explore data as:</span>
-      <div class="seg"><button id="vEmp" class="on" aria-pressed="true" title="Working for someone else">Employee</button><button id="vOwn" aria-pressed="false" title="Owning the business">Business owner</button></div>
+      <div class="seg primary-seg"><button id="vEmp" class="on" aria-pressed="true" title="Working for someone else">Employee</button><button id="vOwn" aria-pressed="false" title="Owning the business">Business owner</button></div>
     </div>
     <label class="searchbox" aria-label="Search jobs">
       <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -270,16 +277,6 @@
     <label class="ctrl"><span class="lbl">Colour by</span>
       <select id="colorBy" aria-label="Colour the map by">
         <option value="rep">AI replaces the job (estimate)</option>
-        <option value="ai">AI can do the tasks (official)</option>
-        <option value="salary">Salary (midpoint)</option>
-        <option value="sector">Sector</option>
-        <optgroup label="Business owner">
-          <option value="med">Owner earnings (median)</option>
-          <option value="ceiling">Owner earnings (max)</option>
-          <option value="margin">Business margin (net)</option>
-          <option value="start">How easy to start alone</option>
-          <option value="survival">Business survival (4 yrs)</option>
-        </optgroup>
       </select>
     </label>
     <div class="dd" id="filtersDd">
@@ -301,15 +298,13 @@
         </div>
       </div>
     </div>
-    <button id="expandAll">Expand all</button>
-    <button id="collapseAll">Collapse</button>
   </header>
   <main>
     <div id="stage" tabindex="0" role="region" aria-label="Career map. Arrow keys pan, plus and minus zoom, 0 fits the map. Tab moves between nodes.">
       <svg id="svg"><g id="vp"><g id="sky"><g id="skyBg" aria-hidden="true"></g><g id="skyLines" aria-hidden="true"></g><g id="stars"></g></g><g id="links"></g><g id="nodes"></g></g></svg>
       <div class="legend" id="legend"></div>
       <button id="expandPanel" title="Show the list panel" aria-label="Show the list panel">‹</button>
-      <div class="zoom"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="fit" aria-label="Fit the map to the screen">Fit</button></div>
+      <div class="zoom"><button id="expandAll">Expand all</button><button id="collapseAll">Collapse</button><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="fit" aria-label="Fit the map to the screen">Fit</button></div>
     </div>
     <div class="resizer" id="resizer" role="separator" aria-orientation="vertical" aria-controls="panel" tabindex="0"
       title="Drag to resize. Drag far right to hide. Arrow keys resize, Enter hides."><div class="grip"></div></div>
@@ -317,9 +312,9 @@
   </main>
 </div>
 
-<script src="data.js?v=31"></script>
-<script src="biz.js?v=31"></script>
-<script src="groups.js?v=31"></script>
+<script src="data.js?v=32"></script>
+<script src="biz.js?v=32"></script>
+<script src="groups.js?v=32"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -595,7 +590,7 @@ function layout() {
   (function walk(n) {
     vis.push(n);
     // hide mode: drop branches with no matching job (a parent stays while at least one child matches)
-    const kids = n.open && n.c ? (state.hideNoMatch ? n.c.filter(branchPasses) : n.c) : [];
+    const kids = n.open && n.c ? n.c.filter(c => (c.c ? leaves(c).some(inMode) : inMode(c)) && (!state.hideNoMatch || branchPasses(c))) : [];
     if (!kids.length) { n.y = y; y += NODE_H + GAP; }
     else { kids.forEach(walk); n.y = (kids[0].y + kids[kids.length - 1].y) / 2; }
     n.x = COLX[n.depth];
@@ -721,6 +716,7 @@ function renderSky() {
   const sel = state.sel, group = sel.c ? sel : sel.parent;
   // labels: every star in a small group; only the 12 biggest in a whole category (keeps it readable)
   const members = group && group.depth > 0 ? leaves(group).filter(passes) : [];
+  const memberSet = new Set(members);
   const ranked = [...members].sort((a, b) => (A.size(b) || 0) - (A.size(a) || 0)).slice(0, group && group.depth === 1 ? 12 : 60);
   // keep a label only if its box doesn't overlap one already kept (biggest stars win)
   const kept = [], labelled = new Set();
@@ -757,6 +753,7 @@ function renderSky() {
     const pass = passes(o);
     g.classList.toggle("gone", !pass && state.hideNoMatch);
     g.classList.toggle("dim", !pass && !state.hideNoMatch);
+    g.classList.toggle("out", pass && memberSet.size > 0 && !memberSet.has(o));   // a group is selected: other stars step back
     g.classList.toggle("sel", o === sel);
     g.classList.toggle("lbl", o === sel || (inGroup(o) && pass));
     const desc = owner ? `start ${o.biz.start}/100, median ${fmtM(A.y(o))}, max ${fmtM(bizModel(o).ceil.profit)}` : `pay ${yv == null ? "no data" : fmtK(yv)}, AI can do ${o.ai}%, AI replaces ${o.rep}%`;
@@ -782,6 +779,11 @@ function onNodeClick(n) {
   if (n.c && n.depth > 0) n.open = !n.open;
   if (!n.c) { state.backTo = n.parent; state.backScroll = 0; }
   state.sel = n; render(); renderPanel();
+  if (n.c && n.open && state.mapMode === "nodes") {
+    const b = safeBox(), kids = n.c.filter(c => c.x != null);
+    const out = kids.some(c => { const y = view.y + c.y * view.k, x = view.x + c.x * view.k; return y < 8 || y + NODE_H * view.k > b.cy + b.h / 2 || x + NODE_W[c.depth] * view.k > b.cx + b.w / 2; });
+    if (out) focusOn(n);
+  }
 }
 
 // ---------- side panel ----------
@@ -799,7 +801,18 @@ const sortNote = (k, d) => { const n = SORT_NAMES[k]; return n ? `Sorted by ${n[
 const defaultColour = () => state.mapMode === "sky" ? (state.view === "owner" ? "survival" : "sector") : (state.view === "owner" ? "med" : "rep");
 let lastAnnounce = "";
 function announce(t) { if (t !== lastAnnounce) { lastAnnounce = t; document.getElementById("live").textContent = t; } }
+const COLOUR_OPTS = {
+  employee: [["rep", "AI replaces the job (estimate)"], ["ai", "AI can do the tasks (official)"], ["salary", "Pay (median)"], ["sector", "Sector"]],
+  owner: [["med", "Owner earnings (median)"], ["ceiling", "Owner earnings (max)"], ["margin", "Business margin (net)"],
+    ["start", "How easy to start alone"], ["survival", "Business survival (4 yrs)"], ["sector", "Sector"]],
+};
+let colourOptsFor = null;
 function syncModeChrome() {
+  const sel = document.getElementById("colorBy"), opts = COLOUR_OPTS[state.view];
+  if (colourOptsFor !== state.view) { sel.innerHTML = opts.map(([v, l]) => `<option value="${v}">${l}</option>`).join(""); colourOptsFor = state.view; }
+  if (!opts.some(([v]) => v === state.colorBy)) { state.colorBy = defaultColour(); render(); }
+  sel.value = state.colorBy;
+  document.getElementById("lbl-inc").textContent = state.view === "owner" ? "Owner earnings (median)" : "Pay";
   document.getElementById("ownerFilters").hidden = state.view !== "owner";
   const n = ALL.filter(inMode).length;
   document.getElementById("search").placeholder = `Search ${n} ${state.view === "owner" ? "businesses" : "jobs"}…`;
@@ -831,10 +844,10 @@ function renderPanel() {
       <td class="num">${fmtM(M.ceil.profit)}<div class="sub2">${topNote(M.topShare)}</div></td>
       <td>${(r => `<span class="pill" style="${pillStyle(marginColor(r[1]))}">${r[0] === r[1] ? r[0] : r[0] + "–" + r[1]}%</span>`)(marginRange(o))}</td></tr>`; }).join("")}</tbody></table></div>${more}
     </div>` : `<div class="card"><h3>Ranked jobs</h3>
-    <div class="tablewrap"><table><thead><tr>${th("name", "Job")}${th("salary", "Salary", "Median pay. ✓ full-time median (JSA/ABS), ATO all workers, est estimate", "w-num")}${th("ai", "AI can do", "Share of the job's tasks generative AI could do (official JSA score)", "w-pill")}${th("rep", "AI replaces", "Estimated chance that AI replaces the job", "w-pill")}</tr></thead>
+    <div class="tablewrap"><table><thead><tr>${th("name", "Job")}${th("salary", "Pay", "Median pay. ✓ full-time median (JSA/ABS); ATO all workers incl. part-time; est estimate", "w-num")}${th("ai", "AI can do", "Share of the job's tasks generative AI could do (official JSA score)", "w-pill")}${th("rep", "AI replaces", "Estimated chance that AI replaces the job", "w-pill")}</tr></thead>
     <tbody>${shown.map(o => `<tr class="row" data-id="${o.id}">
       <td><button class="rowbtn">${o.n}</button><div class="sub2">${TRAINING[o.t].short}</div></td>
-      <td class="num">${(() => { const v = sal(o); return v == null ? '<span class="sub2">no data</span>' : `${fmtK(v)}<div>${qTag(o, true)}</div>`; })()}</td>
+      <td class="num">${(() => { const v = sal(o); return v == null ? '<span class="sub2">no data</span>' : `<span class="${quality(o) === "a" ? "pay-ato" : ""}">${fmtK(v)}</span><div>${qTag(o, true)}</div>`; })()}</td>
       <td><span class="pill" style="${pillStyle(aiColor(o.ai))}">${o.ai}%</span></td>
       <td><span class="pill" style="${pillStyle(repColor(o.rep))}">${o.rep}%</span></td></tr>`).join("")}</tbody></table></div>${more}
     </div>`}
@@ -955,7 +968,9 @@ function summaryStrip(o) {
     const M = bizModel(o); if (!M) return "";
     return `<div class="strip" aria-label="Summary">${
       stat("Owner earnings", fmtM(M.medProfit), "median, before tax")}${
-      stat("Max", fmtM(M.ceil.profit), M.topShare < .5 ? `only the top ${topPct(M.topShare)}` : "this path can't grow bigger")}${
+      (o.kind !== "biz" && sal(o) != null
+        ? stat("vs employee pay", fmtK(sal(o)), (d => `${d >= 0 ? "+" : "−"}${fmtK(Math.abs(d))} a year as owner`)(M.medProfit - sal(o)))
+        : stat("Max", fmtM(M.ceil.profit), M.topShare < .5 ? `only the top ${topPct(M.topShare)}` : "this path can't grow bigger"))}${
       stat("Start alone", `${o.biz.start}<span class="of">/100</span>`, startLabel(o.biz.start))}${
       stat("Survive 4 yrs", M.survAll != null ? Math.round(M.survAll) + "%" : "–", "of businesses in the industry")}</div>`;
   }
@@ -963,7 +978,7 @@ function summaryStrip(o) {
   const paySub = o.med ? "median, full-time" : o.ato ? "median, all workers" : o.lo != null ? "estimate" : "not published";
   return `<div class="strip" aria-label="Summary">${
     stat("Pay", p != null ? fmtK(p) : "–", p != null ? `${paySub}. ${rankText(PAY_RANK(p))}` : paySub)}${
-    stat("AI replaces", `${o.rep}%`, repVerdict(o.rep))}${
+    stat("AI replaces", `${o.rep}%`, `${repVerdict(o.rep)} · AI can do ${o.ai}% of tasks`)}${
     stat("Training", TRAINING[o.t].short, TRAIN_TIME[o.t])}${
     stat("Physical work", PHYS_LABELS[o.phys], `Skill: ${SKILLC_LABELS[o.skillC].toLowerCase()}`)}</div>`;
 }
@@ -1035,8 +1050,8 @@ function renderLegend() {
   const L = document.getElementById("legend");
   // [title, low label, high label, low value, high value, log scale]
   const map = {
-    ai: ["AI can do the tasks (JSA)", "0", "100", 0, 100],
-    rep: ["AI replaces the job (estimate)", "0", "100", 0, 95],
+    ai: ["AI can do the tasks (JSA)", "0%", "100%", 0, 100],
+    rep: ["AI replaces the job (estimate)", "0%", "100%", 0, 100],
     margin: ["Business margin (net)", "0%", "70%+", 0, 70],
     salary: ["Pay (median)", "$20K", "$250K+", 2e4, 2.5e5],
     med: ["Owner earnings (median)", "$20K", "$300K+", 2e4, 3e5, true],
@@ -1052,10 +1067,11 @@ function renderLegend() {
   const key = state.view === "owner" ? "" : `<div class="lg-notes">✓ official AU median · grp broader group<br>ATO tax data only · est estimate · US converted US wage</div>`;
   const open = localStorage.getItem("legendOpen") === "1";
   const title = state.colorBy === "sector" ? "Colour: sector" : map[state.colorBy][0];
-  const scale = state.colorBy === "sector" ? "" : `<div class="grad" style="background:${g}"></div><div class="scale"><span>${map[state.colorBy][1]}</span><span>${map[state.colorBy][2]}</span></div>`;
+  const sectorKey = `<ul class="sect-key">${DATA.c.map(c => `<li><i style="background:${c.color}"></i>${c.n}</li>`).join("")}</ul>`;
+  const scale = state.colorBy === "sector" ? `<div class="sect-strip" aria-hidden="true">${DATA.c.map(c => `<i style="background:${c.color}"></i>`).join("")}</div>` : `<div class="grad" style="background:${g}"></div><div class="scale"><span>${map[state.colorBy][1]}</span><span>${map[state.colorBy][2]}</span></div>`;
   L.classList.toggle("open", open);
   L.innerHTML = `<button type="button" class="lg-toggle" aria-expanded="${open}" aria-controls="lgBody"><span>${title}</span><span class="lg-chev" aria-hidden="true">${open ? "▾" : "▸"}</span></button>
-    ${scale}<div id="lgBody" class="lg-body"${open ? "" : " hidden"}>${skyNote}${key}</div>`;
+    ${scale}<div id="lgBody" class="lg-body"${open ? "" : " hidden"}>${state.colorBy === "sector" ? sectorKey : ""}${skyNote}${key}</div>`;
   L.querySelector(".lg-toggle").onclick = () => { localStorage.setItem("legendOpen", open ? "0" : "1"); renderLegend(); };
 }
 
@@ -1122,19 +1138,26 @@ function fit() {
   const y = (maxY - minY) * k > r.height - 40 ? 20 - minY * k : (r.height - (maxY + minY) * k) / 2;
   view = { k, x: r.width < 600 ? 12 : 30, y }; applyView();
 }
+// the part of the map not covered by the legend or the zoom buttons
+function safeBox() {
+  const r = svg.getBoundingClientRect(), pad = 16;
+  const over = [document.getElementById("legend"), document.querySelector(".zoom")].map(e => e.getBoundingClientRect()).filter(b => b.height);
+  const bottom = Math.min(r.height - pad, ...over.map(b => b.top - r.top - 8));
+  return { w: r.width - pad * 2, h: Math.max(120, bottom - pad), cx: r.width / 2, cy: (pad + Math.max(120, bottom)) / 2 };
+}
 // zoom to a job and its neighbours (or a group and its children), not the whole tree
 function focusOn(n) {
   if (state.mapMode === "sky") return centerOn(n);
   const group = n.c ? n : n.parent;
   const set = [group, ...(group.open && group.c ? group.c : [])].filter(x => x.x != null);
   if (!set.length) return centerOn(n);
-  const r = svg.getBoundingClientRect();
+  const b = safeBox();
   const x0 = Math.min(...set.map(x => x.x)), x1 = Math.max(...set.map(x => x.x + NODE_W[x.depth]));
   const y0 = Math.min(...set.map(x => x.y)), y1 = Math.max(...set.map(x => x.y + NODE_H));
-  const k = Math.max(.55, Math.min(1.1, (r.width - 60) / (x1 - x0), (r.height - 60) / (y1 - y0)));
-  view = { k, x: r.width / 2 - (x0 + x1) / 2 * k, y: r.height / 2 - (y0 + y1) / 2 * k };
-  if ((y1 - y0) * k > r.height - 40) {   // tall group: keep the selected job in view
-    const ty = n.c ? y0 : n.y; view.y = Math.min(20 - y0 * k, r.height / 2 - ty * k);
+  const k = Math.max(.55, Math.min(1.1, (b.w - 30) / (x1 - x0), (b.h - 30) / (y1 - y0)));
+  view = { k, x: b.cx - (x0 + x1) / 2 * k, y: b.cy - (y0 + y1) / 2 * k };
+  if ((y1 - y0) * k > b.h - 20) {   // tall group: keep the selected job in view
+    const ty = n.c ? y0 : n.y; view.y = Math.min(20 - y0 * k, b.cy - ty * k);
   }
   applyView();
 }
@@ -1154,7 +1177,7 @@ const RANGES = {};
 (function () {
   const maxSal = Math.ceil(Math.max(...ALL.map(sal).filter(v => v != null)) / 10000) * 10000;
   const defs = [
-    { key: "inc", label: "Income", min: 0, max: maxSal, step: 5000, fmt: v => v >= maxSal ? fmtK(v) + "+" : fmtK(v),
+    { key: "inc", label: "Pay", min: 0, max: maxSal, step: 5000, fmt: v => v >= maxSal ? fmtK(v) + "+" : fmtK(v),
       tip: "Median pay (or solo owner profit for business-only nodes). Jobs with no pay data are hidden when this is narrowed." },
     { key: "aiR", label: "AI can do the tasks", min: 0, max: 100, step: 1, fmt: v => v + "%" },
     { key: "repR", label: "AI replaces the job", min: 0, max: 100, step: 1, fmt: v => v + "%" },
@@ -1184,7 +1207,7 @@ const RANGES = {};
       return;
     }
     const box = document.createElement("div"); box.className = "rng"; if (d.tip) box.title = d.tip;
-    box.innerHTML = `<div class="rng-head"><span>${d.label}</span><b></b></div>
+    box.innerHTML = `<div class="rng-head"><span id="lbl-${d.key}">${d.label}</span><b></b></div>
       <div class="dual"><div class="track"><div class="fill"></div></div>
         <input type="range" min="${d.min}" max="${d.max}" step="${d.step}" value="${d.min}" aria-label="${d.label} minimum">
         <input type="range" min="${d.min}" max="${d.max}" step="${d.step}" value="${d.max}" aria-label="${d.label} maximum"></div>`;
@@ -1257,6 +1280,7 @@ document.getElementById("filtersReset").onclick = () => {
       menu.classList.remove("align-right"); menu.hidden = false;
       const b = btn.getBoundingClientRect(), w = menu.offsetWidth;
       if (b.left + w > window.innerWidth - 8) menu.classList.add("align-right");
+      if (window.innerWidth > 600) menu.style.maxHeight = Math.max(240, window.innerHeight - menu.getBoundingClientRect().top - 12) + "px";
     } else menu.hidden = true;
     scrim.classList.toggle("on", open); btn.setAttribute("aria-expanded", open);
     if (open) (menu.querySelector("input") || menu).focus({ preventScroll: true });
@@ -1315,8 +1339,9 @@ function zoomToMatches() {
   else pts = hits.filter(o => o.x != null).flatMap(o => [o, o.parent]).map(n => [n.x, n.y, n.x + NODE_W[n.depth], n.y + NODE_H]);
   if (!pts.length) return;
   const x0 = Math.min(...pts.map(b => b[0])), y0 = Math.min(...pts.map(b => b[1])), x1 = Math.max(...pts.map(b => b[2])), y1 = Math.max(...pts.map(b => b[3]));
-  const k = Math.max(.35, Math.min(1.2, (r.width - pad * 2) / (x1 - x0), (r.height - pad * 2) / (y1 - y0)));
-  view = { k, x: r.width / 2 - (x0 + x1) / 2 * k, y: r.height / 2 - (y0 + y1) / 2 * k }; applyView();
+  const b = safeBox();
+  const k = Math.max(.35, Math.min(1.2, (b.w - pad) / (x1 - x0), (b.h - pad) / (y1 - y0)));
+  view = { k, x: b.cx - (x0 + x1) / 2 * k, y: b.cy - (y0 + y1) / 2 * k }; applyView();
 }
 const setAll = v => (function f(n) { if (n.c) { if (n.depth) n.open = v; n.c.forEach(f); } })(DATA);
 document.getElementById("expandAll").onclick = () => { setAll(true); render(); fit(); };
