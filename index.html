@@ -4,16 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#171a21">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&family=Schibsted+Grotesk:wght@500;600;700&display=swap">
 <title>Career Explorer (AU)</title>
 <style>
   :root {
     color-scheme: dark;
+    /* UI: Atkinson Hyperlegible Next (built for legibility; the Atkinson family is also used by Jobs and Skills Australia).
+       Display: Schibsted Grotesk for headings, job names and big numbers. */
+    --font-ui: "Atkinson Hyperlegible Next", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-display: "Schibsted Grotesk", "Atkinson Hyperlegible Next", system-ui, sans-serif;
     --bg: #0f1115; --panel: #171a21; --line: #2a2f3a; --text: #e8eaf0; --muted: #8b93a7;
     --good: #30a46c; --mid: #ffb224; --bad: #e5484d; --warn-bg: #3a2a00; --warn: #ffcf5c;
   }
   * { box-sizing: border-box; }
   body { touch-action: manipulation; -webkit-tap-highlight-color: rgba(62,99,221,.25); }
   :focus-visible { outline: 2px solid #8fb5ff; outline-offset: 2px; }
+  ::selection { background: rgba(62,99,221,.45); color: #fff; }
+  ::placeholder { color: var(--muted); opacity: 1; }
+  * { scrollbar-color: #343a48 transparent; scrollbar-width: thin; }
+  a { text-underline-offset: 2px; }
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .skip { position: absolute; left: 8px; top: -40px; z-index: 50; background: #3e63dd; color: #fff; padding: 6px 10px; border-radius: 6px; }
   .skip:focus { top: 8px; }
@@ -21,6 +32,9 @@
   th button { all: unset; cursor: pointer; } th button:hover { color: var(--text); }
   .rowbtn { all: unset; cursor: pointer; } .rowbtn:hover { text-decoration: underline; }
   .tablewrap { overflow-x: auto; }
+  td.num { color: var(--text); }
+  .of { font-size: .8em; opacity: .75; margin-left: 1px; }
+  .sortnote { margin: -2px 0 6px; color: var(--muted); font-size: 12px; }
   .showall { width: 100%; margin-top: 8px; }
   #stage:focus-visible { outline-offset: -3px; }
   .node:focus { outline: none; }
@@ -29,14 +43,14 @@
     *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; }
   }
   html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
-    font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    font: 14px/1.45 var(--font-ui); }
   #app { display: grid; grid-template-rows: auto 1fr; height: 100%; }
   header { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; padding: 10px 14px;
     border-bottom: 1px solid var(--line); background: var(--panel); }
-  header h1 { font-size: 16px; margin: 0 8px 0 0; }
+  header h1 { font: 700 17px/1.2 var(--font-display); letter-spacing: -.01em; margin: 0 8px 0 0; }
   .ctrl { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; }
   select, input[type=search], button { background: #0f1115; color: var(--text); border: 1px solid var(--line);
-    border-radius: 6px; padding: 5px 8px; font: inherit; font-size: 12px; }
+    border-radius: 6px; padding: 5px 8px; font: inherit; font-size: 13px; }
   button { cursor: pointer; } button:hover { border-color: #4a5263; }
   .chips { display: flex; flex-wrap: wrap; gap: 4px; }
   .searchbox { position: relative; display: flex; align-items: center; color: var(--muted); }
@@ -52,8 +66,16 @@
     max-height: calc(100vh - 110px); overflow-y: auto; overscroll-behavior: contain;
     border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,.45); padding: 6px 0; }
   .dd-sec { padding: 8px 12px; border-bottom: 1px solid var(--line); }
-  .dd-head { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
-  .dd-head a { text-transform: none; letter-spacing: 0; font-size: 11px; }
+  .dd-sec:last-child { border-bottom: 0; }
+  .dd-menu.align-right { left: auto; right: 0; }
+  .dd-top { position: sticky; top: -6px; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    margin-top: -6px; padding: 10px 12px; background: var(--panel); border-bottom: 1px solid var(--line); }
+  .dd-title { font: 700 15px var(--font-display); }
+  .dd-actions { display: flex; gap: 6px; }
+  button.primary { background: #3e63dd; border-color: #3e63dd; color: #fff; } button.primary:hover { background: #3255c8; border-color: #3255c8; }
+  .dd-scrim { display: none; }
+  .dd-head { display: flex; justify-content: space-between; font: 600 13px/1.3 var(--font-display); margin-bottom: 6px; }
+  .dd-head a { font: 400 12px var(--font-ui); }
   .dd-menu label { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: 12px; cursor: pointer; }
   .dd-foot { padding: 8px 12px 4px; text-align: right; }
   .rng { margin: 2px 0 12px; }
@@ -86,7 +108,7 @@
   .resizer::after { content: ""; position: absolute; top: 0; bottom: 0; left: -5px; right: -5px; } /* wider grab area */
   .resizer:hover, .resizer:focus-visible, .resizer.drag { background: #3e63dd; }
   .resizer .grip { position: absolute; top: 50%; left: 1px; width: 4px; height: 36px; margin-top: -18px; border-radius: 2px;
-    background: repeating-linear-gradient(#8b93a7 0 2px, transparent 2px 5px); opacity: .6; pointer-events: none; }
+    border-left: 1px solid #8b93a7; border-right: 1px solid #8b93a7; opacity: .6; pointer-events: none; }
   body.resizing, body.resizing * { cursor: col-resize !important; user-select: none !important; }
   aside { border-left: 0 !important; }
   main.collapsed { grid-template-columns: 1fr 0 0; }
@@ -118,6 +140,8 @@
   #stage.drag { cursor: grabbing; }
   svg { width: 100%; height: 100%; display: block; }
   .link { fill: none; stroke: #343a48; stroke-width: 1.5; }
+  #links.fadein { animation: linksIn .55s ease-out; }
+  @keyframes linksIn { 0%, 55% { opacity: 0; } 100% { opacity: 1; } }
   .node { cursor: pointer; transition: transform .35s ease, opacity .2s; }
   .node rect { stroke-width: 1.5; }
   .node text { fill: var(--text); font-size: 12px; pointer-events: none; }
@@ -130,7 +154,7 @@
   .grad { width: 160px; height: 8px; border-radius: 4px; margin: 4px 0 2px; }
   .zoom { position: absolute; right: 12px; bottom: 12px; display: flex; gap: 4px; }
   aside { border-left: 1px solid var(--line); background: var(--panel); overflow-y: auto; padding: 16px; }
-  aside h2 { margin: 0 0 2px; font-size: 18px; }
+  aside h2 { margin: 0 0 2px; font: 700 21px/1.2 var(--font-display); letter-spacing: -.015em; text-wrap: balance; }
   .crumbs ol { list-style: none; margin: -4px 0 10px; padding: 0; display: flex; flex-wrap: wrap; gap: 2px 0; font-size: 13px; }
   .crumbs li { display: inline-flex; align-items: center; min-width: 0; }
   .crumbs li + li::before { content: "/"; color: var(--muted); margin: 0 6px; }
@@ -141,8 +165,8 @@
   .backlink:hover { text-decoration: underline; }
   aside .crumb { color: var(--muted); font-size: 12px; margin-bottom: 12px; }
   .card { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; }
-  .card h3 { margin: 0 0 6px; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
-  .big { font-size: 20px; font-weight: 600; }
+  .card h3 { margin: 0 0 6px; font: 600 14px/1.3 var(--font-display); color: var(--text); }
+  .big { font: 700 22px/1.2 var(--font-display); letter-spacing: -.01em; }
   .tag { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 11px; font-weight: 600; }
   .tag.au { background: #10301f; color: #6be3a2; }
   .tag.us { background: var(--warn-bg); color: var(--warn); }
@@ -181,7 +205,12 @@
     #colorBy { max-width: 190px; }
     main, main.collapsed { grid-template-rows: 50% 50%; }
     .legend { padding: 6px 8px; } .legend .lg-notes { display: none; } .grad { width: 110px; }
-    .dd-menu { position: fixed; left: 8px; right: 8px; width: auto; top: 110px; }
+    .dd-menu, .dd-menu.align-right { position: fixed; left: 0; right: 0; bottom: 0; top: auto; width: auto; max-height: 78vh;
+      border-radius: 14px 14px 0 0; padding-bottom: env(safe-area-inset-bottom); }
+    .dd-top { top: 0; margin-top: 0; padding: 14px 16px; }
+    .dd-top button { padding: 8px 14px; font-size: 14px; }
+    .dd-scrim { position: fixed; inset: 0; z-index: 19; background: rgba(5,8,15,.55); }
+    .dd-scrim.on { display: block; }
   }
 </style>
 </head>
@@ -196,7 +225,7 @@
     </div>
     <label class="searchbox" aria-label="Search jobs">
       <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      <input type="search" id="search" name="q" aria-label="Search jobs" autocomplete="off" spellcheck="false" placeholder="Search 400+ jobs…">
+      <input type="search" id="search" name="q" aria-label="Search jobs" autocomplete="off" spellcheck="false" placeholder="Search jobs…">
     </label>
     <div class="ctrl" role="group" aria-label="View the map as"><span class="lbl">View as:</span>
       <div class="seg"><button id="mNodes" class="on" aria-pressed="true">Nodes</button><button id="mSky" aria-pressed="false">Constellation</button></div>
@@ -216,8 +245,9 @@
       </select>
     </label>
     <div class="dd" id="filtersDd">
-      <button id="filtersBtn" aria-haspopup="true" aria-expanded="false" aria-controls="filtersMenu">Filters<span class="badge" id="filterCount" hidden></span> <span class="caret">▾</span></button>
-      <div class="dd-menu" id="filtersMenu" hidden>
+      <button id="filtersBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="filtersMenu">Filters<span class="badge" id="filterCount" hidden></span> <span class="caret">▾</span></button>
+      <div class="dd-menu" id="filtersMenu" role="dialog" aria-label="Filters" hidden>
+        <div class="dd-top"><span class="dd-title">Filters</span><span class="dd-actions"><button id="filtersReset">Reset</button><button id="filtersDone" class="primary">Done</button></span></div>
         <div class="dd-sec" id="rangeSec"></div>
         <div class="dd-sec">
           <div class="dd-head">Training needed <span><a href="#" id="trainAll">All</a> · <a href="#" id="trainNone">None</a></span></div>
@@ -231,7 +261,6 @@
           <div class="dd-head">Business owner</div>
           <label title="Only show businesses one person can realistically start (start score 60+)"><input type="checkbox" id="easyOnly"> Easy to start alone</label>
         </div>
-        <div class="dd-foot"><button id="filtersReset">Reset filters</button></div>
       </div>
     </div>
     <button id="expandAll">Expand all</button>
@@ -250,9 +279,9 @@
   </main>
 </div>
 
-<script src="data.js?v=13"></script>
-<script src="biz.js?v=13"></script>
-<script src="groups.js?v=13"></script>
+<script src="data.js?v=20"></script>
+<script src="biz.js?v=20"></script>
+<script src="groups.js?v=20"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -458,8 +487,10 @@ function ramp(t) {
 // readable text on a coloured pill
 function ink(hex) {
   const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255).map(c => c <= .03928 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4);
-  return .2126 * r + .7152 * g + .0722 * b > .3 ? "#111" : "#fff";
+  const L = .2126 * r + .7152 * g + .0722 * b;
+  return (L + .05) / .05 >= 1.05 / (L + .05) ? "#000" : "#fff";   // pick the higher contrast (always >= 4.58:1)
 }
+const rankText = p => p <= 5 ? "Lower than almost every other job" : p >= 95 ? "Higher than almost every other job" : `Higher than ${p}% of jobs`;
 const pillStyle = c => `background:${c};color:${ink(c)}`;
 const aiColor = v => ramp((v - 10) / 65);
 const repColor = v => ramp(Math.sqrt(v / 90));
@@ -516,11 +547,15 @@ const el = (t, a = {}) => { const e = document.createElementNS(NS, t); for (cons
 const gNodes = document.getElementById("nodes"), gLinks = document.getElementById("links");
 const nodeEls = new Map();
 
+let lastLayoutSig = "";
 function render() {
   stage.classList.toggle("sky", state.mapMode === "sky");
   document.getElementById("expandAll").hidden = document.getElementById("collapseAll").hidden = state.mapMode === "sky";
   if (state.mapMode === "sky") { renderSky(); renderLegend(); syncURL(); return; }
   const vis = layout(); const visSet = new Set(vis);
+  const firstDraw = nodeEls.size === 0, sig = vis.map(n => n.id).join(",");
+  if (!firstDraw && sig !== lastLayoutSig) { gLinks.classList.remove("fadein"); void gLinks.getBBox; requestAnimationFrame(() => gLinks.classList.add("fadein")); }
+  lastLayoutSig = sig;
   gLinks.innerHTML = "";
   vis.forEach(n => {
     if (!n.parent) return;
@@ -533,7 +568,7 @@ function render() {
     let g = nodeEls.get(n);
     if (!g) {
       g = el("g", { class: "node", tabindex: 0, role: "button" });
-      const startP = n.parent && nodeEls.has(n.parent) ? n.parent : n;
+      const startP = !firstDraw && n.parent && nodeEls.has(n.parent) ? n.parent : n;
       g.style.transform = `translate(${startP.x}px,${startP.y}px)`;
       g.appendChild(el("rect", { width: NODE_W[n.depth], height: NODE_H, rx: n.c ? 17 : 6 }));
       const t = el("text", { x: 12, y: n.c ? 21 : 15 }); g.appendChild(t);
@@ -688,6 +723,10 @@ function meter(pct, color, from = 0) {
   return `<div class="meter"><div class="fill" style="left:${from}%;width:${Math.max(pct - from, 2)}%;background:${color}"></div></div>`;
 }
 
+const SORT_NAMES = { name: ["Job name", "A to Z", "Z to A"], ai: ["AI can do", "lowest first", "highest first"],
+  rep: ["AI replaces the job", "least likely first", "most likely first"], margin: ["business margin", "lowest first", "highest first"],
+  salary: ["pay", "lowest first", "highest first"], train: ["training", "shortest first", "longest first"] };
+const sortNote = (k, d) => { const n = SORT_NAMES[k]; return n ? `Sorted by ${n[0]}, ${d > 0 ? n[1] : n[2]}.` : ""; };
 let lastAnnounce = "";
 function announce(t) { if (t !== lastAnnounce) { lastAnnounce = t; document.getElementById("live").textContent = t; } }
 function renderPanel() {
@@ -699,7 +738,7 @@ function renderPanel() {
   const val = { ai: o => o.ai ?? -1, rep: o => o.rep ?? -1, margin: o => o.m ? o.m[1] : -1, salary: o => sal(o) ?? -1, train: o => o.t, name: o => o.n,
     start: o => o.biz ? o.biz.start : -1, solo: o => bz(o, M => M.tiers[0].profit), ceiling: o => bz(o, M => M.ceil.profit), surv: o => bz(o, M => M.survAll ?? -1) };
   rows.sort((a, b) => { const x = val[key](a), y = val[key](b); return (x > y ? 1 : x < y ? -1 : 0) * dir; });
-  const th = (k, label) => `<th class="${key === k ? "on" : ""}" aria-sort="${key === k ? (dir > 0 ? "ascending" : "descending") : "none"}"><button data-k="${k}">${label}<span aria-hidden="true">${key === k ? (dir > 0 ? " ▲" : " ▼") : ""}</span></button></th>`;
+  const th = (k, label, tip) => `<th class="${key === k ? "on" : ""}" aria-sort="${key === k ? (dir > 0 ? "ascending" : "descending") : "none"}"><button data-k="${k}"${tip ? ` title="${tip}"` : ""}>${label}<span aria-hidden="true">${key === k ? (dir > 0 ? " ▲" : " ▼") : ""}</span></button></th>`;
   const LIMIT = 150, all = state.showAllFor === n, total = rows.length;
   const shown = all ? rows : rows.slice(0, LIMIT);
   const more = total > shown.length ? `<button class="showall" id="showAll">Show all ${total} jobs</button>` : "";
@@ -717,11 +756,12 @@ function renderPanel() {
       <td>${M.survAll != null ? M.survAll.toFixed(0) + "%" : "–"}</td></tr>`; }).join("")}</tbody></table></div>${more}
     <p class="help">Start = can one person start it (0–100, estimate). Solo profit = owner profit at ~$120k turnover. Ceiling = owner profit at the biggest size at least 0.5% of AU businesses in this industry reach. Survive 4y = share of businesses still trading after 4 years (ABS).</p>
     </div>` : `<div class="card"><h3>Ranked jobs</h3>
-    <div class="tablewrap"><table><thead><tr>${th("name", "Job")}${th("ai", "AI tasks")}${th("rep", "Replace")}${th("margin", "Margin")}${th("salary", "Salary")}${th("train", "Training")}</tr></thead>
+    <p class="sortnote">${sortNote(key, dir)}</p>
+    <div class="tablewrap"><table><thead><tr>${th("name", "Job")}${th("ai", "AI can do", "Share of the job's tasks generative AI could do, out of 100 (official JSA score)")}${th("rep", "AI replaces", "Estimated risk that AI replaces the job, out of 100")}${th("margin", "Margin")}${th("salary", "Salary")}${th("train", "Training")}</tr></thead>
     <tbody>${shown.map(o => `<tr class="row" data-id="${o.id}">
       <td><button class="rowbtn">${o.n}</button> ${qTag(o, true)}</td>
-      <td><span class="pill" style="${pillStyle(aiColor(o.ai))}">${o.ai}</span></td>
-      <td><span class="pill" style="${pillStyle(repColor(o.rep))}">${o.rep}</span></td>
+      <td class="num">${o.ai}<span class="of">/100</span></td>
+      <td><span class="pill" style="${pillStyle(repColor(o.rep))}">${o.rep}<span class="of">/100</span></span></td>
       <td>${o.m ? `<span class="pill" style="${pillStyle(marginColor(o.m[1]))}">${o.m[0]}–${o.m[1]}%</span>` : '<span style="color:var(--muted)">–</span>'}</td>
       <td>${o.kind === "biz" ? '<span style="color:var(--muted)">owner only</span>' : o.med ? fmtK(o.med) + ' <span style="color:var(--muted)">med</span>' : o.ato ? fmtK(o.ato.sal) + ' <span style="color:var(--muted)">ATO</span>' : o.lo != null ? `${fmtK(o.lo)}–${fmtK(o.hi)}` : '<span style="color:var(--muted)">no data</span>'}</td>
       <td style="color:var(--muted)">${TRAINING[o.t].short}</td></tr>`).join("")}</tbody></table></div>${more}
@@ -787,14 +827,14 @@ function aiCard(o) {
   return `<div class="card"><h3>AI can do the tasks <span class="tag au" style="margin-left:4px">official</span></h3>
     <div class="big" style="color:${aiColor(o.ai)}">${o.ai}/100</div>
     ${meter(o.ai, aiColor(o.ai))}
-    <div class="note">Share of this job's tasks that generative AI could do. Higher than ${tr}% of jobs.
+    <div class="note">Share of this job's tasks that generative AI could do. ${rankText(tr)}.
       AI could <i>help</i> with ${Math.round(g.aiAug * 100)}/100 of the tasks.
       Source: <a href="${AIX_URL}" target="_blank" rel="noopener">${AIX_SOURCE}</a>, group ${g.code}.</div>
   </div>
   <div class="card"><h3>AI replaces the job <span class="tag est" style="margin-left:4px">estimate</span></h3>
     <div class="big" style="color:${repColor(o.rep)}">${o.rep}/100</div>
     ${meter(o.rep, repColor(o.rep))}
-    <div class="note"><b>${repText}</b> Higher than ${rr}% of jobs.</div>
+    <div class="note"><b>${repText}</b> ${rankText(rr)}.</div>
     <div class="note">How replaceable one worker in this job is. It rises when AI can do the work <i>without</i> a person,
       and falls when AI mostly assists, when a licence is required, or when the job needs degree-level judgement.
       Built from the official scores above. It counts generative AI only, not robots, drones or self-driving vehicles.</div>
@@ -904,22 +944,24 @@ const disclaimer = () => `<div class="disclaimer">For exploring, not advice.<br>
 function selectById(id) {
   const o = ALL.find(x => x.id === id);
   for (let p = o.parent; p; p = p.parent) p.open = true;
-  state.sel = o; render(); renderPanel(); centerOn(o);
+  state.sel = o; render(); renderPanel(); focusOn(o);
 }
 
 // ---------- legend ----------
 function renderLegend() {
   const L = document.getElementById("legend");
-  const g = `linear-gradient(90deg,${RAMP.join(",")})`;
+  // [title, low label, high label, low value, high value, log scale]
   const map = {
-    ai: ["AI can do the tasks (JSA)", "Low", "High"],
-    rep: ["AI replaces the job (estimate)", "Low", "High"],
-    margin: ["Own-business margin ceiling", "70%+", "~5%"],
-    salary: ["Salary (median)", "$250k+", "Low"],
-    ceiling: ["Owner earnings ceiling", "$5m+", "$50k"],
-    start: ["How easy to start alone", "Easy", "Hard"],
-    survival: ["Business survival (4 yrs)", "80%+", "45%"],
+    ai: ["AI can do the tasks (JSA)", "0", "100", 0, 100],
+    rep: ["AI replaces the job (estimate)", "0", "100", 0, 95],
+    margin: ["Own-business margin ceiling", "5%", "70%+", 5, 70],
+    salary: ["Pay (median)", "$20K", "$250K+", 2e4, 2.5e5],
+    ceiling: ["Owner earnings ceiling", "$50K", "$5M+", 5e4, 5e6, true],
+    start: ["How easy to start alone", "Hard", "Easy", 0, 100],
+    survival: ["Business survival (4 yrs)", "45%", "80%+", 45, 80],
   };
+  const m = map[state.colorBy], cfn = METRIC[state.colorBy] && METRIC[state.colorBy][1];
+  const g = m && cfn ? `linear-gradient(90deg,${[0, .25, .5, .75, 1].map(f => cfn(m[5] ? Math.exp(Math.log(m[3]) + f * (Math.log(m[4]) - Math.log(m[3]))) : m[3] + f * (m[4] - m[3]))).join(",")})` : "";
   const skyNote = state.mapMode === "sky" ? `<div class="lg-notes" style="margin-top:4px">${state.view === "owner"
     ? "Across: how hard to start. Up: owner earnings ceiling.<br>Star size: number of businesses in the industry."
     : "Across: AI could replace it. Up: pay.<br>Star size: number of workers. Brighter: higher pay."}<br>Select a group to draw its constellation.</div>` : "";
@@ -932,7 +974,12 @@ function renderLegend() {
 // ---------- pan / zoom ----------
 const svg = document.getElementById("svg"), vp = document.getElementById("vp"), stage = document.getElementById("stage");
 let view = { x: 40, y: 40, k: 1 };
-const applyView = () => vp.setAttribute("transform", `translate(${view.x},${view.y}) scale(${view.k})`);
+let goodView = { x: 40, y: 40, k: 1 };
+const applyView = () => {
+  if (![view.x, view.y, view.k].every(Number.isFinite) || view.k <= 0) view = { ...goodView };   // never apply a broken position
+  goodView = { ...view };
+  vp.setAttribute("transform", `translate(${view.x},${view.y}) scale(${view.k})`);
+};
 function zoomAt(f, cx, cy) {
   const k = Math.max(.3, Math.min(2.5, view.k * f)); f = k / view.k;
   view.x = cx - (cx - view.x) * f; view.y = cy - (cy - view.y) * f; view.k = k; applyView();
@@ -986,6 +1033,22 @@ function fit() {
   const k = Math.max(kMin, Math.min(1.4, (r.width - 60) / maxX, (r.height - 60) / (maxY - minY)));
   const y = (maxY - minY) * k > r.height - 40 ? 20 - minY * k : (r.height - (maxY + minY) * k) / 2;
   view = { k, x: r.width < 600 ? 12 : 30, y }; applyView();
+}
+// zoom to a job and its neighbours (or a group and its children), not the whole tree
+function focusOn(n) {
+  if (state.mapMode === "sky") return centerOn(n);
+  const group = n.c ? n : n.parent;
+  const set = [group, ...(group.open && group.c ? group.c : [])].filter(x => x.x != null);
+  if (!set.length) return centerOn(n);
+  const r = svg.getBoundingClientRect();
+  const x0 = Math.min(...set.map(x => x.x)), x1 = Math.max(...set.map(x => x.x + NODE_W[x.depth]));
+  const y0 = Math.min(...set.map(x => x.y)), y1 = Math.max(...set.map(x => x.y + NODE_H));
+  const k = Math.max(.55, Math.min(1.1, (r.width - 60) / (x1 - x0), (r.height - 60) / (y1 - y0)));
+  view = { k, x: r.width / 2 - (x0 + x1) / 2 * k, y: r.height / 2 - (y0 + y1) / 2 * k };
+  if ((y1 - y0) * k > r.height - 40) {   // tall group: keep the selected job in view
+    const ty = n.c ? y0 : n.y; view.y = Math.min(20 - y0 * k, r.height / 2 - ty * k);
+  }
+  applyView();
 }
 function centerOn(n) {
   const r = svg.getBoundingClientRect();
@@ -1082,7 +1145,18 @@ document.getElementById("filtersReset").onclick = () => {
 };
 (function () {
   const btn = document.getElementById("filtersBtn"), menu = document.getElementById("filtersMenu");
-  const set = open => { menu.hidden = !open; btn.setAttribute("aria-expanded", open); };
+  const scrim = document.createElement("div"); scrim.className = "dd-scrim"; document.body.appendChild(scrim);
+  const set = open => {
+    if (open) {   // open toward whichever side has room, so the menu never leaves the screen
+      menu.classList.remove("align-right"); menu.hidden = false;
+      const b = btn.getBoundingClientRect(), w = menu.offsetWidth;
+      if (b.left + w > window.innerWidth - 8) menu.classList.add("align-right");
+    } else menu.hidden = true;
+    scrim.classList.toggle("on", open); btn.setAttribute("aria-expanded", open);
+    if (open) (menu.querySelector("input") || menu).focus({ preventScroll: true });
+  };
+  document.getElementById("filtersDone").onclick = () => { set(false); btn.focus(); };
+  scrim.onclick = () => set(false);
   btn.onclick = e => { e.stopPropagation(); set(menu.hidden); };
   document.addEventListener("click", e => { if (!menu.hidden && !document.getElementById("filtersDd").contains(e.target)) set(false); });
   document.addEventListener("keydown", e => { if (e.key === "Escape" && !menu.hidden) { set(false); btn.focus(); } });
@@ -1105,7 +1179,7 @@ function setMapMode(m) {
   for (let p = state.sel.parent; p; p = p.parent) p.open = true;   // show the selected job's branch on the node map
   [["mNodes", "nodes"], ["mSky", "sky"]].forEach(([id, v]) => { const b = document.getElementById(id); b.classList.toggle("on", m === v); b.setAttribute("aria-pressed", m === v); });
   render(); fit();
-  if (state.sel !== DATA) centerOn(state.sel);
+  if (state.sel !== DATA) focusOn(state.sel);
 }
 document.getElementById("mNodes").onclick = () => setMapMode("nodes");
 document.getElementById("mSky").onclick = () => setMapMode("sky");
@@ -1159,6 +1233,8 @@ document.querySelector(".skip").addEventListener("click", e => { e.preventDefaul
   window.addEventListener("resize", () => apply(false));
   apply(false);
 })();
+
+document.getElementById("search").placeholder = `Search ${ALL.length} jobs…`;
 
 // ---------- URL state: shareable links + browser back/forward ----------
 let restoring = false, lastSelKey = null;
@@ -1227,12 +1303,12 @@ function readURL() {
   lastSelKey = selKey(sel);
   return sel;
 }
-window.addEventListener("popstate", () => { const sel = readURL(); render(); renderPanel(); fit(); if (sel !== DATA) centerOn(sel); });
+window.addEventListener("popstate", () => { const sel = readURL(); render(); renderPanel(); fit(); if (sel !== DATA) focusOn(sel); });
 
 const startSel = readURL();
 render(); renderPanel(); fit();
-if (startSel !== DATA) centerOn(startSel);
-window.addEventListener("resize", fit);
+if (startSel !== DATA) focusOn(startSel);
+window.addEventListener("resize", () => state.sel !== DATA ? focusOn(state.sel) : fit());
 </script>
 </body>
 </html>
