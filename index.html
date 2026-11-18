@@ -55,6 +55,8 @@
   .zoom { position: absolute; right: 12px; bottom: 12px; display: flex; gap: 4px; }
   aside { border-left: 1px solid var(--line); background: var(--panel); overflow-y: auto; padding: 16px; }
   aside h2 { margin: 0 0 2px; font-size: 18px; }
+  .backlink { display: inline-block; margin: -4px 0 10px; font-size: 13px; color: #8fb5ff; text-decoration: none; }
+  .backlink:hover { text-decoration: underline; }
   aside .crumb { color: var(--muted); font-size: 12px; margin-bottom: 12px; }
   .card { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; }
   .card h3 { margin: 0 0 6px; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
@@ -130,9 +132,9 @@
   </main>
 </div>
 
-<script src="data.js?v=4"></script>
-<script src="biz.js?v=4"></script>
-<script src="groups.js?v=4"></script>
+<script src="data.js?v=5"></script>
+<script src="biz.js?v=5"></script>
+<script src="groups.js?v=5"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -405,6 +407,7 @@ function render() {
 
 function onNodeClick(n) {
   if (n.c && n.depth > 0) n.open = !n.open;
+  if (!n.c) { state.backTo = n.parent; state.backScroll = 0; }
   state.sel = n; render(); renderPanel();
 }
 
@@ -452,7 +455,10 @@ function renderPanel() {
   panel.querySelectorAll("th").forEach(h => h.onclick = () => {
     const k = h.dataset.k; state.sort = { key: k, dir: state.sort.key === k ? -state.sort.dir : (["margin", "salary", "start", "solo", "ceiling", "surv"].includes(k) ? -1 : 1) }; renderPanel();
   });
-  panel.querySelectorAll("tr.row").forEach(r => r.onclick = () => selectById(+r.dataset.id));
+  panel.querySelectorAll("tr.row").forEach(r => r.onclick = () => {
+    state.backTo = n; state.backScroll = panel.scrollTop;   // the list we came from + its scroll position
+    selectById(+r.dataset.id);
+  });
 }
 
 function bizCard(o) {
@@ -514,20 +520,36 @@ function aiCard(o) {
   </div>`;
 }
 
+function backLink() {
+  return `<a href="#" class="backlink" data-back>← Back to overview</a>`;
+}
+function wireBack(o) {
+  const to = state.backTo && !state.backTo.c ? o.parent : (state.backTo || o.parent);
+  panel.querySelectorAll("[data-back]").forEach(b => {
+    b.title = "Back to " + to.n;
+    b.onclick = e => {
+      e.preventDefault();
+      const y = state.backTo === to ? state.backScroll || 0 : 0;
+      state.sel = to; render(); renderPanel(); panel.scrollTop = y;
+    };
+  });
+}
+
 function renderOccupation(o) {
   const salPct = v => v / 600000 * 100;
   const owner = state.view === "owner" || o.kind === "biz";
   if (o.kind === "biz") {
-    panel.innerHTML = `<h2>${o.n}</h2><div class="crumb">${crumb(o)} · ${qTag(o)}</div>
+    panel.innerHTML = `${backLink()}<h2>${o.n}</h2><div class="crumb">${crumb(o)} · ${qTag(o)}</div>
       <p class="help">A business path, not one job. There is no employee salary for this.</p>
       ${bizCard(o)}
       <div class="card"><h3>Training needed to start</h3><div class="big" style="font-size:16px">${TRAINING[o.t].label}</div></div>
       ${aiCard(o)}
-      <button id="back">← Back to ${o.parent.n}</button>${disclaimer()}`;
-    document.getElementById("back").onclick = () => { state.sel = o.parent; render(); renderPanel(); };
+      <button data-back>← Back to overview</button>${disclaimer()}`;
+    wireBack(o); panel.scrollTop = 0;
     return;
   }
   panel.innerHTML = `
+    ${backLink()}
     <h2>${o.n}</h2><div class="crumb">${crumb(o)}</div>
     ${groupCard(o)}
     ${owner ? bizCard(o) : ""}
@@ -570,9 +592,9 @@ function renderOccupation(o) {
     </div>` : ""}
     ${owner ? "" : bizCard(o)}
     ${!o.biz && state.view === "owner" ? `<div class="card"><h3>Own the business</h3><p class="help">No business path is mapped for this job group yet.</p></div>` : ""}
-    <button id="back">← Back to ${o.parent.n}</button>
+    <button data-back>← Back to overview</button>
     ${disclaimer()}`;
-  document.getElementById("back").onclick = () => { state.sel = o.parent; render(); renderPanel(); };
+  wireBack(o); panel.scrollTop = 0;
 }
 
 const disclaimer = () => `<div class="disclaimer">For exploring, not advice.<br>
