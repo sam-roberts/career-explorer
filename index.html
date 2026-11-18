@@ -37,7 +37,15 @@
   .dd-head a { text-transform: none; letter-spacing: 0; font-size: 11px; }
   .dd-menu label { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: 12px; cursor: pointer; }
   .dd-foot { padding: 8px 12px 4px; text-align: right; }
-  .rng { margin: 2px 0 12px; } .rng:last-child { margin-bottom: 2px; }
+  .rng { margin: 2px 0 12px; }
+  .dd-menu label.switch { align-items: flex-start; gap: 10px; padding: 4px 0 2px; }
+  .switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .switch .knob { flex: none; position: relative; width: 30px; height: 16px; margin-top: 1px; border-radius: 999px; background: #2a2f3a; border: 1px solid var(--line); transition: background .15s; }
+  .switch .knob::after { content: ""; position: absolute; top: 1px; left: 1px; width: 12px; height: 12px; border-radius: 50%; background: #8b93a7; transition: transform .15s, background .15s; }
+  .switch input:checked + .knob { background: #3e63dd; border-color: #3e63dd; }
+  .switch input:checked + .knob::after { transform: translateX(14px); background: #fff; }
+  .switch input:focus-visible + .knob { box-shadow: 0 0 0 3px rgba(62,99,221,.5); }
+  .switch .sub { display: block; color: var(--muted); font-size: 11px; }
   .rng-head { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; }
   .rng-head b { font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
   .dual { position: relative; height: 20px; }
@@ -183,9 +191,9 @@
   </main>
 </div>
 
-<script src="data.js?v=7"></script>
-<script src="biz.js?v=7"></script>
-<script src="groups.js?v=7"></script>
+<script src="data.js?v=8"></script>
+<script src="biz.js?v=8"></script>
+<script src="groups.js?v=8"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -401,7 +409,8 @@ function layout() {
   let y = 0; const vis = [];
   (function walk(n) {
     vis.push(n);
-    const kids = n.open && n.c ? n.c : [];
+    // hide mode: drop branches with no matching job (a parent stays while at least one child matches)
+    const kids = n.open && n.c ? (state.hideNoMatch ? n.c.filter(branchPasses) : n.c) : [];
     if (!kids.length) { n.y = y; y += NODE_H + GAP; }
     else { kids.forEach(walk); n.y = (kids[0].y + kids[kids.length - 1].y) / 2; }
     n.x = COLX[n.depth];
@@ -747,6 +756,18 @@ const RANGES = {};
     RANGES[d.key] = { full: [d.min, d.max], reset: () => { lo.value = d.min; hi.value = d.max; state[d.key] = [d.min, d.max]; draw(); } };
     draw();
   });
+  // map display toggle: fully hide non-matching nodes (true) or fade them (false)
+  state.hideNoMatch = false;
+  const tg = document.createElement("label"); tg.className = "switch";
+  tg.title = "On: nodes that do not match disappear from the map. Off: they are faded.";
+  tg.innerHTML = `<input type="checkbox" id="hideNoMatch" role="switch"><span class="knob" aria-hidden="true"></span>
+    <span>Hide non-matching nodes on the map<span class="sub" id="hideNoMatchSub">Off: non-matches are faded</span></span>`;
+  sec.appendChild(tg);
+  tg.querySelector("input").onchange = e => {
+    state.hideNoMatch = e.target.checked;
+    document.getElementById("hideNoMatchSub").textContent = e.target.checked ? "On: non-matches disappear" : "Off: non-matches are faded";
+    render();
+  };
 })();
 
 const chips = document.getElementById("trainChips");
