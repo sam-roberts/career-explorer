@@ -131,6 +131,12 @@
   .zoom { position: absolute; right: 12px; bottom: 12px; display: flex; gap: 4px; }
   aside { border-left: 1px solid var(--line); background: var(--panel); overflow-y: auto; padding: 16px; }
   aside h2 { margin: 0 0 2px; font-size: 18px; }
+  .crumbs ol { list-style: none; margin: -4px 0 10px; padding: 0; display: flex; flex-wrap: wrap; gap: 2px 0; font-size: 13px; }
+  .crumbs li { display: inline-flex; align-items: center; min-width: 0; }
+  .crumbs li + li::before { content: "/"; color: var(--muted); margin: 0 6px; }
+  .crumbs a { color: #8fb5ff; text-decoration: none; } .crumbs a:hover { text-decoration: underline; }
+  .crumbs [aria-current] { color: var(--muted); }
+  aside h2:focus { outline: none; }
   .backlink { display: inline-block; margin: -4px 0 10px; font-size: 13px; color: #8fb5ff; text-decoration: none; }
   .backlink:hover { text-decoration: underline; }
   aside .crumb { color: var(--muted); font-size: 12px; margin-bottom: 12px; }
@@ -244,9 +250,9 @@
   </main>
 </div>
 
-<script src="data.js?v=12"></script>
-<script src="biz.js?v=12"></script>
-<script src="groups.js?v=12"></script>
+<script src="data.js?v=13"></script>
+<script src="biz.js?v=13"></script>
+<script src="groups.js?v=13"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -258,6 +264,23 @@ function trainFromSkill(g) {
   if (lv === 2) return 3;
   if (lv === 3) return g.code[0] === "3" ? 2 : 1;
   return lv === 4 ? 1 : 0;
+}
+// ---------- physical work (estimate) and skill complexity (from ABS skill level) ----------
+// 0 none, 1 low, 2 medium, 3 high. Set per ANZSCO sub-major group, then per unit group where jobs differ.
+const PHYS_LABELS = ["None", "Low", "Medium", "High"];
+const SKILLC_LABELS = ["Low", "Medium", "High", "Very high"];
+const PHYS_SM = { 11: 0, 12: 3, 13: 1, 14: 2, 21: 1, 22: 0, 23: 1, 24: 1, 25: 2, 26: 0, 27: 1, 31: 1, 32: 3, 33: 3, 34: 3, 35: 3, 36: 3,
+  39: 2, 41: 2, 42: 2, 43: 2, 44: 3, 45: 2, 51: 0, 52: 0, 53: 0, 54: 0, 55: 0, 56: 1, 59: 0, 61: 1, 62: 2, 63: 1, 71: 2, 72: 2,
+  73: 2, 74: 3, 81: 3, 82: 3, 83: 3, 84: 3, 85: 3, 89: 3 };
+const PHYS_UNIT = { 2111: 2, 2311: 1, 2312: 1, 2347: 2, 2511: 1, 2512: 2, 2513: 1, 2519: 1, 2527: 1, 2531: 1, 2532: 1, 2533: 1, 2534: 1,
+  2535: 2, 2539: 1, 2542: 1, 2543: 1, 3111: 2, 3132: 1, 3992: 1, 3993: 1, 3994: 1, 3941: 3, 3991: 3, 4111: 3, 4231: 3, 4413: 2,
+  4421: 2, 4422: 2, 4521: 3, 4524: 3, 5612: 2, 5614: 2, 5995: 1, 7311: 1, 7312: 1, 7313: 1 };
+const physLevel = g => PHYS_UNIT[g.code] ?? PHYS_SM[+g.code.slice(0, 2)] ?? 1;
+// Very high = degree-level group AND the job needs postgraduate or specialist training (e.g. surgeon, anaesthetist).
+function skillLevel(g, t) {
+  const lv = g.skill.length ? Math.min(...g.skill) : 5;
+  if (lv === 1) return t >= 5 ? 3 : 2;
+  return lv <= 3 ? 1 : 0;
 }
 const SKILL_TEXT = {
   1: "Bachelor degree or higher (or 5+ years' experience)",
@@ -307,6 +330,7 @@ const DATA = (() => {
     list.forEach(o => {
       o.grp = g;
       if (g.aiAuto != null) { o.ai = Math.round(g.aiAuto * 100); o.rep = replaceRisk(g); }
+      o.phys = physLevel(g); o.skillC = skillLevel(g, o.t);
       if (!o.ato && g.ato && !o.gen) o.ato = { ...g.ato, occ: g.code + " " + g.title + " (group)" };
     });
     const cat = cats[g.cat] = cats[g.cat] || {};
@@ -347,6 +371,7 @@ let uid = 0;
 })(DATA, null, 0);
 
 const leaves = n => n.c ? n.c.flatMap(leaves) : [n];
+const NODE_BY_ID = new Map(); (function idx(n) { NODE_BY_ID.set(n.id, n); if (n.c) n.c.forEach(idx); })(DATA);
 const ALL = leaves(DATA);
 function sal(o) { return o.kind === "biz" ? bizModel(o).tiers[0].profit : o.med || (o.ato && o.ato.sal) || (o.lo != null ? (o.lo + o.hi) / 2 : null); }
 
@@ -411,7 +436,8 @@ const state = { mapMode: "nodes", view: "employee", easyOnly: false, colorBy: "r
 
 const inRange = (v, r, full) => (r[0] === full[0] && r[1] === full[1]) || (v != null && v >= r[0] && v <= r[1]);
 const passes = o => state.train.has(o.t) &&
-  inRange(sal(o), state.inc, RANGES.inc.full) && inRange(o.ai, state.aiR, RANGES.aiR.full) && inRange(o.rep, state.repR, RANGES.repR.full) && (!state.auOnly || !!o.med || !!o.ato || o.kind === "biz") &&
+  inRange(sal(o), state.inc, RANGES.inc.full) && inRange(o.ai, state.aiR, RANGES.aiR.full) && inRange(o.rep, state.repR, RANGES.repR.full) &&
+  inRange(o.phys, state.physR, RANGES.physR.full) && inRange(o.skillC, state.skillR, RANGES.skillR.full) && (!state.auOnly || !!o.med || !!o.ato || o.kind === "biz") &&
   (!state.easyOnly || (o.biz && o.biz.start >= 60)) &&
   (!state.search || o.n.toLowerCase().includes(state.search) || (o.grp && (o.grp.title.toLowerCase().includes(state.search) || o.grp.code === state.search)));
 const branchPasses = n => n.c ? leaves(n).some(passes) : passes(n);
@@ -679,7 +705,7 @@ function renderPanel() {
   const more = total > shown.length ? `<button class="showall" id="showAll">Show all ${total} jobs</button>` : "";
   announce(`${total} jobs shown`);
   panel.innerHTML = `
-    <h2>${n.n}</h2><div class="crumb">${crumb(n) || "All sectors"} · ${rows.length} jobs shown</div>
+    ${breadcrumb(n)}<h2>${n.depth === 0 ? "All jobs" : n.n}</h2><div class="crumb">${rows.length} jobs shown</div>
     ${n.depth === 0 ? `<p class="help">Click a sector to open it. Click a job to see detail. Click column titles to rank. Use the filters at the top.</p>` : ""}
     ${state.view === "owner" ? `<div class="card"><h3>Ranked businesses (business owner)</h3>
     <div class="tablewrap"><table><thead><tr>${th("name", "Business")}${th("start", "Start")}${th("solo", "Solo profit")}${th("ceiling", "Ceiling")}${th("surv", "Survive 4y")}</tr></thead>
@@ -702,6 +728,7 @@ function renderPanel() {
     </div>`}
     ${rows.length ? "" : `<p class="help">No jobs match the filters.</p>`}
     ${disclaimer()}`;
+  wireCrumbs();
   const sa = document.getElementById("showAll");
   if (sa) sa.onclick = () => { state.showAllFor = n; const y = panel.scrollTop; renderPanel(); panel.scrollTop = y; };
   panel.querySelectorAll("th button").forEach(h => h.onclick = () => {
@@ -745,6 +772,7 @@ function groupCard(o) {
   return `<div class="card"><h3>Official job group</h3>
     <div><b>${g.code} ${g.title}</b> · <a href="${ANZSCO_URL}${g.code[0]}/${g.code.slice(0, 2)}/${g.code.slice(0, 3)}/${g.code}" target="_blank" rel="noopener">ABS ANZSCO</a></div>
     ${g.desc ? `<div class="note">${g.desc}</div>` : ""}
+    <div class="note">Physical work: <b>${PHYS_LABELS[o.phys]}</b> (estimate) · Skill complexity: <b>${SKILLC_LABELS[o.skillC]}</b> (ABS skill level)</div>
     <div class="note">${g.lic ? "<b>Licence or registration required.</b> " : ""}${g.entry != null ? `${Math.round(g.entry * 100)}% of job ads are entry level.` : ""}</div>
   </div>`;
 }
@@ -773,18 +801,30 @@ function aiCard(o) {
   </div>`;
 }
 
-function backLink() {
-  return `<a href="#" class="backlink" data-back>← Back to overview</a>`;
+// ---------- breadcrumb: List / category / group / job ----------
+function urlFor(node) {
+  const q = new URLSearchParams(location.search); q.delete("job"); q.delete("group");
+  const k = selKey(node); if (k) q.set(k[0] === "j" ? "job" : "group", k.slice(2));
+  return location.pathname + (q.toString() ? "?" + q : "");
 }
-function wireBack(o) {
-  const to = state.backTo && !state.backTo.c ? o.parent : (state.backTo || o.parent);
-  panel.querySelectorAll("[data-back]").forEach(b => {
-    b.title = "Back to " + to.n;
-    b.onclick = e => {
-      e.preventDefault();
-      const y = state.backTo === to ? state.backScroll || 0 : 0;
-      state.sel = to; render(); renderPanel(); panel.scrollTop = y;
-    };
+function breadcrumb(n) {
+  const path = []; for (let x = n; x; x = x.parent) path.unshift(x);
+  if (path.length === 1) return "";
+  return `<nav class="crumbs" aria-label="Breadcrumb"><ol>${path.map((x, i) => {
+    const name = i === 0 ? "List" : x.n;
+    return i === path.length - 1 ? `<li aria-current="page">${name}</li>`
+      : `<li><a href="${urlFor(x)}" data-crumb="${x.id}">${name}</a></li>`;
+  }).join("")}</ol></nav>`;
+}
+function wireCrumbs() {
+  panel.querySelectorAll("[data-crumb]").forEach(a => a.onclick = e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;   // let new-tab clicks through
+    e.preventDefault();
+    const to = NODE_BY_ID.get(+a.dataset.crumb);
+    if (to.c && to.depth > 0) to.open = true;
+    const y = state.backTo === to ? state.backScroll || 0 : 0;
+    state.sel = to; render(); renderPanel(); panel.scrollTop = y;
+    const h = panel.querySelector("h2"); if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
   });
 }
 
@@ -792,18 +832,18 @@ function renderOccupation(o) {
   const salPct = v => v / 600000 * 100;
   const owner = state.view === "owner" || o.kind === "biz";
   if (o.kind === "biz") {
-    panel.innerHTML = `${backLink()}<h2>${o.n}</h2><div class="crumb">${crumb(o)} · ${qTag(o)}</div>
+    panel.innerHTML = `${breadcrumb(o)}<h2>${o.n}</h2><div class="crumb">${qTag(o)}</div>
       <p class="help">A business path, not one job. There is no employee salary for this.</p>
       ${bizCard(o)}
       <div class="card"><h3>Training needed to start</h3><div class="big" style="font-size:16px">${TRAINING[o.t].label}</div></div>
       ${aiCard(o)}
-      <button data-back>← Back to overview</button>${disclaimer()}`;
-    wireBack(o); panel.scrollTop = 0;
+      ${disclaimer()}`;
+    wireCrumbs(); panel.scrollTop = 0;
     return;
   }
   panel.innerHTML = `
-    ${backLink()}
-    <h2>${o.n}</h2><div class="crumb">${crumb(o)}</div>
+    ${breadcrumb(o)}
+    <h2>${o.n}</h2>
     ${groupCard(o)}
     ${owner ? bizCard(o) : ""}
     <div class="card"><h3>Salary (AUD / year, full-time, before tax)</h3>
@@ -845,9 +885,9 @@ function renderOccupation(o) {
     </div>` : ""}
     ${owner ? "" : bizCard(o)}
     ${!o.biz && state.view === "owner" ? `<div class="card"><h3>Own the business</h3><p class="help">No business path is mapped for this job group yet.</p></div>` : ""}
-    <button data-back>← Back to overview</button>
+    ${breadcrumb(o)}
     ${disclaimer()}`;
-  wireBack(o); panel.scrollTop = 0;
+  wireCrumbs(); panel.scrollTop = 0;
 }
 
 const disclaimer = () => `<div class="disclaimer">For exploring, not advice.<br>
@@ -967,6 +1007,10 @@ const RANGES = {};
       tip: "Median pay (or solo owner profit for business-only nodes). Jobs with no pay data are hidden when this is narrowed." },
     { key: "aiR", label: "AI can do the tasks", min: 0, max: 100, step: 1, fmt: v => v + "%" },
     { key: "repR", label: "AI replaces the job", min: 0, max: 100, step: 1, fmt: v => v + "%" },
+    { key: "physR", label: "Physical work", min: 0, max: 3, step: 1, fmt: v => PHYS_LABELS[v],
+      tip: "How much hands-on, physical labour the job involves. Estimate per job group." },
+    { key: "skillR", label: "Skill complexity", min: 0, max: 3, step: 1, fmt: v => SKILLC_LABELS[v],
+      tip: "From the ABS skill level. Very high = degree plus postgraduate or specialist training (e.g. surgeons)." },
   ];
   const sec = document.getElementById("rangeSec");
   sec.innerHTML = `<div class="dd-head">Ranges</div>`;
@@ -1020,7 +1064,7 @@ TRAINING.forEach(t => {
 function filtersChanged() {
   const narrowed = k => state[k][0] !== RANGES[k].full[0] || state[k][1] !== RANGES[k].full[1];
   const n = (state.train.size < TRAINING.length ? 1 : 0) + (state.auOnly ? 1 : 0) + (state.easyOnly ? 1 : 0)
-    + ["inc", "aiR", "repR"].filter(narrowed).length;
+    + ["inc", "aiR", "repR", "physR", "skillR"].filter(narrowed).length;
   const b = document.getElementById("filterCount"); b.hidden = !n; b.textContent = n;
   render(); renderPanel();
 }
@@ -1128,7 +1172,7 @@ function syncURL() {
   if (state.train.size < TRAINING.length) q.set("train", [...state.train].sort().join("."));
   if (state.auOnly) q.set("verified", "1");
   if (state.easyOnly) q.set("easy", "1");
-  ["inc", "aiR", "repR"].forEach(k => { const r = state[k], f = RANGES[k].full; if (r[0] !== f[0] || r[1] !== f[1]) q.set({ inc: "income", aiR: "tasks", repR: "replace" }[k], r.join("-")); });
+  ["inc", "aiR", "repR", "physR", "skillR"].forEach(k => { const r = state[k], f = RANGES[k].full; if (r[0] !== f[0] || r[1] !== f[1]) q.set({ inc: "income", aiR: "tasks", repR: "replace", physR: "physical", skillR: "skill" }[k], r.join("-")); });
   if (state.hideNoMatch) q.set("hide", "1");
   if (state.mapMode === "sky") q.set("map", "sky");
   const def = state.view === "owner" ? "ceiling.-1" : "rep.1";
@@ -1163,7 +1207,7 @@ function readURL() {
   chips.querySelectorAll("input").forEach(i => i.checked = state.train.has(+i.dataset.train));
   state.auOnly = q.get("verified") === "1"; document.getElementById("auOnly").checked = state.auOnly;
   state.easyOnly = q.get("easy") === "1"; document.getElementById("easyOnly").checked = state.easyOnly;
-  [["inc", "income"], ["aiR", "tasks"], ["repR", "replace"]].forEach(([k, name]) => {
+  [["inc", "income"], ["aiR", "tasks"], ["repR", "replace"], ["physR", "physical"], ["skillR", "skill"]].forEach(([k, name]) => {
     const r = q.get(name); if (r) RANGES[k].set(r.split("-").map(Number)); else RANGES[k].reset(); });
   state.hideNoMatch = q.get("hide") === "1";
   state.mapMode = q.get("map") === "sky" ? "sky" : "nodes";
@@ -1177,7 +1221,7 @@ function readURL() {
   state.sel = sel;
   const nb = document.getElementById("filterCount");
   const narrowed = k => state[k][0] !== RANGES[k].full[0] || state[k][1] !== RANGES[k].full[1];
-  const cnt = (state.train.size < TRAINING.length ? 1 : 0) + (state.auOnly ? 1 : 0) + (state.easyOnly ? 1 : 0) + ["inc", "aiR", "repR"].filter(narrowed).length;
+  const cnt = (state.train.size < TRAINING.length ? 1 : 0) + (state.auOnly ? 1 : 0) + (state.easyOnly ? 1 : 0) + ["inc", "aiR", "repR", "physR", "skillR"].filter(narrowed).length;
   nb.hidden = !cnt; nb.textContent = cnt;
   restoring = false;
   lastSelKey = selKey(sel);

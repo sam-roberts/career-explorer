@@ -36,7 +36,12 @@ Then open http://localhost:8765.
 
 Some jobs use US wages converted to AUD; these are tagged in the app.
 
-**Estimates (not official data):** the "AI replaces the job" score, own-business margin ranges, salary ranges, start score, money to start, and owner profit for $2m+ firms. For exploring only, not financial or career advice.
+**Physical work and skill complexity filters:** skill complexity comes from the ABS ANZSCO skill level
+(Low = level 4–5, Medium = 2–3, High = 1, Very high = level 1 plus postgraduate/specialist training).
+Physical work (None/Low/Medium/High) is an estimate set per ANZSCO sub-major group with unit-group exceptions
+(`PHYS_SM` and `PHYS_UNIT` in `index.html`).
+
+**Estimates (not official data):** physical work level, the "AI replaces the job" score, own-business margin ranges, salary ranges, start score, money to start, and owner profit for $2m+ firms. For exploring only, not financial or career advice.
 
 ## Editing data
 
