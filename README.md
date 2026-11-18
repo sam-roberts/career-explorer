@@ -8,6 +8,8 @@ A node-map explorer of Australian careers: all **357 official ANZSCO job groups*
     `automation^1.5 × (automation ÷ augmentation) × 1.25`, ×0.8 if a licence is required, ×0.9 for degree-level roles, capped at 95.
     Generative AI only; robots and self-driving vehicles are not counted.
 - **Explore as Business owner:** a business ladder (solo → small → company → large) with real counts of Australian businesses at each size, 4-year survival rates, ATO profit margins, and a "can one person start it?" score.
+  - **Median owner earnings:** profit for the middle business in the industry (50th percentile by ABS turnover band, placed log-uniformly inside its band, times the ATO margin at that turnover). Filters and colours use this.
+  - **Max owner earnings:** profit at the biggest size at least 0.5% of businesses reach, shown with the share of businesses that get there.
 
 The map has two views (**View as: Nodes | Constellation**). Constellation is a sky chart: across = AI replacement risk, up = pay,
 star size = number of workers, brightness = pay, colour = the "Colour by" choice; selecting a group draws its constellation.

@@ -33,8 +33,19 @@
   .rowbtn { all: unset; cursor: pointer; } .rowbtn:hover { text-decoration: underline; }
   .tablewrap { overflow-x: auto; }
   td.num { color: var(--text); }
-  .of { font-size: .8em; opacity: .75; margin-left: 1px; }
+  .of { font-size: 11px; opacity: .8; margin-left: 1px; }
   .sortnote { margin: -2px 0 6px; color: var(--muted); font-size: 12px; }
+  .strip { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 10px; margin: 10px 0 12px; background: #13161d; }
+  .strip .stat { padding: 10px 12px; min-width: 0; }
+  .strip .stat:nth-child(odd) { border-right: 1px solid var(--line); }
+  .strip .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .strip .lab { color: var(--muted); font-size: 12px; }
+  .strip .val { font: 700 22px/1.2 var(--font-display); letter-spacing: -.01em; margin: 2px 0; overflow-wrap: anywhere; }
+  .strip .ver { font-size: 12px; color: #c4cad8; }
+  .unit { font: 400 13px var(--font-ui); color: var(--muted); }
+  details.more { margin-top: 8px; }
+  details.more summary { cursor: pointer; color: #8fb5ff; font-size: 13px; }
+  details.more summary:hover { text-decoration: underline; }
   .showall { width: 100%; margin-top: 8px; }
   #stage:focus-visible { outline-offset: -3px; }
   .node:focus { outline: none; }
@@ -47,7 +58,7 @@
   #app { display: grid; grid-template-rows: auto 1fr; height: 100%; }
   header { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; padding: 10px 14px;
     border-bottom: 1px solid var(--line); background: var(--panel); }
-  header h1 { font: 700 17px/1.2 var(--font-display); letter-spacing: -.01em; margin: 0 8px 0 0; }
+  header h1 { font: 700 18px/1.2 var(--font-display); letter-spacing: -.01em; margin: 0 8px 0 0; }
   .ctrl { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; }
   select, input[type=search], button { background: #0f1115; color: var(--text); border: 1px solid var(--line);
     border-radius: 6px; padding: 5px 8px; font: inherit; font-size: 13px; }
@@ -75,7 +86,8 @@
   button.primary { background: #3e63dd; border-color: #3e63dd; color: #fff; } button.primary:hover { background: #3255c8; border-color: #3255c8; }
   .dd-scrim { display: none; }
   .dd-head { display: flex; justify-content: space-between; font: 600 13px/1.3 var(--font-display); margin-bottom: 6px; }
-  .dd-head a { font: 400 12px var(--font-ui); }
+  .linkbtn { all: unset; cursor: pointer; color: #8fb5ff; font: 400 12px var(--font-ui); } .linkbtn:hover { text-decoration: underline; }
+  .empty { padding: 14px; border: 1px dashed var(--line); border-radius: 10px; color: var(--text); } .empty p { margin: 0 0 10px; }
   .dd-menu label { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: 12px; cursor: pointer; }
   .dd-foot { padding: 8px 12px 4px; text-align: right; }
   .rng { margin: 2px 0 12px; }
@@ -237,7 +249,8 @@
         <option value="salary">Salary (midpoint)</option>
         <option value="sector">Sector</option>
         <optgroup label="Business owner">
-          <option value="ceiling">Owner earnings ceiling</option>
+          <option value="med">Owner earnings (median)</option>
+          <option value="ceiling">Owner earnings (max)</option>
           <option value="margin">Business margin (net)</option>
           <option value="start">How easy to start alone</option>
           <option value="survival">Business survival (4 yrs)</option>
@@ -250,7 +263,7 @@
         <div class="dd-top"><span class="dd-title">Filters</span><span class="dd-actions"><button id="filtersReset">Reset</button><button id="filtersDone" class="primary">Done</button></span></div>
         <div class="dd-sec" id="rangeSec"></div>
         <div class="dd-sec">
-          <div class="dd-head">Training needed <span><a href="#" id="trainAll">All</a> · <a href="#" id="trainNone">None</a></span></div>
+          <div class="dd-head">Training needed <span><button type="button" class="linkbtn" id="trainAll">All</button> · <button type="button" class="linkbtn" id="trainNone">None</button></span></div>
           <div id="trainChips"></div>
         </div>
         <div class="dd-sec">
@@ -279,9 +292,9 @@
   </main>
 </div>
 
-<script src="data.js?v=22"></script>
-<script src="biz.js?v=22"></script>
-<script src="groups.js?v=22"></script>
+<script src="data.js?v=25"></script>
+<script src="biz.js?v=25"></script>
+<script src="groups.js?v=25"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -442,17 +455,33 @@ function bizModel(o) {
   });
   let ceil = tiers[0];
   tiers.forEach(t => { if (!t.blocked && t.share >= 0.005 && t.n >= 20) ceil = t; });
-  return o._bm = { tiers, ceil, survAll: ind.surv ? ind.surv[6] : null };
+  const BOUNDS = [[2e4, 2e5], [2e5, 2e6], [2e6, 1e7], [1e7, 5e7]];
+  let cum = 0, med = tiers[0], medT = tiers[0].T;
+  for (const [i, t] of tiers.entries()) {
+    if (cum + t.share >= .5) {
+      const f = t.share ? Math.min(1, Math.max(0, (.5 - cum) / t.share)) : .5, [a, b] = BOUNDS[i];
+      med = t; medT = Math.exp(Math.log(a) + f * (Math.log(b) - Math.log(a))); break;
+    }
+    cum += t.share;
+  }
+  if (med.blocked) { med = [...tiers].reverse().find(t => !t.blocked) || tiers[0]; medT = med.T; }
+  const medProfit = medT * tierMargin(o, medT).m / 100;
+  const ci = tiers.indexOf(ceil), topShare = tiers.slice(ci).reduce((a, t) => a + t.share, 0);
+  return o._bm = { tiers, ceil, med, medT, medProfit, topShare, survAll: ind.surv ? ind.surv[6] : null };
 }
 function marginRange(o) {
   const M = bizModel(o); if (!M) return null;
   const ms = M.tiers.filter(t => !t.blocked).map(t => Math.round(t.margin));
   return [Math.min(...ms), Math.max(...ms)];
 }
+const topNote = v => v < .5 ? `top ${topPct(v)}` : "most businesses on this path";
+const topPct = v => v >= .1 ? Math.round(v * 100) + "%" : v >= .01 ? (v * 100).toFixed(0) + "%" : v >= .001 ? (v * 100).toFixed(1) + "%" : "<0.1%";
+// what the money filters and pay colours use: median pay for employees, median owner earnings for business owners
+const income = o => state.view === "owner" ? (bizModel(o) ? bizModel(o).medProfit : null) : sal(o);
 const fmtM = v => v >= 1e6 ? (v >= 1e7 ? AUD0 : AUD1).format(v) : fmtK(v);
 const startLabel = v => v >= 75 ? "Yes – easy to start small" : v >= 50 ? "Possible with savings or a loan" : v >= 30 ? "Hard – big capital or licences" : "Not realistic alone";
 // data quality: "v" verified exact, "g" verified broader group, "e" AU estimate, "us" US converted
-const quality = o => o.kind === "biz" ? "b" : (o.gen && !o.med && !o.ato) ? "n" : o.src === "US" ? "us" : o.med ? (o.match === "exact" ? "v" : "g") : o.ato ? "a" : "e";
+const quality = o => o.kind === "biz" ? "b" : (o.gen && !o.med && !o.ato) ? "n" : o.src === "US" && !o.ato ? "us" : o.med ? (o.match === "exact" ? "v" : "g") : o.ato ? "a" : "e";
 const QTAG = {
   v: ['au', '✓ AU verified', 'Median from JSA/ABS for this exact job group'],
   g: ['grp', 'AU (broader group)', 'Median from JSA/ABS for a broader job group that includes this job'],
@@ -469,8 +498,10 @@ const state = { mapMode: "nodes", view: "employee", easyOnly: false, colorBy: "r
   sel: DATA, sort: { key: "rep", dir: 1 } };
 
 const inRange = (v, r, full) => (r[0] === full[0] && r[1] === full[1]) || (v != null && v >= r[0] && v <= r[1]);
-const passes = o => state.train.has(o.t) &&
-  inRange(sal(o), state.inc, RANGES.inc.full) && inRange(o.ai, state.aiR, RANGES.aiR.full) && inRange(o.rep, state.repR, RANGES.repR.full) &&
+// Employee mode shows jobs (no business-only nodes); Business owner mode shows only jobs with a business path.
+const inMode = o => state.view === "owner" ? !!o.biz : o.kind !== "biz";
+const passes = o => inMode(o) && state.train.has(o.t) &&
+  inRange(income(o), state.inc, RANGES.inc.full) && inRange(o.ai, state.aiR, RANGES.aiR.full) && inRange(o.rep, state.repR, RANGES.repR.full) &&
   inRange(o.phys, state.physR, RANGES.physR.full) && inRange(o.skillC, state.skillR, RANGES.skillR.full) && (!state.auOnly || !!o.med || !!o.ato || o.kind === "biz") &&
   (!state.easyOnly || (o.biz && o.biz.start >= 60)) &&
   (!state.search || o.n.toLowerCase().includes(state.search) || (o.grp && (o.grp.title.toLowerCase().includes(state.search) || o.grp.code === state.search)));
@@ -507,6 +538,7 @@ const survColor = v => ramp(1 - (v - 45) / 35);
 const METRIC = {
   ai: [o => o.ai, aiColor], rep: [o => o.rep, repColor], margin: [o => { const r = marginRange(o); return r ? r[1] : null; }, marginColor], salary: [o => sal(o), salColor],
   start: [o => o.biz ? o.biz.start : null, startColor],
+  med: [o => { const M = bizModel(o); return M ? M.medProfit : null; }, v => ramp(1 - Math.log10(Math.max(v, 2e4) / 2e4) / Math.log10(15))],
   ceiling: [o => { const M = bizModel(o); return M ? M.ceil.profit : null; }, ceilColor],
   survival: [o => { const M = bizModel(o); return M ? M.survAll : null; }, survColor],
 };
@@ -595,11 +627,11 @@ function render() {
     t.textContent = n.c ? `${cut} (${leaves(n).filter(passes).length})` : cut;
     let tip = g.querySelector("title"); if (!tip) { tip = el("title"); g.prepend(tip); } tip.textContent = full;
     if (n.c) s.textContent = n.open ? "−" : "+";
-    else if (state.view === "owner" && n.biz) { const M = bizModel(n); s.textContent = `Start ${n.biz.start} · up to ${fmtM(M.ceil.profit)}/yr`; }
+    else if (state.view === "owner" && n.biz) { const M = bizModel(n); s.textContent = `Median ${fmtM(M.medProfit)} · max ${fmtM(M.ceil.profit)} · start ${n.biz.start}`; }
     else if (n.kind === "biz") s.textContent = `Business only · Start ${n.biz.start}/100`;
-    else s.textContent = (n.med ? `Median ${fmtK(n.med)}${n.match === "exact" ? " ✓" : " (group)"}`
+    else s.textContent = (n.med ? `Median ${fmtK(n.med)}${n.match === "exact" ? " ✓" : " grp"}`
       : n.ato ? `ATO median ${fmtK(n.ato.sal)}`
-      : n.lo != null ? `${fmtK(n.lo)}–${fmtK(n.hi)}${n.src === "US" ? " ⚠US→AUD" : " est."}` : "No pay data") + ` · Tasks ${n.ai} · Replace ${n.rep}`;
+      : n.lo != null ? `${fmtK(n.lo)}–${fmtK(n.hi)}${n.src === "US" ? " US" : " est"}` : "No pay data") + ` · Tasks ${n.ai} · Replace ${n.rep}`;
     g.classList.toggle("dim", !branchPasses(n));
     g.classList.toggle("sel", n === state.sel);
     g.setAttribute("aria-label", n.c ? `${full}, ${n.depth === 0 ? "all careers" : n.open ? "expanded" : "collapsed"}` : `${n.n}. ${s.textContent}`);
@@ -623,9 +655,9 @@ const starEls = new Map();
 const hash = s => { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) | 0; return h; };
 const jit = (o, k) => ((hash(o.n + k) % 1000) / 1000 - .5);
 function skyAxes(owner) {
-  if (owner) return { x: o => o.biz ? 100 - o.biz.start : null, y: o => { const M = bizModel(o); return M ? M.ceil.profit : null; },
-    yMin: 3e4, yMax: 3e7, size: o => o.ind ? o.ind.total : 0, sizeDiv: 30,
-    xl: ["Easy to start alone", "Hard to start"], yl: "Owner earnings ceiling", ticks: [1e5, 1e6, 1e7] };
+  if (owner) return { x: o => o.biz ? 100 - o.biz.start : null, y: o => { const M = bizModel(o); return M ? M.medProfit : null; },
+    yMin: 1e4, yMax: 2e6, size: o => o.ind ? o.ind.total : 0, sizeDiv: 30,
+    xl: ["Easy to start alone", "Hard to start"], yl: "Owner earnings (median)", ticks: [3e4, 1e5, 3e5, 1e6] };
   return { x: o => o.rep, y: o => sal(o), yMin: 2e4, yMax: 5e5, size: o => o.ato ? o.ato.people : 0, sizeDiv: 45,
     xl: ["Safer from AI", "AI could replace it"], yl: "Pay (median)", ticks: [5e4, 1e5, 2e5, 4e5] };
 }
@@ -696,7 +728,7 @@ function renderSky() {
     g.classList.toggle("dim", !pass && !state.hideNoMatch);
     g.classList.toggle("sel", o === sel);
     g.classList.toggle("lbl", o === sel || (inGroup(o) && pass));
-    const desc = owner ? `start ${o.biz.start}/100, ceiling ${fmtM(A.y(o))}` : `pay ${yv == null ? "no data" : fmtK(yv)}, AI tasks ${o.ai}, replace ${o.rep}`;
+    const desc = owner ? `start ${o.biz.start}/100, median ${fmtM(A.y(o))}, max ${fmtM(bizModel(o).ceil.profit)}` : `pay ${yv == null ? "no data" : fmtK(yv)}, AI tasks ${o.ai}, replace ${o.rep}`;
     g.querySelector("title").textContent = `${o.n}: ${desc}`;
     g.setAttribute("aria-label", `${o.n}. ${desc}`);
     if (o === sel) g.setAttribute("aria-current", "true"); else g.removeAttribute("aria-current");
@@ -743,7 +775,7 @@ function renderPanel() {
   const { key, dir } = state.sort;
   const bz = (o, f) => { const M = bizModel(o); return M ? f(M) : -1; };
   const val = { ai: o => o.ai ?? -1, rep: o => o.rep ?? -1, margin: o => { const r = marginRange(o); return r ? r[1] : -1; }, salary: o => sal(o) ?? -1, train: o => o.t, name: o => o.n,
-    start: o => o.biz ? o.biz.start : -1, solo: o => bz(o, M => M.tiers[0].profit), ceiling: o => bz(o, M => M.ceil.profit), surv: o => bz(o, M => M.survAll ?? -1) };
+    start: o => o.biz ? o.biz.start : -1, solo: o => bz(o, M => M.tiers[0].profit), med: o => bz(o, M => M.medProfit), ceiling: o => bz(o, M => M.ceil.profit), surv: o => bz(o, M => M.survAll ?? -1) };
   rows.sort((a, b) => { const x = val[key](a), y = val[key](b); return (x > y ? 1 : x < y ? -1 : 0) * dir; });
   const th = (k, label, tip) => `<th class="${key === k ? "on" : ""}" aria-sort="${key === k ? (dir > 0 ? "ascending" : "descending") : "none"}"><button data-k="${k}"${tip ? ` title="${tip}"` : ""}>${label}<span aria-hidden="true">${key === k ? (dir > 0 ? " ▲" : " ▼") : ""}</span></button></th>`;
   const LIMIT = 150, all = state.showAllFor === n, total = rows.length;
@@ -754,15 +786,15 @@ function renderPanel() {
     ${breadcrumb(n)}<h2>${n.depth === 0 ? "All jobs" : n.n}</h2><div class="crumb">${rows.length} ${unit} shown</div>
     ${n.depth === 0 ? `<p class="help">Click a sector to open it. Click a job to see detail. Click column titles to rank. Use the filters at the top.</p>` : ""}
     ${state.view === "owner" ? `<div class="card"><h3>Ranked businesses (business owner)</h3>
-    <div class="tablewrap"><table><thead><tr>${th("name", "Business")}${th("start", "Start")}${th("solo", "Solo profit")}${th("margin", "Margin", "Net profit margin (profit as a share of turnover) across business sizes. ATO small business benchmarks where available, otherwise an estimate.")}${th("ceiling", "Ceiling")}${th("surv", "Survive 4y")}</tr></thead>
+    <div class="tablewrap"><table><thead><tr>${th("name", "Business")}${th("start", "Start", "Can one person start it? 0 to 100 (estimate)")}${th("med", "Median", "Owner profit at the size most businesses in this industry are")}${th("margin", "Margin", "Net profit margin (profit as a share of turnover) across business sizes. ATO small business benchmarks where available, otherwise an estimate.")}${th("ceiling", "Max", "Owner profit at the biggest size at least 0.5% of businesses reach")}${th("surv", "Survive 4y")}</tr></thead>
     <tbody>${shown.map(o => { const M = bizModel(o); return `<tr class="row" data-id="${o.id}">
       <td><button class="rowbtn">${o.biz.name}</button>${o.kind === "biz" ? "" : `<div style="color:var(--muted);font-size:11px">from ${o.n}</div>`}</td>
       <td><span class="pill" style="${pillStyle(startColor(o.biz.start))}">${o.biz.start}</span></td>
-      <td>${fmtM(M.tiers[0].profit)}</td>
+      <td class="num">${fmtM(M.medProfit)}</td>
       <td>${(r => `<span class="pill" style="${pillStyle(marginColor(r[1]))}">${r[0] === r[1] ? r[0] : r[0] + "–" + r[1]}%</span>`)(marginRange(o))}</td>
-      <td><span class="pill" style="${pillStyle(ceilColor(M.ceil.profit))}">${fmtM(M.ceil.profit)}</span></td>
+      <td class="num">${fmtM(M.ceil.profit)}<div class="of">${topNote(M.topShare)}</div></td>
       <td>${M.survAll != null ? M.survAll.toFixed(0) + "%" : "–"}</td></tr>`; }).join("")}</tbody></table></div>${more}
-    <p class="help">Start = can one person start it (0–100, estimate). Solo profit = owner profit at ~$120k turnover. Margin = net profit as a share of turnover (a supermarket runs on a few percent; software can reach far higher). Ceiling = owner profit at the biggest size at least 0.5% of AU businesses in this industry reach. Survive 4y = share of businesses still trading after 4 years (ABS).</p>
+    <p class="help">Start = can one person start it (0–100, estimate). Median = owner profit at the size most businesses in the industry are. Max = owner profit at the biggest size, and the share of businesses that reach it. Margin = net profit as a share of turnover (a supermarket runs on a few percent; software can reach far higher). Survive 4y = share of businesses still trading after 4 years (ABS).</p>
     </div>` : `<div class="card"><h3>Ranked jobs</h3>
     <p class="sortnote">${sortNote(key, dir)}</p>
     <div class="tablewrap"><table><thead><tr>${th("name", "Job")}${th("ai", "AI can do", "Share of the job's tasks generative AI could do, out of 100 (official JSA score)")}${th("rep", "AI replaces", "Estimated risk that AI replaces the job, out of 100")}${th("salary", "Salary")}${th("train", "Training")}</tr></thead>
@@ -773,13 +805,16 @@ function renderPanel() {
       <td>${o.kind === "biz" ? '<span style="color:var(--muted)">owner only</span>' : o.med ? fmtK(o.med) + ' <span style="color:var(--muted)">med</span>' : o.ato ? fmtK(o.ato.sal) + ' <span style="color:var(--muted)">ATO</span>' : o.lo != null ? `${fmtK(o.lo)}–${fmtK(o.hi)}` : '<span style="color:var(--muted)">no data</span>'}</td>
       <td style="color:var(--muted)">${TRAINING[o.t].short}</td></tr>`).join("")}</tbody></table></div>${more}
     </div>`}
-    ${rows.length ? "" : `<p class="help">No jobs match the filters.</p>`}
+    ${rows.length ? "" : `<div class="empty"><p>No ${unit} match these filters${state.search ? ` and the search “${state.search}”` : ""}.</p>
+      <button id="emptyReset" class="primary">Reset filters${state.search ? " and search" : ""}</button></div>`}
     ${disclaimer()}`;
   wireCrumbs();
+  const er = document.getElementById("emptyReset");
+  if (er) er.onclick = () => { document.getElementById("search").value = ""; state.search = ""; document.getElementById("filtersReset").click(); };
   const sa = document.getElementById("showAll");
   if (sa) sa.onclick = () => { state.showAllFor = n; const y = panel.scrollTop; renderPanel(); panel.scrollTop = y; };
   panel.querySelectorAll("th button").forEach(h => h.onclick = () => {
-    const k = h.dataset.k; state.sort = { key: k, dir: state.sort.key === k ? -state.sort.dir : (["margin", "salary", "start", "solo", "ceiling", "surv"].includes(k) ? -1 : 1) }; renderPanel(); syncURL();
+    const k = h.dataset.k; state.sort = { key: k, dir: state.sort.key === k ? -state.sort.dir : (["margin", "salary", "start", "solo", "med", "ceiling", "surv"].includes(k) ? -1 : 1) }; renderPanel(); syncURL();
     const again = panel.querySelector(`th button[data-k="${k}"]`); if (again) again.focus();
   });
   panel.querySelectorAll("tr.row").forEach(r => r.onclick = () => {
@@ -796,14 +831,16 @@ function bizCard(o) {
     ${meter(b.start, startColor(b.start))}
     <div class="note">Money to start: <b>${b.cap[0] ? fmtM(b.cap[0]) : "$0"} – ${fmtM(b.cap[1])}</b>. Barrier: ${b.lic}.</div>
     <table class="ladder" style="margin-top:10px"><thead><tr><th>Size (turnover)</th><th>AU businesses</th><th>Owner profit / yr</th><th>Survive 4y</th></tr></thead><tbody>
-    ${M.tiers.map(t => `<tr style="${t === c ? "background:#1d2a1f" : t.blocked ? "opacity:.45" : ""}">
+    ${M.tiers.map(t => `<tr style="${t === M.med ? "background:#16243f" : t === c ? "background:#1d2a1f" : t.blocked ? "opacity:.45" : ""}">
       <td><b>${t.label}</b><div class="note" style="margin:0">${t.range}</div></td>
       <td>${t.n.toLocaleString("en-AU")}<div class="note" style="margin:0">${pct(t.share)}</div></td>
       <td>${t.blocked ? '<span class="note">Not open to this path</span>' : `<b>${fmtM(t.profit)}</b>${t.msrc === "est" || t.extrap ? "*" : ""}<div class="note" style="margin:0">${Math.round(t.margin)}% of ${fmtM(t.T)}</div>`}</td>
       <td>${t.surv != null ? t.surv.toFixed(0) + "%" : "–"}</td></tr>`).join("")}
     </tbody></table>
-    <div class="note" style="margin-top:8px"><b>Ceiling:</b> ${c.n.toLocaleString("en-AU")} of ${ind.total.toLocaleString("en-AU")} ${ind.label.toLowerCase()} businesses (${pct(c.share)}) are "${c.label.toLowerCase()}" size (${c.range}).
-      At ${fmtM(c.T)} turnover the owner could make about <b>${fmtM(c.profit)} a year</b> before tax.</div>
+    <div class="note" style="margin-top:8px"><b>Median:</b> most ${ind.label.toLowerCase()} businesses are "${M.med.label.toLowerCase()}" size (${M.med.range}).
+      The middle business turns over about ${fmtM(M.medT)}, and its owner makes about <b>${fmtM(M.medProfit)} a year</b> before tax. (Blue row.)</div>
+    <div class="note"><b>Max:</b> ${c.n.toLocaleString("en-AU")} of ${ind.total.toLocaleString("en-AU")} ${ind.label.toLowerCase()} businesses (${pct(c.share)}) are "${c.label.toLowerCase()}" size (${c.range}).
+      At ${fmtM(c.T)} turnover the owner could make about <b>${fmtM(c.profit)} a year</b> before tax. ${M.topShare < .5 ? `Only the top ${topPct(M.topShare)} of businesses get this big.` : ""} (Green row.)</div>
     <div class="note">${b.scale}</div>
     <div class="note" style="margin-top:8px">
       Business counts: <a href="${ABS_URL}" target="_blank" rel="noopener">${ABS_SOURCE}</a>, ANZSIC ${b.anz} ${ind.label}.<br>
@@ -875,65 +912,71 @@ function wireCrumbs() {
   });
 }
 
-function renderOccupation(o) {
-  const salPct = v => v / 600000 * 100;
-  const owner = state.view === "owner" || o.kind === "biz";
-  if (o.kind === "biz") {
-    panel.innerHTML = `${breadcrumb(o)}<h2>${o.n}</h2><div class="crumb">${qTag(o)}</div>
-      <p class="help">A business path, not one job. There is no employee salary for this.</p>
-      ${bizCard(o)}
-      <div class="card"><h3>Training needed to start</h3><div class="big" style="font-size:16px">${TRAINING[o.t].label}</div></div>
-      ${aiCard(o)}
-      ${disclaimer()}`;
-    wireCrumbs(); panel.scrollTop = 0;
-    return;
+// ---------- job page ----------
+const PAY_RANK = pctRank(ALL.filter(o => o.kind !== "biz").map(sal).filter(v => v != null));
+const repVerdict = v => v >= 60 ? "High risk" : v >= 30 ? "Medium risk" : v >= 12 ? "Low risk" : "Very low risk";
+const stat = (label, value, verdict) => `<div class="stat"><div class="lab">${label}</div><div class="val">${value}</div><div class="ver">${verdict}</div></div>`;
+const TRAIN_TIME = ["No qualifications needed", "Under 1 year", "3–4 years, paid", "1–2 years", "3–4 years", "5–7 years", "8–15 years"];
+function summaryStrip(o) {
+  if (state.view === "owner" || o.kind === "biz") {
+    const M = bizModel(o); if (!M) return "";
+    return `<div class="strip" aria-label="Summary">${
+      stat("Owner earnings", fmtM(M.medProfit), "median, before tax")}${
+      stat("Max", fmtM(M.ceil.profit), M.topShare < .5 ? `only the top ${topPct(M.topShare)}` : "this path can't grow bigger")}${
+      stat("Start alone", `${o.biz.start}<span class="of">/100</span>`, startLabel(o.biz.start))}${
+      stat("Survive 4 yrs", M.survAll != null ? Math.round(M.survAll) + "%" : "–", "of businesses in the industry")}</div>`;
   }
-  panel.innerHTML = `
-    ${breadcrumb(o)}
-    <h2>${o.n}</h2>
-    ${groupCard(o)}
-    ${owner ? bizCard(o) : ""}
-    <div class="card"><h3>Salary (AUD / year, full-time, before tax)</h3>
-      ${o.med ? `<div class="big">${fmtK(o.med)} <span style="font-size:13px;color:var(--muted);font-weight:400">median</span></div>
-        ${o.lo != null ? `<div class="note">Typical range (estimate): ${fmtK(o.lo)} – ${fmtK(o.hi)}</div>` : ""}`
-        : o.lo != null ? `<div class="big">${fmtK(o.lo)} – ${fmtK(o.hi)}</div><div class="note">Typical range</div>`
-        : `<div class="big" style="font-size:16px">No full-time median published</div>`}
-      <div class="meter">${o.lo != null ? `<div class="fill" style="left:${salPct(o.lo)}%;width:${Math.max(salPct(o.hi) - salPct(o.lo), 2)}%;background:${o.sector.color}"></div>` : ""}
-        ${o.med ? `<div style="position:absolute;top:-4px;bottom:-4px;width:3px;background:#fff;border-radius:2px;left:calc(${salPct(o.med)}% - 1px)"></div>` : ""}</div>
-      <div class="scale"><span>$0</span><span>$300k</span><span>$600k</span></div>
-      <div style="margin-top:8px">${qTag(o)}</div>
-      ${o.med ? `<div class="note">Source: <a href="${JSA_URL}${o.ref}" target="_blank" rel="noopener">${JSA_SOURCE}</a>.
-          ANZSCO ${o.ref.split("-")[0]}${o.match === "group" ? " (broader group: " + o.ref.split("-").slice(1).join(" ") + ")" : ""}.
-          $${Math.round(o.med / 52).toLocaleString("en-AU")}/week × 52. Employees only: owners and self-employed are not counted.</div>`
-      : o.src === "US" ? `<div class="note">US source: US$${Math.round(o.usd[0] / 1000)}k – US$${Math.round(o.usd[1] / 1000)}k × ${USD_TO_AUD} rate. No AU figure found.</div>`
-      : `<div class="note">Jobs and Skills Australia has no full-time median for this job${o.lo != null ? ". The range is an estimate" : ""}${o.ato ? ". ATO tax figures are below" : ""}.</div>`}
-      ${o.ato ? `<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--line)">
-        <div style="display:flex;gap:16px">
-          <div><div class="note" style="margin:0">Median salary / wage</div><b>${fmtK(o.ato.sal)}</b></div>
-          <div><div class="note" style="margin:0">Median total income</div><b>${fmtK(o.ato.total)}</b></div>
-          <div><div class="note" style="margin:0">People</div><b>${o.ato.people.toLocaleString("en-AU")}</b></div>
-        </div>
-        <div class="note"><span class="tag ato">ATO</span> All taxpayers, <a href="${ATO_URL}" target="_blank" rel="noopener">${ATO_SOURCE}</a>. Occupation: ${o.ato.occ}.
-          Includes part-time and self-employed. Total income adds business and other income${o.ato.total > o.ato.sal * 1.25 ? " — <b>the big gap here suggests many earn through their own business</b>" : ""}.</div>
-      </div>` : ""}
-      ${o.bandMoved ? `<div class="note">Range changed to fit the official median (old estimate: ${fmtK(o.bandMoved[0])} – ${fmtK(o.bandMoved[1])}).</div>` : ""}
-    </div>
-    <div class="card"><h3>Training needed</h3><div class="big" style="font-size:16px">${TRAINING[o.t].label}</div>
-      ${o.grp && o.grp.skill.length ? `<div class="note">Official skill level ${o.grp.skill.join(" or ")}${o.grp.skillEst ? " (estimate)" : ""}: ${SKILL_TEXT[Math.min(...o.grp.skill)]}.
-        ${o.gen ? "" : "The training level above is set for this specific job."}</div>` : ""}
-    </div>
-    ${aiCard(o)}
-    ${o.m && state.view === "owner" ? `<div class="card"><h3>Own-business margin (net profit, estimate)</h3>
-      <div class="big" style="color:${marginColor(o.m[1])}">${o.m[0]}% – ${o.m[1]}%</div>
-      ${meter(o.m[1] / 80 * 100, marginColor(o.m[1]), o.m[0] / 80 * 100)}
-      <div class="scale"><span>0%</span><span>40%</span><span>80%</span></div>
-      <div style="margin-top:6px"><b>${ceilingLabel(o.m[1])}</b></div>
-      <div class="note">${o.note}</div>
-    </div>` : ""}
-    ${owner ? "" : bizCard(o)}
-    ${!o.biz && state.view === "owner" ? `<div class="card"><h3>Own the business</h3><p class="help">No business path is mapped for this job group yet.</p></div>` : ""}
-    ${breadcrumb(o)}
-    ${disclaimer()}`;
+  const p = sal(o);
+  const paySub = o.med ? "median, full-time" : o.ato ? "median, all workers" : o.lo != null ? "estimate" : "not published";
+  return `<div class="strip" aria-label="Summary">${
+    stat("Pay", p != null ? fmtK(p) : "–", p != null ? `${paySub}. ${rankText(PAY_RANK(p))}` : paySub)}${
+    stat("AI replaces", `${o.rep}<span class="of">/100</span>`, repVerdict(o.rep))}${
+    stat("Training", TRAINING[o.t].short, TRAIN_TIME[o.t])}${
+    stat("Physical work", PHYS_LABELS[o.phys], `Skill: ${SKILLC_LABELS[o.skillC].toLowerCase()}`)}</div>`;
+}
+function payCard(o) {
+  const main = o.med ? "jsa" : o.ato ? "ato" : o.lo != null ? "est" : "none";
+  const big = main === "jsa" ? `${fmtK(o.med)} <span class="unit">median, full-time</span>`
+    : main === "ato" ? `${fmtK(o.ato.sal)} <span class="unit">median, all workers</span>`
+    : main === "est" ? `${fmtK(o.lo)} – ${fmtK(o.hi)} <span class="unit">estimate</span>` : `<span class="unit">No pay figure is published</span>`;
+  const src = main === "jsa" ? `<a href="${JSA_URL}${o.ref}" target="_blank" rel="noopener">${JSA_SOURCE}</a>, ANZSCO ${o.ref.split("-")[0]}${o.match === "group" ? " (broader group)" : ""}. Full-time employees, before tax.`
+    : main === "ato" ? `<a href="${ATO_URL}" target="_blank" rel="noopener">${ATO_SOURCE}</a>, ${o.ato.occ}. Includes part-time workers, so it is lower than full-time pay.`
+    : main === "est" ? (o.src === "US" ? `US wage US$${Math.round(o.usd[0] / 1000)}K–US$${Math.round(o.usd[1] / 1000)}K converted at ${USD_TO_AUD}.` : "Estimate. No official figure found.") : "";
+  const other = [];
+  if (main === "jsa" && o.lo != null) other.push(`Typical range (estimate): ${fmtK(o.lo)} – ${fmtK(o.hi)}.`);
+  if (o.ato && main !== "ato") other.push(`ATO, all taxpayers: median wage ${fmtK(o.ato.sal)}, median total income ${fmtK(o.ato.total)}, ${o.ato.people.toLocaleString("en-AU")} people (${o.ato.occ}). Includes part-time workers.`);
+  if (o.ato && main === "ato") other.push(`Median total income ${fmtK(o.ato.total)}, ${o.ato.people.toLocaleString("en-AU")} people.`);
+  if (o.ato && o.ato.total > o.ato.sal * 1.25) other.push("Total income is well above wages, which suggests many people earn through their own business.");
+  if (o.src === "US" && main !== "est") other.push(`US wage US$${Math.round(o.usd[0] / 1000)}K–US$${Math.round(o.usd[1] / 1000)}K converted at ${USD_TO_AUD}.`);
+  if (o.bandMoved) other.push(`The estimated range was changed to fit the official median (old estimate ${fmtK(o.bandMoved[0])} – ${fmtK(o.bandMoved[1])}).`);
+  return `<div class="card"><h3>Pay <span style="margin-left:4px">${qTag(o)}</span></h3>
+    <div class="big">${big}</div>
+    ${src ? `<div class="note">${src}</div>` : ""}
+    ${other.length ? `<details class="more"><summary>Other sources</summary>${other.map(t => `<div class="note">${t}</div>`).join("")}</details>` : ""}
+  </div>`;
+}
+function trainCard(o, title = "Training needed") {
+  return `<div class="card"><h3>${title}</h3><div class="big" style="font-size:17px">${TRAINING[o.t].label}</div>
+    ${o.grp && o.grp.skill.length ? `<div class="note">Official skill level ${o.grp.skill.join(" or ")}${o.grp.skillEst ? " (estimate)" : ""}: ${SKILL_TEXT[Math.min(...o.grp.skill)]}.
+      ${o.gen ? "" : "The training level above is set for this specific job."}</div>` : ""}
+  </div>`;
+}
+function renderOccupation(o) {
+  const owner = state.view === "owner" || o.kind === "biz";
+  const head = `${breadcrumb(o)}<h2>${o.n}</h2>`;
+  let body;
+  if (o.kind === "biz") {
+    body = `<div class="crumb">${qTag(o)} A business path, not one job.</div>${summaryStrip(o)}${bizCard(o)}${trainCard(o, "Training needed to start")}${aiCard(o)}${groupCard(o)}`;
+  } else if (owner) {
+    body = o.biz ? `${summaryStrip(o)}${bizCard(o)}${o.m ? `<div class="card"><h3>Own-business margin (net profit, estimate)</h3>
+        <div class="big" style="color:${marginColor(o.m[1])}">${o.m[0]}% – ${o.m[1]}%</div>
+        <div style="margin-top:4px"><b>${ceilingLabel(o.m[1])}</b></div><div class="note">${o.note}</div></div>` : ""}`
+      : `<div class="card"><h3>Own the business</h3><p class="help">No business path is mapped for this job group yet. Switch to Employee to see pay.</p></div>`;
+    body += `${payCard(o)}${aiCard(o)}${trainCard(o)}${groupCard(o)}`;
+  } else {
+    body = `${summaryStrip(o)}${payCard(o)}${aiCard(o)}${trainCard(o)}${groupCard(o)}`;
+  }
+  panel.innerHTML = `${head}${body}${breadcrumb(o)}${disclaimer()}`;
   wireCrumbs(); panel.scrollTop = 0;
 }
 
@@ -944,9 +987,9 @@ const disclaimer = () => `<div class="disclaimer">For exploring, not advice.<br>
   <span class="tag est">est</span> = no official AU figure, estimate only.
   <span class="tag us">US</span> = US wage converted to AUD at ${USD_TO_AUD}.<br>
   Medians count employees only. Owners and self-employed (common in trades, medicine and law) can earn more or less.
-  AI exposure: ${AIX_SOURCE}. Skill levels: ABS ANZSCO. Pay ranges and margins are judgement estimates (edit <code>data.js</code>).<br>
+  AI exposure: ${AIX_SOURCE}. Skill levels: ABS ANZSCO. Pay ranges and margins are judgement estimates.<br>
   Business owner data: business counts and survival from ABS 8165.0 (2021–2025), margins from ATO small business benchmarks 2023-24.
-  Start score, money to start and $2m+ margins are estimates. Edit <code>tools/build_biz.py</code> and re-run it to change them.</div>`;
+  Start score, money to start and $2m+ margins are estimates.</div>`;
 
 function selectById(id) {
   const o = ALL.find(x => x.id === id);
@@ -963,19 +1006,20 @@ function renderLegend() {
     rep: ["AI replaces the job (estimate)", "0", "100", 0, 95],
     margin: ["Business margin (net)", "0%", "70%+", 0, 70],
     salary: ["Pay (median)", "$20K", "$250K+", 2e4, 2.5e5],
-    ceiling: ["Owner earnings ceiling", "$50K", "$5M+", 5e4, 5e6, true],
+    med: ["Owner earnings (median)", "$20K", "$300K+", 2e4, 3e5, true],
+    ceiling: ["Owner earnings (max)", "$50K", "$5M+", 5e4, 5e6, true],
     start: ["How easy to start alone", "Hard", "Easy", 0, 100],
     survival: ["Business survival (4 yrs)", "45%", "80%+", 45, 80],
   };
   const m = map[state.colorBy], cfn = METRIC[state.colorBy] && METRIC[state.colorBy][1];
   const g = m && cfn ? `linear-gradient(90deg,${[0, .25, .5, .75, 1].map(f => cfn(m[5] ? Math.exp(Math.log(m[3]) + f * (Math.log(m[4]) - Math.log(m[3]))) : m[3] + f * (m[4] - m[3]))).join(",")})` : "";
   const skyNote = state.mapMode === "sky" ? `<div class="lg-notes" style="margin-top:4px">${state.view === "owner"
-    ? "Across: how hard to start. Up: owner earnings ceiling.<br>Star size: number of businesses in the industry."
+    ? "Across: how hard to start. Up: owner earnings (median).<br>Star size: number of businesses in the industry."
     : "Across: AI could replace it. Up: pay.<br>Star size: number of workers. Brighter: higher pay."}<br>Select a group to draw its constellation.</div>` : "";
   if (state.colorBy === "sector") { L.innerHTML = "Colour = sector" + skyNote; return; }
   const [t, a, b] = map[state.colorBy];
   L.innerHTML = `${t}<div class="grad" style="background:${g}"></div><div class="scale"><span>${a}</span><span>${b}</span></div>
-    ${skyNote || `<div class="lg-notes" style="margin-top:4px">✓ = official AU median · (group) = broader group<br>ATO = tax data only · est. = estimate · ⚠US→AUD = US wage converted</div>`}`;
+    ${skyNote || `<div class="lg-notes" style="margin-top:4px">✓ official AU median · grp broader group<br>ATO tax data only · est estimate · US converted US wage</div>`}`;
 }
 
 // ---------- pan / zoom ----------
@@ -1176,9 +1220,9 @@ function setView(v) {
   document.getElementById("vOwn").classList.toggle("on", v === "owner");
   document.getElementById("vEmp").setAttribute("aria-pressed", v === "employee");
   document.getElementById("vOwn").setAttribute("aria-pressed", v === "owner");
-  state.colorBy = v === "owner" ? "ceiling" : "rep";
+  state.colorBy = v === "owner" ? "med" : "rep";
   document.getElementById("colorBy").value = state.colorBy;
-  state.sort = v === "owner" ? { key: "ceiling", dir: -1 } : { key: "rep", dir: 1 };
+  state.sort = v === "owner" ? { key: "med", dir: -1 } : { key: "rep", dir: 1 };
   render(); renderPanel();
 }
 function setMapMode(m) {
@@ -1250,7 +1294,7 @@ function syncURL() {
   if (restoring || typeof RANGES === "undefined" || !RANGES.inc) return;
   const q = new URLSearchParams();
   if (state.view === "owner") q.set("view", "owner");
-  if (state.colorBy !== (state.view === "owner" ? "ceiling" : "rep")) q.set("colour", state.colorBy);
+  if (state.colorBy !== (state.view === "owner" ? "med" : "rep")) q.set("colour", state.colorBy);
   if (state.search) q.set("q", state.search);
   if (state.train.size < TRAINING.length) q.set("train", [...state.train].sort().join("."));
   if (state.auOnly) q.set("verified", "1");
@@ -1258,7 +1302,7 @@ function syncURL() {
   ["inc", "aiR", "repR", "physR", "skillR"].forEach(k => { const r = state[k], f = RANGES[k].full; if (r[0] !== f[0] || r[1] !== f[1]) q.set({ inc: "income", aiR: "tasks", repR: "replace", physR: "physical", skillR: "skill" }[k], r.join("-")); });
   if (state.hideNoMatch) q.set("hide", "1");
   if (state.mapMode === "sky") q.set("map", "sky");
-  const def = state.view === "owner" ? "ceiling.-1" : "rep.1";
+  const def = state.view === "owner" ? "med.-1" : "rep.1";
   if (state.sort.key + "." + state.sort.dir !== def) q.set("sort", state.sort.key + "." + state.sort.dir);
   const k = selKey(state.sel); if (k) q.set(k[0] === "j" ? "job" : "group", k.slice(2));
   const url = location.pathname + (q.toString() ? "?" + q : "");
@@ -1281,9 +1325,9 @@ function readURL() {
   document.getElementById("vOwn").classList.toggle("on", v === "owner");
   document.getElementById("vEmp").setAttribute("aria-pressed", v === "employee");
   document.getElementById("vOwn").setAttribute("aria-pressed", v === "owner");
-  state.colorBy = q.get("colour") && METRIC[q.get("colour")] || q.get("colour") === "sector" ? q.get("colour") : (v === "owner" ? "ceiling" : "rep");
+  state.colorBy = q.get("colour") && METRIC[q.get("colour")] || q.get("colour") === "sector" ? q.get("colour") : (v === "owner" ? "med" : "rep");
   document.getElementById("colorBy").value = state.colorBy;
-  const [sk, sd] = (q.get("sort") || (v === "owner" ? "ceiling.-1" : "rep.1")).split(".");
+  const [sk, sd] = (q.get("sort") || (v === "owner" ? "med.-1" : "rep.1")).split(".");
   state.sort = { key: sk, dir: +sd || 1 };
   state.search = (q.get("q") || "").toLowerCase(); document.getElementById("search").value = q.get("q") || "";
   const tr = q.get("train"); state.train = new Set(tr != null ? tr.split(".").filter(x => x !== "").map(Number) : TRAINING.map(t => t.id));
