@@ -117,6 +117,9 @@
     border-radius: 50%; background: #fff; border: 2px solid #3e63dd; cursor: ew-resize; }
   .dual input[type=range]::-moz-range-thumb { pointer-events: auto; width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 2px solid #3e63dd; cursor: ew-resize; }
   .dual input[type=range]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 3px rgba(62,99,221,.5); }
+  .rng.single .dual input[type=range] { pointer-events: auto; cursor: pointer; }
+  .rng .ticks { display: flex; justify-content: space-between; margin-top: 2px; color: var(--muted); font-size: 11px; }
+  .rng .ticks span { flex: 1; text-align: center; } .rng .ticks span:first-child { text-align: left; } .rng .ticks span:last-child { text-align: right; }
   .chip { padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); cursor: pointer; font-size: 11px;
     color: var(--muted); user-select: none; }
   .chip.on { background: #26324a; border-color: #3e63dd; color: var(--text); }
@@ -298,9 +301,9 @@
   </main>
 </div>
 
-<script src="data.js?v=26"></script>
-<script src="biz.js?v=26"></script>
-<script src="groups.js?v=26"></script>
+<script src="data.js?v=27"></script>
+<script src="biz.js?v=27"></script>
+<script src="groups.js?v=27"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -1124,15 +1127,33 @@ const RANGES = {};
       tip: "Median pay (or solo owner profit for business-only nodes). Jobs with no pay data are hidden when this is narrowed." },
     { key: "aiR", label: "AI can do the tasks", min: 0, max: 100, step: 1, fmt: v => v + "%" },
     { key: "repR", label: "AI replaces the job", min: 0, max: 100, step: 1, fmt: v => v + "%" },
-    { key: "physR", label: "Physical work", min: 0, max: 3, step: 1, fmt: v => PHYS_LABELS[v],
+    { key: "physR", label: "Physical work", min: 0, max: 3, step: 1, single: PHYS_LABELS, fmt: v => PHYS_LABELS[v],
       tip: "How much hands-on, physical labour the job involves. Estimate per job group." },
-    { key: "skillR", label: "Skill complexity", min: 0, max: 3, step: 1, fmt: v => SKILLC_LABELS[v],
+    { key: "skillR", label: "Skill complexity", min: 0, max: 3, step: 1, single: SKILLC_LABELS, fmt: v => SKILLC_LABELS[v],
       tip: "From the ABS skill level. Very high = degree plus postgraduate or specialist training (e.g. surgeons)." },
   ];
   const sec = document.getElementById("rangeSec");
   sec.innerHTML = `<div class="dd-head">Ranges</div>`;
   defs.forEach(d => {
     state[d.key] = [d.min, d.max];
+    if (d.single) {
+      // one dot: "Any" at the left, then each level. A level shows only jobs at exactly that level.
+      const labels = ["Any", ...d.single];
+      const box = document.createElement("div"); box.className = "rng single"; if (d.tip) box.title = d.tip;
+      box.innerHTML = `<div class="rng-head"><span>${d.label}</span><b></b></div>
+        <div class="dual"><div class="track"></div>
+          <input type="range" min="-1" max="${d.max}" step="1" value="-1" aria-label="${d.label}"></div>
+        <div class="ticks" aria-hidden="true">${labels.map(l => `<span>${l}</span>`).join("")}</div>`;
+      sec.appendChild(box);
+      const inp = box.querySelector("input"), out = box.querySelector("b");
+      const draw = () => { const v = +inp.value; out.textContent = labels[v + 1]; inp.setAttribute("aria-valuetext", labels[v + 1]); };
+      const apply = v => { inp.value = v; state[d.key] = v < 0 ? [d.min, d.max] : [v, v]; draw(); };
+      inp.oninput = () => { apply(+inp.value); filtersChanged(); };
+      RANGES[d.key] = { full: [d.min, d.max], reset: () => apply(-1),
+        set: v => apply(v[0] === v[1] ? Math.max(d.min, Math.min(v[0], d.max)) : -1) };
+      draw();
+      return;
+    }
     const box = document.createElement("div"); box.className = "rng"; if (d.tip) box.title = d.tip;
     box.innerHTML = `<div class="rng-head"><span>${d.label}</span><b></b></div>
       <div class="dual"><div class="track"><div class="fill"></div></div>
