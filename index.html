@@ -80,7 +80,8 @@
     <div class="seg"><button id="vEmp" class="on" title="Working for someone else">Employee view</button><button id="vOwn" title="Owning the business">Owner view</button></div>
     <label class="ctrl">Colour by
       <select id="colorBy">
-        <option value="ai">AI automation exposure</option>
+        <option value="rep">AI replaces the job (estimate)</option>
+        <option value="ai">AI can do the tasks (official)</option>
         <option value="margin">Business margin ceiling</option>
         <option value="salary">Salary (midpoint)</option>
         <option value="sector">Sector</option>
@@ -108,9 +109,9 @@
   </main>
 </div>
 
-<script src="data.js?v=2"></script>
-<script src="biz.js?v=2"></script>
-<script src="groups.js?v=2"></script>
+<script src="data.js?v=3"></script>
+<script src="biz.js?v=3"></script>
+<script src="groups.js?v=3"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -135,6 +136,20 @@ function hslHex(h, s, l) {
     return Math.round(255 * (l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))).toString(16).padStart(2, "0"); };
   return "#" + f(0) + f(8) + f(4);
 }
+// "AI replaces the job" estimate, built only from official JSA scores so it is consistent for all groups.
+// automation^1.5: the more of the work AI can do, the faster risk rises.
+// x automation/augmentation: AI doing the work alone (risk) vs helping a person (protective).
+// x0.8 if a licence/registration is required (a person must sign off); x0.9 for degree-level judgement roles.
+function replaceRisk(g) {
+  if (!g || g.aiAuto == null) return null;
+  let r = Math.pow(g.aiAuto, 1.5) * (g.aiAuto / Math.max(g.aiAug, 0.3)) * 1.25;
+  if (g.lic) r *= 0.8;
+  if (g.skill.length && Math.min(...g.skill) === 1) r *= 0.9;
+  return Math.round(Math.min(0.95, r) * 100);
+}
+const pctRank = (arr) => { const v = [...arr].sort((a, b) => a - b); return x => Math.round(100 * v.filter(y => y < x).length / v.length); };
+const TASK_RANK = pctRank(GROUPS.map(g => Math.round(g.aiAuto * 100)));
+const REP_RANK = pctRank(GROUPS.map(replaceRisk));
 const DATA = (() => {
   const cur = []; (function f(n) { n.c ? n.c.forEach(f) : cur.push(n); })(CURATED);
   const byCode = {};
@@ -156,7 +171,7 @@ const DATA = (() => {
     (bizBy[g.code] || []).forEach(b => list.push(b));
     list.forEach(o => {
       o.grp = g;
-      if (g.aiAuto != null) o.ai = Math.round(g.aiAuto * 100);
+      if (g.aiAuto != null) { o.ai = Math.round(g.aiAuto * 100); o.rep = replaceRisk(g); }
       if (!o.ato && g.ato && !o.gen) o.ato = { ...g.ato, occ: g.code + " " + g.title + " (group)" };
     });
     const cat = cats[g.cat] = cats[g.cat] || {};
@@ -256,8 +271,8 @@ const QTAG = {
 const qTag = (o, short) => { const [c, l, t] = QTAG[quality(o)]; return `<span class="tag ${c}" title="${t}">${short ? { v: '✓', g: 'grp', a: 'ATO', b: 'biz', n: '–', e: 'est', us: 'US' }[quality(o)] : l}</span>`; };
 
 // ---------- state ----------
-const state = { view: "employee", easyOnly: false, colorBy: "ai", search: "", train: new Set(TRAINING.map(t => t.id)), auOnly: false,
-  sel: DATA, sort: { key: "ai", dir: 1 } };
+const state = { view: "employee", easyOnly: false, colorBy: "rep", search: "", train: new Set(TRAINING.map(t => t.id)), auOnly: false,
+  sel: DATA, sort: { key: "rep", dir: 1 } };
 
 const passes = o => state.train.has(o.t) && (!state.auOnly || !!o.med || !!o.ato || o.kind === "biz") &&
   (!state.easyOnly || (o.biz && o.biz.start >= 60)) &&
@@ -273,13 +288,14 @@ function lerpColor(a, b, t) {
 // t: 0 = good (green), 1 = bad (red)
 function ramp(t) { t = Math.max(0, Math.min(1, t)); return t < .5 ? lerpColor("#30a46c", "#ffb224", t * 2) : lerpColor("#ffb224", "#e5484d", (t - .5) * 2); }
 const aiColor = v => ramp((v - 10) / 65);
+const repColor = v => ramp(Math.sqrt(v / 90));
 const marginColor = hi => ramp(1 - (hi - 5) / 65);
 const salColor = s => ramp(1 - s / 250000);
 const startColor = v => ramp(1 - v / 100);
 const ceilColor = v => ramp(1 - Math.log10(Math.max(v, 5e4) / 5e4) / 2);
 const survColor = v => ramp(1 - (v - 45) / 35);
 const METRIC = {
-  ai: [o => o.ai, aiColor], margin: [o => o.m ? o.m[1] : null, marginColor], salary: [o => sal(o), salColor],
+  ai: [o => o.ai, aiColor], rep: [o => o.rep, repColor], margin: [o => o.m ? o.m[1] : null, marginColor], salary: [o => sal(o), salColor],
   start: [o => o.biz ? o.biz.start : null, startColor],
   ceiling: [o => { const M = bizModel(o); return M ? M.ceil.profit : null; }, ceilColor],
   survival: [o => { const M = bizModel(o); return M ? M.survAll : null; }, survColor],
@@ -359,7 +375,7 @@ function render() {
     else if (n.kind === "biz") s.textContent = `Business only · Start ${n.biz.start}/100`;
     else s.textContent = (n.med ? `Median ${fmtK(n.med)}${n.match === "exact" ? " ✓" : " (group)"}`
       : n.ato ? `ATO median ${fmtK(n.ato.sal)}`
-      : n.lo != null ? `${fmtK(n.lo)}–${fmtK(n.hi)}${n.src === "US" ? " ⚠US→AUD" : " est."}` : "No pay data") + ` · AI ${n.ai}`;
+      : n.lo != null ? `${fmtK(n.lo)}–${fmtK(n.hi)}${n.src === "US" ? " ⚠US→AUD" : " est."}` : "No pay data") + ` · Tasks ${n.ai} · Replace ${n.rep}`;
     g.classList.toggle("dim", !branchPasses(n));
     g.classList.toggle("sel", n === state.sel);
   });
@@ -384,7 +400,7 @@ function renderPanel() {
   const rows = leaves(n).filter(passes);
   const { key, dir } = state.sort;
   const bz = (o, f) => { const M = bizModel(o); return M ? f(M) : -1; };
-  const val = { ai: o => o.ai ?? -1, margin: o => o.m ? o.m[1] : -1, salary: o => sal(o) ?? -1, train: o => o.t, name: o => o.n,
+  const val = { ai: o => o.ai ?? -1, rep: o => o.rep ?? -1, margin: o => o.m ? o.m[1] : -1, salary: o => sal(o) ?? -1, train: o => o.t, name: o => o.n,
     start: o => o.biz ? o.biz.start : -1, solo: o => bz(o, M => M.tiers[0].profit), ceiling: o => bz(o, M => M.ceil.profit), surv: o => bz(o, M => M.survAll ?? -1) };
   rows.sort((a, b) => { const x = val[key](a), y = val[key](b); return (x > y ? 1 : x < y ? -1 : 0) * dir; });
   const th = (k, label) => `<th data-k="${k}" class="${key === k ? "on" : ""}">${label}${key === k ? (dir > 0 ? " ▲" : " ▼") : ""}</th>`;
@@ -401,10 +417,11 @@ function renderPanel() {
       <td>${M.survAll != null ? M.survAll.toFixed(0) + "%" : "–"}</td></tr>`; }).join("")}</tbody></table>
     <p class="help">Start = can one person start it (0–100, estimate). Solo profit = owner profit at ~$120k turnover. Ceiling = owner profit at the biggest size at least 0.5% of AU businesses in this industry reach. Survive 4y = share of businesses still trading after 4 years (ABS).</p>
     </div>` : `<div class="card"><h3>Ranked jobs</h3>
-    <table><thead><tr>${th("name", "Job")}${th("ai", "AI exp.")}${th("margin", "Margin")}${th("salary", "Salary")}${th("train", "Training")}</tr></thead>
+    <table><thead><tr>${th("name", "Job")}${th("ai", "AI tasks")}${th("rep", "Replace")}${th("margin", "Margin")}${th("salary", "Salary")}${th("train", "Training")}</tr></thead>
     <tbody>${rows.map(o => `<tr class="row" data-id="${o.id}">
       <td>${o.n} ${qTag(o, true)}</td>
       <td><span class="pill" style="background:${aiColor(o.ai)}">${o.ai}</span></td>
+      <td><span class="pill" style="background:${repColor(o.rep)}">${o.rep}</span></td>
       <td>${o.m ? `<span class="pill" style="background:${marginColor(o.m[1])}">${o.m[0]}–${o.m[1]}%</span>` : '<span style="color:var(--muted)">–</span>'}</td>
       <td>${o.kind === "biz" ? '<span style="color:var(--muted)">owner only</span>' : o.med ? fmtK(o.med) + ' <span style="color:var(--muted)">med</span>' : o.ato ? fmtK(o.ato.sal) + ' <span style="color:var(--muted)">ATO</span>' : o.lo != null ? `${fmtK(o.lo)}–${fmtK(o.hi)}` : '<span style="color:var(--muted)">no data</span>'}</td>
       <td style="color:var(--muted)">${TRAINING[o.t].short}</td></tr>`).join("")}</tbody></table>
@@ -453,12 +470,26 @@ function groupCard(o) {
 }
 function aiCard(o) {
   const g = o.grp;
-  return `<div class="card"><h3>AI automation exposure</h3>
-    <div class="big" style="color:${aiColor(o.ai)}">${o.ai}/100 · ${aiLabel(o.ai)}</div>
+  if (!g || g.aiAuto == null) return `<div class="card"><h3>AI</h3><p class="help">No official AI data for this job.</p></div>`;
+  const tr = TASK_RANK(o.ai), rr = REP_RANK(o.rep);
+  const repText = o.rep >= 60 ? "High: AI can do most of this work alone. Far fewer people are likely to be needed."
+    : o.rep >= 30 ? "Medium: AI does a lot of the work. Teams may shrink, and the remaining roles change."
+    : o.rep >= 12 ? "Low: AI mostly helps the person. Some tasks go, but the role stays."
+    : "Very low: the core of this job needs a person (physical, hands-on, or legally accountable).";
+  return `<div class="card"><h3>AI can do the tasks <span class="tag au" style="margin-left:4px">official</span></h3>
+    <div class="big" style="color:${aiColor(o.ai)}">${o.ai}/100</div>
     ${meter(o.ai, aiColor(o.ai))}
-    <div class="scale"><span>Low</span><span>High</span></div>
-    ${g && g.aiAug != null ? `<div class="note">Automation: how much of this job's work generative AI could do. Augmentation (AI helps a worker): <b>${Math.round(g.aiAug * 100)}/100</b>.
-      Source: <a href="${AIX_URL}" target="_blank" rel="noopener">${AIX_SOURCE}</a>, group ${g.code}.</div>` : `<div class="note">Estimate.</div>`}
+    <div class="note">Share of this job's tasks that generative AI could do. Higher than ${tr}% of jobs.
+      AI could <i>help</i> with ${Math.round(g.aiAug * 100)}/100 of the tasks.
+      Source: <a href="${AIX_URL}" target="_blank" rel="noopener">${AIX_SOURCE}</a>, group ${g.code}.</div>
+  </div>
+  <div class="card"><h3>AI replaces the job <span class="tag est" style="margin-left:4px">estimate</span></h3>
+    <div class="big" style="color:${repColor(o.rep)}">${o.rep}/100</div>
+    ${meter(o.rep, repColor(o.rep))}
+    <div class="note"><b>${repText}</b> Higher than ${rr}% of jobs.</div>
+    <div class="note">How replaceable one worker in this job is. It rises when AI can do the work <i>without</i> a person,
+      and falls when AI mostly assists, when a licence is required, or when the job needs degree-level judgement.
+      Built from the official scores above. It counts generative AI only, not robots, drones or self-driving vehicles.</div>
   </div>`;
 }
 
@@ -545,7 +576,8 @@ function renderLegend() {
   const L = document.getElementById("legend");
   const g = `linear-gradient(90deg,#30a46c,#ffb224,#e5484d)`;
   const map = {
-    ai: ["AI automation exposure (JSA)", "Low", "High"],
+    ai: ["AI can do the tasks (JSA)", "Low", "High"],
+    rep: ["AI replaces the job (estimate)", "Low", "High"],
     margin: ["Own-business margin ceiling", "70%+", "~5%"],
     salary: ["Salary (median)", "$250k+", "Low"],
     ceiling: ["Owner earnings ceiling", "$5m+", "$50k"],
@@ -595,9 +627,9 @@ function setView(v) {
   state.view = v;
   document.getElementById("vEmp").classList.toggle("on", v === "employee");
   document.getElementById("vOwn").classList.toggle("on", v === "owner");
-  state.colorBy = v === "owner" ? "ceiling" : "ai";
+  state.colorBy = v === "owner" ? "ceiling" : "rep";
   document.getElementById("colorBy").value = state.colorBy;
-  state.sort = v === "owner" ? { key: "ceiling", dir: -1 } : { key: "ai", dir: 1 };
+  state.sort = v === "owner" ? { key: "ceiling", dir: -1 } : { key: "rep", dir: 1 };
   render(); renderPanel();
 }
 document.getElementById("vEmp").onclick = () => setView("employee");
