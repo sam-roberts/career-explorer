@@ -36,7 +36,16 @@
   .tablewrap th:first-child { width: auto; }
   .tablewrap th:first-child { width: auto; } .tablewrap th.w-num { width: 70px; } .tablewrap th.w-pill { width: 64px; }
   .tablewrap th button { white-space: normal; line-height: 1.2; }
+  th .qhelp { all: unset; cursor: pointer; display: inline-grid; place-items: center; width: 16px; height: 16px; margin-left: 3px; vertical-align: -2px;
+    border-radius: 50%; border: 1px solid #4a5263; color: var(--muted); font-size: 11px; font-weight: 600; }
+  th .qhelp:hover, th .qhelp[aria-expanded="true"] { color: #fff; border-color: #8fb5ff; }
+  th .qhelp:focus-visible { outline: 2px solid #8fb5ff; outline-offset: 2px; }
+  .helppop { position: fixed; z-index: 40; padding: 10px 12px; border-radius: 8px; background: #222734; border: 1px solid #3a4150;
+    box-shadow: 0 8px 24px rgba(0,0,0,.45); color: var(--text); font-size: 13px; line-height: 1.45; }
   .pay-ato { color: #b4bccd; }
+  .tablekey { margin: -2px 0 8px; color: var(--muted); font-size: 12px; } .tablekey .tag { font-size: 11px; padding: 1px 5px; }
+  .rowtag { display: inline-block; font-size: 11px; font-weight: 600; padding: 0 5px; border-radius: 4px; background: #3e63dd; color: #fff; }
+  .rowtag.max { background: #2f6b3f; }
   .sub2 { color: var(--muted); font-size: 12px; margin-top: 2px; line-height: 1.3; }
   td .tag { margin-top: 2px; }
   .tablewrap td { overflow-wrap: anywhere; }
@@ -52,6 +61,9 @@
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .strip .ver { font-size: 12px; color: #c4cad8; }
   .unit { font: 400 13px var(--font-ui); color: var(--muted); }
+  .airow { display: grid; grid-template-columns: 46px 1fr; gap: 10px; align-items: start; padding: 6px 0; }
+  .airow + .airow { border-top: 1px solid var(--line); }
+  .airow .pill { margin-top: 1px; }
   details.more { margin-top: 8px; }
   details.more summary { cursor: pointer; color: #8fb5ff; font-size: 13px; }
   details.more summary:hover { text-decoration: underline; }
@@ -88,7 +100,7 @@
   .dd .caret { font-size: 10px; color: var(--muted); }
   .badge { display: inline-block; min-width: 18px; text-align: center; background: #3e63dd; color: #fff; border-radius: 999px; font-size: 11px; padding: 0 4px; margin-left: 2px; line-height: 16px; }
   .badge.off { visibility: hidden; }
-  .dd-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 20; width: 290px; background: var(--panel);
+  .dd-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 20; width: 320px; background: var(--panel);
     max-height: calc(100vh - 110px); overflow-y: auto; overscroll-behavior: contain;
     border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,.45); padding: 6px 0; }
   .dd-sec { padding: 8px 12px; border-bottom: 1px solid var(--line); }
@@ -133,8 +145,8 @@
   .chip { padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); cursor: pointer; font-size: 11px;
     color: var(--muted); user-select: none; }
   .chip.on { background: #26324a; border-color: #3e63dd; color: var(--text); }
-  .chipset .chips { gap: 5px; }
-  .chipset .chip { font: 400 12px var(--font-ui); padding: 4px 9px; background: transparent; color: #c4cad8; }
+  .chipset .chips { gap: 4px; flex-wrap: nowrap; }
+  .chipset .chip { font: 400 12px var(--font-ui); padding: 4px 7px; white-space: nowrap; flex: 1 1 auto; text-align: center; background: transparent; color: #c4cad8; }
   .chipset .chip:hover { border-color: #4a5263; }
   .chipset .chip.on { background: #26324a; border-color: #3e63dd; color: #fff; }
   main { display: grid; grid-template-columns: 1fr 6px var(--pw, 400px); min-height: 0; }
@@ -194,6 +206,8 @@
   .sect-key i { flex: none; width: 9px; height: 9px; border-radius: 2px; }
   .star.out { opacity: .2; }
   .grad { width: 160px; height: 8px; border-radius: 4px; margin: 4px 0 2px; }
+  .mapempty { position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); padding: 10px 14px; border-radius: 8px;
+    background: #222734; border: 1px solid var(--line); color: var(--text); font-size: 13px; }
   .zoom { position: absolute; right: 12px; bottom: 12px; display: flex; gap: 4px; }
   aside { border-left: 1px solid var(--line); background: var(--panel); overflow-y: auto; padding: 16px; }
   aside h2 { margin: 0 0 2px; font: 700 21px/1.2 var(--font-display); letter-spacing: -.015em; text-wrap: balance; }
@@ -248,6 +262,7 @@
     #colorBy { max-width: 190px; }
     main, main.collapsed { grid-template-rows: 50% 50%; }
     .legend { padding: 5px 8px; max-width: 200px; } .grad { width: 110px; }
+    .zoom { top: 8px; bottom: auto; right: 8px; left: 8px; justify-content: flex-end; }
     .dd-menu, .dd-menu.align-right { position: fixed; left: 0; right: 0; bottom: 0; top: auto; width: auto; max-height: 78vh;
       border-radius: 14px 14px 0 0; padding-bottom: env(safe-area-inset-bottom); }
     .dd-top { top: 0; margin-top: 0; padding: 14px 16px; }
@@ -303,6 +318,7 @@
     <div id="stage" tabindex="0" role="region" aria-label="Career map. Arrow keys pan, plus and minus zoom, 0 fits the map. Tab moves between nodes.">
       <svg id="svg"><g id="vp"><g id="sky"><g id="skyBg" aria-hidden="true"></g><g id="skyLines" aria-hidden="true"></g><g id="stars"></g></g><g id="links"></g><g id="nodes"></g></g></svg>
       <div class="legend" id="legend"></div>
+      <div class="mapempty" id="mapEmpty" hidden>Nothing on the map matches. Change the search or filters.</div>
       <button id="expandPanel" title="Show the list panel" aria-label="Show the list panel">‹</button>
       <div class="zoom"><button id="expandAll">Expand all</button><button id="collapseAll">Collapse</button><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="fit" aria-label="Fit the map to the screen">Fit</button></div>
     </div>
@@ -312,9 +328,9 @@
   </main>
 </div>
 
-<script src="data.js?v=32"></script>
-<script src="biz.js?v=32"></script>
-<script src="groups.js?v=32"></script>
+<script src="data.js?v=35"></script>
+<script src="biz.js?v=35"></script>
+<script src="groups.js?v=35"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -608,7 +624,7 @@ let lastLayoutSig = "";
 function render() {
   stage.classList.toggle("sky", state.mapMode === "sky");
   document.getElementById("expandAll").hidden = document.getElementById("collapseAll").hidden = state.mapMode === "sky";
-  if (state.mapMode === "sky") { renderSky(); renderLegend(); syncURL(); return; }
+  if (state.mapMode === "sky") { renderSky(); renderLegend(); document.getElementById("mapEmpty").hidden = ALL.some(passes); syncURL(); return; }
   const vis = layout(); const visSet = new Set(vis);
   const firstDraw = nodeEls.size === 0, sig = vis.map(n => n.id).join(",");
   if (!firstDraw && sig !== lastLayoutSig) { gLinks.classList.remove("fadein"); void gLinks.getBBox; requestAnimationFrame(() => gLinks.classList.add("fadein")); }
@@ -644,17 +660,18 @@ function render() {
     const [t, s] = g.querySelectorAll("text");
     const MAXC = [20, 30, 30, 34][n.depth], full = n.c ? `${n.n} (${leaves(n).filter(passes).length})` : n.n;
     const cut = n.n.length > MAXC ? n.n.slice(0, MAXC - 1) + "…" : n.n;
-    t.textContent = n.c ? `${cut} (${leaves(n).filter(passes).length})` : cut;
-    let tip = g.querySelector("title"); if (!tip) { tip = el("title"); g.prepend(tip); } tip.textContent = full;
+    const shownName = n.depth === 0 ? (state.view === "owner" ? "All businesses" : "All jobs") : cut;
+    t.textContent = n.c ? `${shownName} (${leaves(n).filter(passes).length})` : cut;
+    let tip = g.querySelector("title"); if (!tip) { tip = el("title"); g.prepend(tip); } tip.textContent = n.depth === 0 ? shownName : full;
     if (n.c) s.textContent = n.open ? "−" : "+";
-    else if (state.view === "owner" && n.biz) { const M = bizModel(n); s.textContent = `Median ${fmtM(M.medProfit)} · max ${fmtM(M.ceil.profit)} · start ${n.biz.start}`; }
+    else if (state.view === "owner" && n.biz) { const M = bizModel(n); s.textContent = `Median ${fmtM(M.medProfit)} · start ${n.biz.start}/100`; }
     else if (n.kind === "biz") s.textContent = `Business only · Start ${n.biz.start}/100`;
     else s.textContent = (n.med ? `Median ${fmtK(n.med)}${n.match === "exact" ? " ✓" : " grp"}`
       : n.ato ? `ATO median ${fmtK(n.ato.sal)}`
       : n.lo != null ? `${fmtK(n.lo)}–${fmtK(n.hi)}${n.src === "US" ? " US" : " est"}` : "No pay data") + ` · AI can do ${n.ai}% · replaces ${n.rep}%`;
     g.classList.toggle("dim", !branchPasses(n));
     g.classList.toggle("sel", n === state.sel);
-    g.setAttribute("aria-label", n.c ? `${full}, ${n.depth === 0 ? "all careers" : n.open ? "expanded" : "collapsed"}` : `${n.n}. ${s.textContent}`);
+    g.setAttribute("aria-label", n.c ? (n.depth === 0 ? `${shownName} (${leaves(n).filter(passes).length})` : `${full}, ${n.open ? "expanded" : "collapsed"}`) : `${n.n}. ${s.textContent}`);
     if (n.c && n.depth > 0) g.setAttribute("aria-expanded", n.open); 
     if (n === state.sel) g.setAttribute("aria-current", "true"); else g.removeAttribute("aria-current");
   });
@@ -664,6 +681,7 @@ function render() {
     const f = document.activeElement; vis.forEach(n => gNodes.appendChild(nodeEls.get(n))); if (f && f.isConnected) f.focus({ preventScroll: true });
   }
   renderLegend();
+  document.getElementById("mapEmpty").hidden = ALL.some(passes);
   syncURL();
 }
 
@@ -674,17 +692,20 @@ const SKY = { W: 1200, H: 760, L: 90, R: 30, T: 30, B: 70 };
 const starEls = new Map();
 const hash = s => { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) | 0; return h; };
 const jit = (o, k) => ((hash(o.n + k) % 1000) / 1000 - .5);
+// the across axis ends just past the highest value in the data, so stars use the whole width
+const xMaxFor = owner => { const xs = ALL.filter(o => owner ? o.biz : o.kind !== "biz").map(o => owner ? 100 - o.biz.start : o.rep).filter(v => v != null);
+  return Math.max(30, Math.ceil(Math.max(...xs) / 10) * 10); };
 function skyAxes(owner) {
   if (owner) return { x: o => o.biz ? 100 - o.biz.start : null, y: o => { const M = bizModel(o); return M ? M.medProfit : null; },
-    yMin: 1e4, yMax: 2e6, size: o => o.ind ? o.ind.total : 0, sizeDiv: 30,
+    yMin: 1e4, yMax: 2e6, xMax: xMaxFor(true), xPos: f => f, xTicks: [0, .5, 1], size: o => o.ind ? o.ind.total : 0, sizeDiv: 30,
     xl: ["Easy to start alone", "Hard to start"], yl: "Owner earnings (median)", ticks: [3e4, 1e5, 3e5, 1e6] };
-  return { x: o => o.rep, y: o => sal(o), yMin: 2e4, yMax: 5e5, size: o => o.ato ? o.ato.people : 0, sizeDiv: 45,
+  return { x: o => o.rep, y: o => sal(o), yMin: 2e4, yMax: 5e5, xMax: xMaxFor(false), xPos: f => Math.sqrt(f), xTicks: [0, .1, .25, .5, 1], size: o => o.ato ? o.ato.people : 0, sizeDiv: 45,
     xl: ["Safer from AI", "AI could replace it"], yl: "Pay (median)", ticks: [5e4, 1e5, 2e5, 4e5] };
 }
 function skyXY(o, A) {
   const xv = A.x(o), yv = A.y(o); if (xv == null) return null;
   const pw = SKY.W - SKY.L - SKY.R, ph = SKY.H - SKY.T - SKY.B;
-  const x = SKY.L + (xv / 100) * pw + jit(o, "x") * 14;
+  const x = SKY.L + A.xPos(Math.min(xv, A.xMax) / A.xMax) * pw + jit(o, "x") * 14;
   const y = yv == null ? SKY.H - SKY.B + 22 + jit(o, "y") * 10
     : SKY.T + ph * (1 - (Math.log(Math.max(A.yMin, Math.min(A.yMax, yv))) - Math.log(A.yMin)) / (Math.log(A.yMax) - Math.log(A.yMin))) + jit(o, "y") * 8;
   return [x, y];
@@ -705,6 +726,8 @@ function drawSkyBg(A, owner) {
   bg.appendChild(el("line", { class: "axis", x1: SKY.L, x2: SKY.L, y1: SKY.T, y2: SKY.H - SKY.B }));
   const lab = (txt, a) => { const t = el("text", { class: "axlbl", ...a }); t.textContent = txt; bg.appendChild(t); };
   lab("← " + A.xl[0], { x: SKY.L, y: SKY.H - SKY.B + 52 });
+  A.xTicks.forEach(f => { const t = el("text", { class: "tick", x: SKY.L + A.xPos(f) * (SKY.W - SKY.L - SKY.R), y: SKY.H - SKY.B + 18, "text-anchor": f === 0 ? "start" : f === 1 ? "end" : "middle" });
+    t.textContent = (owner ? "start " + (100 - Math.round(f * A.xMax)) : Math.round(f * A.xMax) + "%"); bg.appendChild(t); });
   lab(A.xl[1] + " →", { x: SKY.W - SKY.R, y: SKY.H - SKY.B + 52, "text-anchor": "end" });
   lab(A.yl + " ↑", { x: 10, y: SKY.T - 10 });
   if (!owner) { const t = el("text", { class: "tick", x: SKY.L - 8, y: SKY.H - SKY.B + 26, "text-anchor": "end" }); t.textContent = "No pay data"; bg.appendChild(t); }
@@ -756,7 +779,7 @@ function renderSky() {
     g.classList.toggle("out", pass && memberSet.size > 0 && !memberSet.has(o));   // a group is selected: other stars step back
     g.classList.toggle("sel", o === sel);
     g.classList.toggle("lbl", o === sel || (inGroup(o) && pass));
-    const desc = owner ? `start ${o.biz.start}/100, median ${fmtM(A.y(o))}, max ${fmtM(bizModel(o).ceil.profit)}` : `pay ${yv == null ? "no data" : fmtK(yv)}, AI can do ${o.ai}%, AI replaces ${o.rep}%`;
+    const desc = owner ? `start ${o.biz.start}/100, median ${fmtM(A.y(o))}` : `pay ${yv == null ? "no data" : fmtK(yv)}, AI can do ${o.ai}%, AI replaces ${o.rep}%`;
     g.querySelector("title").textContent = `${o.n}: ${desc}`;
     g.setAttribute("aria-label", `${o.n}. ${desc}`);
     if (o === sel) g.setAttribute("aria-current", "true"); else g.removeAttribute("aria-current");
@@ -769,7 +792,7 @@ function renderSky() {
   // constellation lines: join the stars of the selected group, left to right
   const lines = document.getElementById("skyLines"); lines.innerHTML = "";
   if (group && group.depth > 0) {
-    const pts = leaves(group).filter(o => passes(o) && starEls.has(o) && !starEls.get(o).classList.contains("gone") && o.sx != null)
+    const pts = leaves(group).filter(o => passes(o) && A.y(o) != null && starEls.has(o) && !starEls.get(o).classList.contains("gone") && o.sx != null)
       .sort((a, b) => a.sx - b.sx).map(o => `${o.sx.toFixed(1)},${o.sy.toFixed(1)}`);
     if (pts.length > 1) lines.appendChild(el("polyline", { class: "cline", points: pts.join(" ") }));
   }
@@ -779,11 +802,7 @@ function onNodeClick(n) {
   if (n.c && n.depth > 0) n.open = !n.open;
   if (!n.c) { state.backTo = n.parent; state.backScroll = 0; }
   state.sel = n; render(); renderPanel();
-  if (n.c && n.open && state.mapMode === "nodes") {
-    const b = safeBox(), kids = n.c.filter(c => c.x != null);
-    const out = kids.some(c => { const y = view.y + c.y * view.k, x = view.x + c.x * view.k; return y < 8 || y + NODE_H * view.k > b.cy + b.h / 2 || x + NODE_W[c.depth] * view.k > b.cx + b.w / 2; });
-    if (out) focusOn(n);
-  }
+  if (n.c && n.open && state.mapMode === "nodes") focusOn(n);   // frame the category you just opened
 }
 
 // ---------- side panel ----------
@@ -799,11 +818,35 @@ const SORT_NAMES = { name: ["Job name", "A to Z", "Z to A"], ai: ["AI can do", "
 const sortNote = (k, d) => { const n = SORT_NAMES[k]; return n ? `Sorted by ${n[0]}, ${d > 0 ? n[1] : n[2]}.` : ""; };
 // sky chart already shows AI risk and pay on its axes, so its default colour shows something else
 const defaultColour = () => state.mapMode === "sky" ? (state.view === "owner" ? "survival" : "sector") : (state.view === "owner" ? "med" : "rep");
+// short plain-language explanations, opened from the "?" next to a column name (click or tap)
+const HELP = {
+  salary: "Median yearly pay before tax. ✓ is the full-time median from Jobs and Skills Australia. ATO is the median for all workers, including part-time, so it is lower. est is an estimate.",
+  ai: "The share of this job's tasks that generative AI could do. Official score from Jobs and Skills Australia. AI often helps with these tasks rather than taking the whole job.",
+  rep: "Our estimate of how likely AI is to replace the whole job, built from the official scores. Low means the core of the job needs a person.",
+  med: "The owner's yearly profit before tax for the middle business in this industry. The biggest businesses earn far more, but few get there.",
+  margin: "Net profit as a share of turnover. Supermarkets run on a few percent; software and online courses can reach far higher.",
+};
+const helpPop = Object.assign(document.createElement("div"), { id: "helpPop", className: "helppop", hidden: true });
+helpPop.setAttribute("role", "dialog"); document.body.appendChild(helpPop);
+let helpFor = null;
+function closeHelp() { helpPop.hidden = true; if (helpFor) helpFor.setAttribute("aria-expanded", "false"); helpFor = null; }
+function openHelp(btn) {
+  if (helpFor === btn) return closeHelp();
+  closeHelp(); helpFor = btn; btn.setAttribute("aria-expanded", "true");
+  helpPop.textContent = HELP[btn.dataset.help]; helpPop.hidden = false;
+  const r = btn.getBoundingClientRect(), w = Math.min(260, window.innerWidth - 16);
+  helpPop.style.width = w + "px";
+  helpPop.style.left = Math.max(8, Math.min(r.left + r.width / 2 - w / 2, window.innerWidth - w - 8)) + "px";
+  helpPop.style.top = (r.bottom + 6) + "px";
+}
+document.addEventListener("click", e => { const b = e.target.closest(".qhelp"); if (b) { e.stopPropagation(); openHelp(b); } else if (!helpPop.contains(e.target)) closeHelp(); }, true);
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !helpPop.hidden) { const b = helpFor; closeHelp(); if (b) b.focus(); } });
+document.getElementById("panel").addEventListener("scroll", closeHelp);
 let lastAnnounce = "";
 function announce(t) { if (t !== lastAnnounce) { lastAnnounce = t; document.getElementById("live").textContent = t; } }
 const COLOUR_OPTS = {
   employee: [["rep", "AI replaces the job (estimate)"], ["ai", "AI can do the tasks (official)"], ["salary", "Pay (median)"], ["sector", "Sector"]],
-  owner: [["med", "Owner earnings (median)"], ["ceiling", "Owner earnings (max)"], ["margin", "Business margin (net)"],
+  owner: [["med", "Owner earnings (median)"], ["margin", "Business margin (net)"],
     ["start", "How easy to start alone"], ["survival", "Business survival (4 yrs)"], ["sector", "Sector"]],
 };
 let colourOptsFor = null;
@@ -828,8 +871,12 @@ function renderPanel() {
   const bz = (o, f) => { const M = bizModel(o); return M ? f(M) : -1; };
   const val = { ai: o => o.ai ?? -1, rep: o => o.rep ?? -1, margin: o => { const r = marginRange(o); return r ? r[1] : -1; }, salary: o => sal(o) ?? -1, train: o => o.t, name: o => o.n,
     start: o => o.biz ? o.biz.start : -1, solo: o => bz(o, M => M.tiers[0].profit), med: o => bz(o, M => M.medProfit), ceiling: o => bz(o, M => M.ceil.profit), surv: o => bz(o, M => M.survAll ?? -1) };
-  rows.sort((a, b) => { const x = val[key](a), y = val[key](b); return (x > y ? 1 : x < y ? -1 : 0) * dir; });
-  const th = (k, label, tip, cls = "") => `<th class="${cls} ${key === k ? "on" : ""}" aria-sort="${key === k ? (dir > 0 ? "ascending" : "descending") : "none"}"><button data-k="${k}"${tip ? ` title="${tip}"` : ""}>${label}<span aria-hidden="true">${key === k ? (dir > 0 ? " ▲" : " ▼") : ""}</span></button></th>`;
+  const payGroup = o => quality(o) === "a" ? 1 : sal(o) == null ? 2 : 0;
+  rows.sort((a, b) => {
+    if (key === "salary") { const ga = payGroup(a), gb = payGroup(b); if (ga !== gb) return ga - gb; }
+    const x = val[key](a), y = val[key](b); return (x > y ? 1 : x < y ? -1 : 0) * dir;
+  });
+  const th = (k, label, tip, cls = "") => `<th class="${cls} ${key === k ? "on" : ""}" aria-sort="${key === k ? (dir > 0 ? "ascending" : "descending") : "none"}"><button data-k="${k}">${label}<span aria-hidden="true">${key === k ? (dir > 0 ? " ▲" : " ▼") : ""}</span></button>${HELP[k] ? `<button type="button" class="qhelp" data-help="${k}" aria-label="What is ${label}?" aria-expanded="false">?</button>` : ""}</th>`;
   const LIMIT = 150, all = state.showAllFor === n, total = rows.length;
   const shown = all ? rows : rows.slice(0, LIMIT);
   const more = total > shown.length ? `<button class="showall" id="showAll">Show all ${total} ${unit}</button>` : "";
@@ -837,13 +884,13 @@ function renderPanel() {
   panel.innerHTML = `
     ${breadcrumb(n)}<h2>${n.depth === 0 ? (state.search ? `${unit === "jobs" ? "Jobs" : "Businesses"} matching “${state.search}”` : `All ${unit}`) : n.n}</h2><div class="crumb">${rows.length} ${unit} shown</div>
     ${state.view === "owner" ? `<div class="card"><h3>Ranked businesses (business owner)</h3>
-    <div class="tablewrap"><table><thead><tr>${th("name", "Business")}${th("med", "Median", "Owner profit for the middle business in this industry, before tax", "w-num")}${th("ceiling", "Max", "Owner profit at the biggest size at least 0.5% of businesses reach", "w-num")}${th("margin", "Margin", "Net profit as a share of turnover across business sizes (ATO benchmarks where available)", "w-pill")}</tr></thead>
+    <div class="tablewrap"><table><thead><tr>${th("name", "Business")}${th("med", "Median", "Owner profit for the middle business in this industry, before tax", "w-num")}${th("margin", "Margin", "Net profit as a share of turnover across business sizes (ATO benchmarks where available)", "w-pill")}</tr></thead>
     <tbody>${shown.map(o => { const M = bizModel(o); return `<tr class="row" data-id="${o.id}">
       <td><button class="rowbtn">${o.biz.name}</button><div class="sub2">${o.kind === "biz" ? "" : `from ${o.n} · `}start ${o.biz.start}/100${M.survAll != null ? ` · ${Math.round(M.survAll)}% survive 4 yrs` : ""}</div></td>
       <td class="num">${fmtM(M.medProfit)}</td>
-      <td class="num">${fmtM(M.ceil.profit)}<div class="sub2">${topNote(M.topShare)}</div></td>
       <td>${(r => `<span class="pill" style="${pillStyle(marginColor(r[1]))}">${r[0] === r[1] ? r[0] : r[0] + "–" + r[1]}%</span>`)(marginRange(o))}</td></tr>`; }).join("")}</tbody></table></div>${more}
     </div>` : `<div class="card"><h3>Ranked jobs</h3>
+    <p class="tablekey">Pay: <span class="tag au">✓</span> full-time median · <span class="tag ato">ATO</span> all workers, incl. part-time · <span class="tag est">est</span> estimate</p>
     <div class="tablewrap"><table><thead><tr>${th("name", "Job")}${th("salary", "Pay", "Median pay. ✓ full-time median (JSA/ABS); ATO all workers incl. part-time; est estimate", "w-num")}${th("ai", "AI can do", "Share of the job's tasks generative AI could do (official JSA score)", "w-pill")}${th("rep", "AI replaces", "Estimated chance that AI replaces the job", "w-pill")}</tr></thead>
     <tbody>${shown.map(o => `<tr class="row" data-id="${o.id}">
       <td><button class="rowbtn">${o.n}</button><div class="sub2">${TRAINING[o.t].short}</div></td>
@@ -859,7 +906,7 @@ function renderPanel() {
   if (er) er.onclick = () => { document.getElementById("search").value = ""; state.search = ""; document.getElementById("searchClear").hidden = true; document.getElementById("filtersReset").click(); };
   const sa = document.getElementById("showAll");
   if (sa) sa.onclick = () => { state.showAllFor = n; const y = panel.scrollTop; renderPanel(); panel.scrollTop = y; };
-  panel.querySelectorAll("th button").forEach(h => h.onclick = () => {
+  panel.querySelectorAll("th button[data-k]").forEach(h => h.onclick = () => {
     const k = h.dataset.k; state.sort = { key: k, dir: state.sort.key === k ? -state.sort.dir : (["margin", "salary", "start", "solo", "med", "ceiling", "surv"].includes(k) ? -1 : 1) }; renderPanel(); syncURL();
     const again = panel.querySelector(`th button[data-k="${k}"]`); if (again) again.focus();
   });
@@ -878,22 +925,22 @@ function bizCard(o) {
     <div class="note">Money to start: <b>${b.cap[0] ? fmtM(b.cap[0]) : "$0"} – ${fmtM(b.cap[1])}</b>. Barrier: ${b.lic}.</div>
     <table class="ladder" style="margin-top:10px"><thead><tr><th>Size (turnover)</th><th>AU businesses</th><th>Owner profit / yr</th><th>Survive 4y</th></tr></thead><tbody>
     ${M.tiers.map(t => `<tr style="${t === M.med ? "background:#16243f" : t === c ? "background:#1d2a1f" : t.blocked ? "opacity:.45" : ""}">
-      <td><b>${t.label}</b><div class="note" style="margin:0">${t.range}</div></td>
+      <td><b>${t.label}</b>${t === M.med ? ' <span class="rowtag">Median</span>' : ""}${t === c && t !== M.med ? ' <span class="rowtag max">Max</span>' : ""}<div class="note" style="margin:0">${t.range}</div></td>
       <td>${t.n.toLocaleString("en-AU")}<div class="note" style="margin:0">${pct(t.share)}</div></td>
       <td>${t.blocked ? '<span class="note">Not open to this path</span>' : `<b>${fmtM(t.profit)}</b>${t.msrc === "est" || t.extrap ? "*" : ""}<div class="note" style="margin:0">${Math.round(t.margin)}% of ${fmtM(t.T)}</div>`}</td>
       <td>${t.surv != null ? t.surv.toFixed(0) + "%" : "–"}</td></tr>`).join("")}
     </tbody></table>
     <div class="note" style="margin-top:8px"><b>Median:</b> most ${ind.label.toLowerCase()} businesses are "${M.med.label.toLowerCase()}" size (${M.med.range}).
-      The middle business turns over about ${fmtM(M.medT)}, and its owner makes about <b>${fmtM(M.medProfit)} a year</b> before tax. (Blue row.)</div>
+      The middle business turns over about ${fmtM(M.medT)}, and its owner makes about <b>${fmtM(M.medProfit)} a year</b> before tax.</div>
     <div class="note"><b>Max:</b> ${c.n.toLocaleString("en-AU")} of ${ind.total.toLocaleString("en-AU")} ${ind.label.toLowerCase()} businesses (${pct(c.share)}) are "${c.label.toLowerCase()}" size (${c.range}).
-      At ${fmtM(c.T)} turnover the owner could make about <b>${fmtM(c.profit)} a year</b> before tax. ${M.topShare < .5 ? `Only the top ${topPct(M.topShare)} of businesses get this big.` : ""} (Green row.)</div>
+      At ${fmtM(c.T)} turnover the owner could make about <b>${fmtM(c.profit)} a year</b> before tax. ${M.topShare < .5 ? `Only the top ${topPct(M.topShare)} of businesses get this big.` : ""}</div>
     <div class="note">${b.scale}</div>
-    <div class="note" style="margin-top:8px">
+    <details class="more"><summary>How this is calculated</summary><div class="note">
       Business counts: <a href="${ABS_URL}" target="_blank" rel="noopener">${ABS_SOURCE}</a>, ANZSIC ${b.anz} ${ind.label}.<br>
       Margins: ${o.bm ? `<a href="${ATO_BM_URL}${b.ato}" target="_blank" rel="noopener">${ATO_BM_SOURCE}</a> (100% − average total expenses). Includes the owner's own pay.` : "estimate (no ATO benchmark for this industry)."}
       ${o.bm ? " * = $2m+ sizes use the ATO top band margin, so treat as an estimate." : " * = estimate."}<br>
       Survival: ABS, ${ind.sub} businesses trading in June 2021 still trading in June 2025${M.survAll != null ? ` (all sizes: ${M.survAll.toFixed(0)}%)` : ""}.<br>
-      Owner profit = example turnover × margin. Start score and money to start are estimates.</div>
+      Owner profit = example turnover × margin. Start score and money to start are estimates.</div></details>
   </div>`;
 }
 
@@ -914,20 +961,15 @@ function aiCard(o) {
     : o.rep >= 30 ? "Medium: AI does a lot of the work. Teams may shrink, and the remaining roles change."
     : o.rep >= 12 ? "Low: AI mostly helps the person. Some tasks go, but the role stays."
     : "Very low: the core of this job needs a person (physical, hands-on, or legally accountable).";
-  return `<div class="card"><h3>AI can do the tasks <span class="tag au" style="margin-left:4px">official</span></h3>
-    <div class="big" style="color:${aiColor(o.ai)}">${o.ai}%</div>
-    ${meter(o.ai, aiColor(o.ai))}
-    <div class="note">Share of this job's tasks that generative AI could do. ${rankText(tr)}.
-      AI could <i>help</i> with ${Math.round(g.aiAug * 100)}% of the tasks.
-      Source: <a href="${AIX_URL}" target="_blank" rel="noopener">${AIX_SOURCE}</a>, group ${g.code}.</div>
-  </div>
-  <div class="card"><h3>AI replaces the job <span class="tag est" style="margin-left:4px">estimate</span></h3>
-    <div class="big" style="color:${repColor(o.rep)}">${o.rep}%</div>
-    ${meter(o.rep, repColor(o.rep))}
-    <div class="note"><b>${repText}</b> ${rankText(rr)}.</div>
-    <div class="note">How replaceable one worker in this job is. It rises when AI can do the work <i>without</i> a person,
+  return `<div class="card"><h3>AI</h3>
+    <div class="airow"><span class="pill" style="${pillStyle(aiColor(o.ai))}">${o.ai}%</span><div><b>AI can do the tasks</b> <span class="tag au">official</span>
+      <div class="note">Share of this job's tasks that generative AI could do. ${rankText(tr)}. AI could <i>help</i> with ${Math.round(g.aiAug * 100)}% of the tasks.
+      Source: <a href="${AIX_URL}" target="_blank" rel="noopener">${AIX_SOURCE}</a>, group ${g.code}.</div></div></div>
+    <div class="airow"><span class="pill" style="${pillStyle(repColor(o.rep))}">${o.rep}%</span><div><b>AI replaces the job</b> <span class="tag est">estimate</span>
+      <div class="note"><b>${repText}</b> ${rankText(rr)}.</div>
+      <details class="more"><summary>How this is estimated</summary><div class="note">It rises when AI can do the work <i>without</i> a person,
       and falls when AI mostly assists, when a licence is required, or when the job needs degree-level judgement.
-      Built from the official scores above. It counts generative AI only, not robots, drones or self-driving vehicles.</div>
+      Built from the official scores. It counts generative AI only, not robots, drones or self-driving vehicles.</div></details></div></div>
   </div>`;
 }
 
@@ -940,10 +982,10 @@ function urlFor(node) {
 function breadcrumb(n) {
   const path = []; for (let x = n; x; x = x.parent) path.unshift(x);
   if (path.length === 1) return "";
+  path.pop();   // the page title (h2) already names the current page
   return `<nav class="crumbs" aria-label="Breadcrumb"><ol>${path.map((x, i) => {
     const name = i === 0 ? "List" : x.n;
-    return i === path.length - 1 ? `<li aria-current="page">${name}</li>`
-      : `<li><a href="${urlFor(x)}" data-crumb="${x.id}">${name}</a></li>`;
+    return `<li><a href="${urlFor(x)}" data-crumb="${x.id}">${name}</a></li>`;
   }).join("")}</ol></nav>`;
 }
 function wireCrumbs() {
@@ -970,7 +1012,7 @@ function summaryStrip(o) {
       stat("Owner earnings", fmtM(M.medProfit), "median, before tax")}${
       (o.kind !== "biz" && sal(o) != null
         ? stat("vs employee pay", fmtK(sal(o)), (d => `${d >= 0 ? "+" : "−"}${fmtK(Math.abs(d))} a year as owner`)(M.medProfit - sal(o)))
-        : stat("Max", fmtM(M.ceil.profit), M.topShare < .5 ? `only the top ${topPct(M.topShare)}` : "this path can't grow bigger"))}${
+        : stat("Typical turnover", fmtM(M.medT), "middle business, per year"))}${
       stat("Start alone", `${o.biz.start}<span class="of">/100</span>`, startLabel(o.biz.start))}${
       stat("Survive 4 yrs", M.survAll != null ? Math.round(M.survAll) + "%" : "–", "of businesses in the industry")}</div>`;
   }
@@ -997,8 +1039,9 @@ function payCard(o) {
   if (o.ato && o.ato.total > o.ato.sal * 1.25) other.push("Total income is well above wages, which suggests many people earn through their own business.");
   if (o.src === "US" && main !== "est") other.push(`US wage US$${Math.round(o.usd[0] / 1000)}K–US$${Math.round(o.usd[1] / 1000)}K converted at ${USD_TO_AUD}.`);
   if (o.bandMoved) other.push(`The estimated range was changed to fit the official median (old estimate ${fmtK(o.bandMoved[0])} – ${fmtK(o.bandMoved[1])}).`);
-  return `<div class="card"><h3>Pay <span style="margin-left:4px">${qTag(o)}</span></h3>
-    <div class="big">${big}</div>
+  const inStrip = state.view !== "owner" && o.kind !== "biz";
+  return `<div class="card"><h3>${inStrip ? "Pay source" : "Pay"} <span style="margin-left:4px">${qTag(o)}</span></h3>
+    ${inStrip ? "" : `<div class="big">${big}</div>`}
     ${src ? `<div class="note">${src}</div>` : ""}
     ${other.length ? `<details class="more"><summary>Other sources</summary>${other.map(t => `<div class="note">${t}</div>`).join("")}</details>` : ""}
   </div>`;
@@ -1016,15 +1059,13 @@ function renderOccupation(o) {
   if (o.kind === "biz") {
     body = `<div class="crumb">${qTag(o)} A business path, not one job.</div>${summaryStrip(o)}${bizCard(o)}${trainCard(o, "Training needed to start")}${aiCard(o)}${groupCard(o)}`;
   } else if (owner) {
-    body = o.biz ? `${summaryStrip(o)}${bizCard(o)}${o.m ? `<div class="card"><h3>Own-business margin (net profit, estimate)</h3>
-        <div class="big" style="color:${marginColor(o.m[1])}">${o.m[0]}% – ${o.m[1]}%</div>
-        <div style="margin-top:4px"><b>${ceilingLabel(o.m[1])}</b></div><div class="note">${o.note}</div></div>` : ""}`
+    body = o.biz ? `${summaryStrip(o)}${bizCard(o)}`
       : `<div class="card"><h3>Own the business</h3><p class="help">No business path is mapped for this job group yet. Switch to Employee to see pay.</p></div>`;
     body += `${payCard(o)}${aiCard(o)}${trainCard(o)}${groupCard(o)}`;
   } else {
     body = `${summaryStrip(o)}${payCard(o)}${aiCard(o)}${trainCard(o)}${groupCard(o)}`;
   }
-  panel.innerHTML = `${head}${body}${breadcrumb(o)}${disclaimer()}`;
+  panel.innerHTML = `${head}${body}${disclaimer()}`;
   wireCrumbs(); panel.scrollTop = 0;
 }
 
@@ -1130,12 +1171,12 @@ function fit() {
   if (state.mapMode === "sky") { const r = svg.getBoundingClientRect();
     const k = Math.max(r.width < 600 ? .45 : .2, Math.min(1.4, (r.width - 20) / SKY.W, (r.height - 20) / SKY.H));
     view = { k, x: (r.width - SKY.W * k) / 2, y: (r.height - SKY.H * k) / 2 }; applyView(); return; }
-  const vis = layout(), r = svg.getBoundingClientRect();
+  const vis = layout(), r = svg.getBoundingClientRect(), b = safeBox();
   const maxX = Math.max(...vis.map(n => n.x + NODE_W[n.depth])), minY = Math.min(...vis.map(n => n.y)), maxY = Math.max(...vis.map(n => n.y + NODE_H));
   // small screens: keep text readable instead of shrinking the whole tree to fit
   const kMin = r.width < 600 ? 0.6 : 0;
-  const k = Math.max(kMin, Math.min(1.4, (r.width - 60) / maxX, (r.height - 60) / (maxY - minY)));
-  const y = (maxY - minY) * k > r.height - 40 ? 20 - minY * k : (r.height - (maxY + minY) * k) / 2;
+  const k = Math.max(kMin, Math.min(1.4, (r.width - 60) / maxX, (b.h - 20) / (maxY - minY)));
+  const y = (maxY - minY) * k > b.h - 20 ? 20 - minY * k : b.cy - (maxY + minY) / 2 * k;
   view = { k, x: r.width < 600 ? 12 : 30, y }; applyView();
 }
 // the part of the map not covered by the legend or the zoom buttons
@@ -1156,6 +1197,7 @@ function focusOn(n) {
   const y0 = Math.min(...set.map(x => x.y)), y1 = Math.max(...set.map(x => x.y + NODE_H));
   const k = Math.max(.55, Math.min(1.1, (b.w - 30) / (x1 - x0), (b.h - 30) / (y1 - y0)));
   view = { k, x: b.cx - (x0 + x1) / 2 * k, y: b.cy - (y0 + y1) / 2 * k };
+  if ((x1 - x0) * k > b.w - 20) view.x = 20 - x0 * k;   // too wide: keep the parent's left edge in view
   if ((y1 - y0) * k > b.h - 20) {   // tall group: keep the selected job in view
     const ty = n.c ? y0 : n.y; view.y = Math.min(20 - y0 * k, b.cy - ty * k);
   }
@@ -1175,7 +1217,7 @@ document.getElementById("fit").onclick = fit;
 // ---------- two-way range sliders ----------
 const RANGES = {};
 (function () {
-  const maxSal = Math.ceil(Math.max(...ALL.map(sal).filter(v => v != null)) / 10000) * 10000;
+  const maxSal = Math.ceil(Math.max(...ALL.map(sal).filter(v => v != null)) / 50000) * 50000;
   const defs = [
     { key: "inc", label: "Pay", min: 0, max: maxSal, step: 5000, fmt: v => v >= maxSal ? fmtK(v) + "+" : fmtK(v),
       tip: "Median pay (or solo owner profit for business-only nodes). Jobs with no pay data are hidden when this is narrowed." },
