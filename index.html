@@ -30,7 +30,8 @@
   .skip:focus { top: 8px; }
   table, .big, .pill, .rng-head b, .ladder { font-variant-numeric: tabular-nums; }
   th button { all: unset; cursor: pointer; } th button:hover { color: var(--text); }
-  .rowbtn { all: unset; cursor: pointer; } .rowbtn:hover { text-decoration: underline; }
+  .rowbtn { color: inherit; text-decoration: none; cursor: pointer; } .rowbtn:hover { text-decoration: underline; }
+  .rowbtn:focus-visible, th button:focus-visible, .linkbtn:focus-visible { outline: 2px solid #8fb5ff; outline-offset: 2px; border-radius: 3px; }
   .tablewrap { overflow-x: auto; }
   .tablewrap table { table-layout: fixed; min-width: 330px; }
   .tablewrap th:first-child { width: auto; }
@@ -182,7 +183,7 @@
   .star:focus { outline: none; }
   .star:focus-visible .core { stroke: #fff; stroke-width: 2.5; stroke-dasharray: 3 2; }
   #stage.sky .legend { background: rgba(19,37,74,.92); border-color: #2C4478; color: #B9C7E6; }
-  #stage.drag { cursor: grabbing; }
+  #stage.drag { cursor: grabbing; user-select: none; -webkit-user-select: none; }
   svg { width: 100%; height: 100%; display: block; }
   .link { fill: none; stroke: #343a48; stroke-width: 1.5; }
   #links.fadein { animation: linksIn .55s ease-out; }
@@ -216,7 +217,7 @@
   .crumbs li + li::before { content: "/"; color: var(--muted); margin: 0 6px; }
   .crumbs a { color: #8fb5ff; text-decoration: none; } .crumbs a:hover { text-decoration: underline; }
   .crumbs [aria-current] { color: var(--muted); }
-  aside h2:focus { outline: none; }
+  aside h2:focus { outline: none; } aside h2:focus-visible { outline: 2px solid #8fb5ff; outline-offset: 2px; border-radius: 3px; }
   .backlink { display: inline-block; margin: -4px 0 10px; font-size: 13px; color: #8fb5ff; text-decoration: none; }
   .backlink:hover { text-decoration: underline; }
   aside .crumb { color: var(--muted); font-size: 12px; margin-bottom: 12px; }
@@ -295,7 +296,7 @@
       </select>
     </label>
     <div class="dd" id="filtersDd">
-      <button id="filtersBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="filtersMenu">Filters<span class="badge off" id="filterCount" aria-hidden="true"></span> <span class="caret">▾</span></button>
+      <button id="filtersBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="filtersMenu">Filters<span class="badge off" id="filterCount" aria-hidden="true"></span> <span class="caret" aria-hidden="true">▾</span></button>
       <div class="dd-menu" id="filtersMenu" role="dialog" aria-label="Filters" hidden>
         <div class="dd-top"><span class="dd-title">Filters</span><span class="dd-actions"><button id="filtersReset">Reset</button><button id="filtersDone" class="primary">Done</button></span></div>
         <div class="dd-sec" id="rangeSec"></div>
@@ -328,9 +329,9 @@
   </main>
 </div>
 
-<script src="data.js?v=35"></script>
-<script src="biz.js?v=35"></script>
-<script src="groups.js?v=35"></script>
+<script src="data.js?v=36"></script>
+<script src="biz.js?v=36"></script>
+<script src="groups.js?v=36"></script>
 <script>
 // ---------- build the map from all official job groups ----------
 const GBY = Object.fromEntries(GROUPS.map(g => [g.code, g]));
@@ -511,7 +512,11 @@ function marginRange(o) {
   return [Math.min(...ms), Math.max(...ms)];
 }
 const topNote = v => v < .5 ? `top ${topPct(v)}` : "most businesses on this path";
-const topPct = v => v >= .1 ? Math.round(v * 100) + "%" : v >= .01 ? (v * 100).toFixed(0) + "%" : v >= .001 ? (v * 100).toFixed(1) + "%" : "<0.1%";
+const PCT0 = new Intl.NumberFormat("en-AU", { style: "percent", maximumFractionDigits: 0 });
+const PCT1 = new Intl.NumberFormat("en-AU", { style: "percent", maximumFractionDigits: 1 });
+const USD0 = new Intl.NumberFormat("en-AU", { style: "currency", currency: "USD", currencyDisplay: "code", notation: "compact", maximumFractionDigits: 0 });
+const fmtUSD = v => USD0.format(v).replace(/^USD\s?/, "US$");
+const topPct = v => v >= .01 ? PCT0.format(v) : v >= .001 ? PCT1.format(v) : "<0.1%";
 // what the money filters and pay colours use: median pay for employees, median owner earnings for business owners
 const income = o => state.view === "owner" ? (bizModel(o) ? bizModel(o).medProfit : null) : sal(o);
 const fmtM = v => v >= 1e6 ? (v >= 1e7 ? AUD0 : AUD1).format(v) : fmtK(v);
@@ -886,14 +891,14 @@ function renderPanel() {
     ${state.view === "owner" ? `<div class="card"><h3>Ranked businesses (business owner)</h3>
     <div class="tablewrap"><table><thead><tr>${th("name", "Business")}${th("med", "Median", "Owner profit for the middle business in this industry, before tax", "w-num")}${th("margin", "Margin", "Net profit as a share of turnover across business sizes (ATO benchmarks where available)", "w-pill")}</tr></thead>
     <tbody>${shown.map(o => { const M = bizModel(o); return `<tr class="row" data-id="${o.id}">
-      <td><button class="rowbtn">${o.biz.name}</button><div class="sub2">${o.kind === "biz" ? "" : `from ${o.n} · `}start ${o.biz.start}/100${M.survAll != null ? ` · ${Math.round(M.survAll)}% survive 4 yrs` : ""}</div></td>
+      <td><a class="rowbtn" href="${urlFor(o)}">${o.biz.name}</a><div class="sub2">${o.kind === "biz" ? "" : `from ${o.n} · `}start ${o.biz.start}/100${M.survAll != null ? ` · ${Math.round(M.survAll)}% survive 4 yrs` : ""}</div></td>
       <td class="num">${fmtM(M.medProfit)}</td>
       <td>${(r => `<span class="pill" style="${pillStyle(marginColor(r[1]))}">${r[0] === r[1] ? r[0] : r[0] + "–" + r[1]}%</span>`)(marginRange(o))}</td></tr>`; }).join("")}</tbody></table></div>${more}
     </div>` : `<div class="card"><h3>Ranked jobs</h3>
     <p class="tablekey">Pay: <span class="tag au">✓</span> full-time median · <span class="tag ato">ATO</span> all workers, incl. part-time · <span class="tag est">est</span> estimate</p>
     <div class="tablewrap"><table><thead><tr>${th("name", "Job")}${th("salary", "Pay", "Median pay. ✓ full-time median (JSA/ABS); ATO all workers incl. part-time; est estimate", "w-num")}${th("ai", "AI can do", "Share of the job's tasks generative AI could do (official JSA score)", "w-pill")}${th("rep", "AI replaces", "Estimated chance that AI replaces the job", "w-pill")}</tr></thead>
     <tbody>${shown.map(o => `<tr class="row" data-id="${o.id}">
-      <td><button class="rowbtn">${o.n}</button><div class="sub2">${TRAINING[o.t].short}</div></td>
+      <td><a class="rowbtn" href="${urlFor(o)}">${o.n}</a><div class="sub2">${TRAINING[o.t].short}</div></td>
       <td class="num">${(() => { const v = sal(o); return v == null ? '<span class="sub2">no data</span>' : `<span class="${quality(o) === "a" ? "pay-ato" : ""}">${fmtK(v)}</span><div>${qTag(o, true)}</div>`; })()}</td>
       <td><span class="pill" style="${pillStyle(aiColor(o.ai))}">${o.ai}%</span></td>
       <td><span class="pill" style="${pillStyle(repColor(o.rep))}">${o.rep}%</span></td></tr>`).join("")}</tbody></table></div>${more}
@@ -910,7 +915,9 @@ function renderPanel() {
     const k = h.dataset.k; state.sort = { key: k, dir: state.sort.key === k ? -state.sort.dir : (["margin", "salary", "start", "solo", "med", "ceiling", "surv"].includes(k) ? -1 : 1) }; renderPanel(); syncURL();
     const again = panel.querySelector(`th button[data-k="${k}"]`); if (again) again.focus();
   });
-  panel.querySelectorAll("tr.row").forEach(r => r.onclick = () => {
+  panel.querySelectorAll("tr.row").forEach(r => r.onclick = e => {
+    if (e.target.closest("a") && (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1)) return;   // let new-tab clicks through
+    e.preventDefault();
     state.backTo = n; state.backScroll = panel.scrollTop;   // the list we came from + its scroll position
     selectById(+r.dataset.id);
   });
@@ -918,7 +925,7 @@ function renderPanel() {
 
 function bizCard(o) {
   const b = o.biz, M = bizModel(o), ind = o.ind; if (!M) return "";
-  const c = M.ceil, pct = v => v >= 0.1 ? (v * 100).toFixed(0) + "%" : v >= 0.001 ? (v * 100).toFixed(1) + "%" : "<0.1%";
+  const c = M.ceil, pct = v => v >= 0.1 ? PCT0.format(v) : v >= 0.001 ? PCT1.format(v) : "<0.1%";
   return `<div class="card"><h3>Own the business: ${b.name}</h3>
     <div style="display:flex;gap:12px;align-items:baseline"><div class="big" style="color:${startColor(b.start)}">${b.start}/100</div><div><b>Can one person start it?</b> ${startLabel(b.start)}</div></div>
     ${meter(b.start, startColor(b.start))}
@@ -928,18 +935,18 @@ function bizCard(o) {
       <td><b>${t.label}</b>${t === M.med ? ' <span class="rowtag">Median</span>' : ""}${t === c && t !== M.med ? ' <span class="rowtag max">Max</span>' : ""}<div class="note" style="margin:0">${t.range}</div></td>
       <td>${t.n.toLocaleString("en-AU")}<div class="note" style="margin:0">${pct(t.share)}</div></td>
       <td>${t.blocked ? '<span class="note">Not open to this path</span>' : `<b>${fmtM(t.profit)}</b>${t.msrc === "est" || t.extrap ? "*" : ""}<div class="note" style="margin:0">${Math.round(t.margin)}% of ${fmtM(t.T)}</div>`}</td>
-      <td>${t.surv != null ? t.surv.toFixed(0) + "%" : "–"}</td></tr>`).join("")}
+      <td>${t.surv != null ? PCT0.format(t.surv / 100) : "–"}</td></tr>`).join("")}
     </tbody></table>
-    <div class="note" style="margin-top:8px"><b>Median:</b> most ${ind.label.toLowerCase()} businesses are "${M.med.label.toLowerCase()}" size (${M.med.range}).
+    <div class="note" style="margin-top:8px"><b>Median:</b> most ${ind.label.toLowerCase()} businesses are “${M.med.label.toLowerCase()}” size (${M.med.range}).
       The middle business turns over about ${fmtM(M.medT)}, and its owner makes about <b>${fmtM(M.medProfit)} a year</b> before tax.</div>
-    <div class="note"><b>Max:</b> ${c.n.toLocaleString("en-AU")} of ${ind.total.toLocaleString("en-AU")} ${ind.label.toLowerCase()} businesses (${pct(c.share)}) are "${c.label.toLowerCase()}" size (${c.range}).
+    <div class="note"><b>Max:</b> ${c.n.toLocaleString("en-AU")} of ${ind.total.toLocaleString("en-AU")} ${ind.label.toLowerCase()} businesses (${pct(c.share)}) are “${c.label.toLowerCase()}” size (${c.range}).
       At ${fmtM(c.T)} turnover the owner could make about <b>${fmtM(c.profit)} a year</b> before tax. ${M.topShare < .5 ? `Only the top ${topPct(M.topShare)} of businesses get this big.` : ""}</div>
     <div class="note">${b.scale}</div>
     <details class="more"><summary>How this is calculated</summary><div class="note">
       Business counts: <a href="${ABS_URL}" target="_blank" rel="noopener">${ABS_SOURCE}</a>, ANZSIC ${b.anz} ${ind.label}.<br>
       Margins: ${o.bm ? `<a href="${ATO_BM_URL}${b.ato}" target="_blank" rel="noopener">${ATO_BM_SOURCE}</a> (100% − average total expenses). Includes the owner's own pay.` : "estimate (no ATO benchmark for this industry)."}
       ${o.bm ? " * = $2m+ sizes use the ATO top band margin, so treat as an estimate." : " * = estimate."}<br>
-      Survival: ABS, ${ind.sub} businesses trading in June 2021 still trading in June 2025${M.survAll != null ? ` (all sizes: ${M.survAll.toFixed(0)}%)` : ""}.<br>
+      Survival: ABS, ${ind.sub} businesses trading in June 2021 still trading in June 2025${M.survAll != null ? ` (all sizes: ${PCT0.format(M.survAll / 100)})` : ""}.<br>
       Owner profit = example turnover × margin. Start score and money to start are estimates.</div></details>
   </div>`;
 }
@@ -1031,13 +1038,13 @@ function payCard(o) {
     : main === "est" ? `${fmtK(o.lo)} – ${fmtK(o.hi)} <span class="unit">estimate</span>` : `<span class="unit">No pay figure is published</span>`;
   const src = main === "jsa" ? `<a href="${JSA_URL}${o.ref}" target="_blank" rel="noopener">${JSA_SOURCE}</a>, ANZSCO ${o.ref.split("-")[0]}${o.match === "group" ? " (broader group)" : ""}. Full-time employees, before tax.`
     : main === "ato" ? `<a href="${ATO_URL}" target="_blank" rel="noopener">${ATO_SOURCE}</a>, ${o.ato.occ}. Includes part-time workers, so it is lower than full-time pay.`
-    : main === "est" ? (o.src === "US" ? `US wage US$${Math.round(o.usd[0] / 1000)}K–US$${Math.round(o.usd[1] / 1000)}K converted at ${USD_TO_AUD}.` : "Estimate. No official figure found.") : "";
+    : main === "est" ? (o.src === "US" ? `US wage ${fmtUSD(o.usd[0])}–${fmtUSD(o.usd[1])} converted at ${USD_TO_AUD}.` : "Estimate. No official figure found.") : "";
   const other = [];
   if (main === "jsa" && o.lo != null) other.push(`Typical range (estimate): ${fmtK(o.lo)} – ${fmtK(o.hi)}.`);
   if (o.ato && main !== "ato") other.push(`ATO, all taxpayers: median wage ${fmtK(o.ato.sal)}, median total income ${fmtK(o.ato.total)}, ${o.ato.people.toLocaleString("en-AU")} people (${o.ato.occ}). Includes part-time workers.`);
   if (o.ato && main === "ato") other.push(`Median total income ${fmtK(o.ato.total)}, ${o.ato.people.toLocaleString("en-AU")} people.`);
   if (o.ato && o.ato.total > o.ato.sal * 1.25) other.push("Total income is well above wages, which suggests many people earn through their own business.");
-  if (o.src === "US" && main !== "est") other.push(`US wage US$${Math.round(o.usd[0] / 1000)}K–US$${Math.round(o.usd[1] / 1000)}K converted at ${USD_TO_AUD}.`);
+  if (o.src === "US" && main !== "est") other.push(`US wage ${fmtUSD(o.usd[0])}–${fmtUSD(o.usd[1])} converted at ${USD_TO_AUD}.`);
   if (o.bandMoved) other.push(`The estimated range was changed to fit the official median (old estimate ${fmtK(o.bandMoved[0])} – ${fmtK(o.bandMoved[1])}).`);
   const inStrip = state.view !== "owner" && o.kind !== "biz";
   return `<div class="card"><h3>${inStrip ? "Pay source" : "Pay"} <span style="margin-left:4px">${qTag(o)}</span></h3>
